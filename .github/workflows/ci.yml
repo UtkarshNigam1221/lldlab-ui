@@ -22,6 +22,7 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      - run: npm run size-check
 
   e2e:
     runs-on: ubuntu-latest

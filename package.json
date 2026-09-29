@@ -4,13 +4,23 @@
   "description": "LLD Lab design-system components for React 19 and Tailwind CSS v4",
   "license": "MIT",
   "type": "module",
-  "repository": { "type": "git", "url": "git+https://github.com/UtkarshNigam1221/lldlab-ui.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UtkarshNigam1221/lldlab-ui.git"
+  },
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
     "./theme.css": "./dist/theme.css"
   },
-  "files": ["dist"],
-  "sideEffects": ["*.css"],
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
@@ -20,10 +30,19 @@
     "ladle:build": "ladle build",
     "e2e": "playwright test",
     "package-check": "bash scripts/package-check.sh",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "size-check": "node scripts/size-check.mjs"
   },
-  "peerDependencies": { "react": "^19", "react-dom": "^19" },
-  "dependencies": { "react-markdown": "^10.1.0", "remark-gfm": "^4.0.1" },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "dependencies": {
+    "@dagrejs/dagre": "^3.1.1",
+    "prism-react-renderer": "^2.4.1",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
+  },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^9",
