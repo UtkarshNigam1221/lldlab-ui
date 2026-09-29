@@ -209,6 +209,10 @@ describe('inputs and tiles (0.3.0)', () => {
 });
 
 describe('TextField width (0.3.0)', () => {
+  it('lg fills the row up to 36rem', () => {
+    const { container } = render(<TextField label="Search" hideLabel width="lg" />);
+    expect(container.firstElementChild).toHaveClass('w-full', 'max-w-xl');
+  });
   it('can take a fixed width', () => {
     const { container } = render(<TextField label="Search" hideLabel width="md" />);
     expect(container.firstElementChild).toHaveClass('w-80');

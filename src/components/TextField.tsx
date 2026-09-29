@@ -6,7 +6,7 @@ import { IconButton } from './IconButton';
 
 const SIZE = { sm: 'h-8 px-space-sm', ms: 'h-9 px-space-sm', md: 'h-10 px-space-sm', lg: 'h-11 px-space-md' } as const;
 const TEXT = { sm: 'font-body-sm text-body-sm', ms: 'font-body-sm text-body-sm', md: 'font-body-md text-body-md', lg: 'font-body-sm text-body-sm' } as const;
-const WIDTH = { auto: '', full: 'w-full', sm: 'w-64', md: 'w-80' } as const;
+const WIDTH = { auto: '', full: 'w-full', sm: 'w-64', md: 'w-80', lg: 'w-full max-w-xl' } as const;
 // outline: bordered field; filled: borderless tint (header search); raised: white on a shadow (filter bars).
 const VARIANT = {
   outline: 'border bg-surface-subtle focus-within:ring-2',
@@ -28,7 +28,7 @@ export type TextFieldProps = NativeProps<'input', {
   variant?: keyof typeof VARIANT;
   /** Put the icon after the input instead of before it. */
   iconPosition?: 'start' | 'end';
-  /** Fixed field width (sm 16rem, md 20rem); default auto. */
+  /** Field width: sm 16rem, md 20rem, lg fills up to 36rem, full; default auto. */
   width?: keyof typeof WIDTH;
 }>;
 
