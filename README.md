@@ -10,22 +10,28 @@ Design-system components for [LLD Lab](https://lldlab.com), built for React 19 a
 
 ---
 
-## Contents
+## Table of contents
 
-- [Install](#install)
-- [Setup](#setup)
-- [Core concepts](#core-concepts)
-- [Components](#components)
-  - [Layout](#layout): Theme, Box, Stack, Grid, Container, Section, Split
-  - [Typography](#typography): Text, Heading, Eyebrow, Code, CodeBlock, Markdown
-  - [Display](#display): Icon, Dot, Badge, Chip, Stat, ProgressBar, SectionHeader, Callout, ResultRow, Message, EmptyState, CheckList, Card
-  - [Inputs and interaction](#inputs-and-interaction): Button, IconButton, Kbd, TextField, Select, Tabs, SegmentedControl, Dialog, Menu
-  - [IDE shell](#ide-shell): Workbench, FileTree, EditorTabs, Breadcrumbs, StatusBar, MetricTile, Avatar, Countdown
-- [Design tokens](#design-tokens)
-- [Accessibility](#accessibility)
-- [Troubleshooting](#troubleshooting)
-- [Development](#development)
-- [Releasing](#releasing)
+**Quick links:** [Install](#install) · [Setup](#setup) · [Component index](#component-index) · [Design tokens](#design-tokens) · [Troubleshooting](#troubleshooting)
+
+1. [Install](#install)
+2. [Setup](#setup)
+   - [1. Styles](#1-styles) · [2. Fonts](#2-fonts) · [3. Icons](#3-icons) · [4. Use it](#4-use-it)
+3. [Core concepts](#core-concepts)
+   - [No className, no style](#no-classname-no-style) · [Passing through native props](#passing-through-native-props) · [as: render a different element or component](#as-render-a-different-element-or-component) · [Responsive props](#responsive-props) · [Shared value types](#shared-value-types) · [Light and dark scopes](#light-and-dark-scopes)
+4. [Components](#components)
+   - [Component index](#component-index)
+   - **[Layout](#layout):** [`Theme`](#theme) · [`Box`](#box) · [`Stack`](#stack) · [`Grid`](#grid) · [`Container`](#container) · [`Section`](#section) · [`Split`](#split)
+   - **[Typography](#typography):** [`Text`](#text) · [`Heading`](#heading) · [`Eyebrow`](#eyebrow) · [`Code`](#code) · [`CodeBlock`](#codeblock) · [`Markdown`](#markdown)
+   - **[Display](#display):** [`Icon`](#icon) · [`Dot`](#dot) · [`Badge`](#badge) · [`Chip`](#chip) · [`Stat`](#stat) · [`ProgressBar`](#progressbar) · [`SectionHeader`](#sectionheader) · [`Callout`](#callout) · [`ResultRow`](#resultrow) · [`Message`](#message) · [`EmptyState`](#emptystate) · [`CheckList`](#checklist) · [`Card`](#card)
+   - **[Inputs and interaction](#inputs-and-interaction):** [`Button`](#button) · [`IconButton`](#iconbutton) · [`Kbd`](#kbd) · [`TextField`](#textfield) · [`Select`](#select) · [`Tabs`](#tabs) · [`SegmentedControl`](#segmentedcontrol) · [`Dialog`](#dialog) · [`Menu`](#menu)
+   - **[IDE shell](#ide-shell):** [`Workbench`](#workbench) · [`FileTree`](#filetree) · [`EditorTabs`](#editortabs) · [`Breadcrumbs`](#breadcrumbs) · [`StatusBar`](#statusbar) · [`MetricTile`](#metrictile) · [`Avatar`](#avatar) · [`Countdown`](#countdown)
+5. [Design tokens](#design-tokens)
+6. [Accessibility](#accessibility)
+7. [Troubleshooting](#troubleshooting)
+8. [Development](#development)
+9. [Releasing](#releasing)
+10. [License](#license)
 
 ---
 
@@ -41,6 +47,8 @@ npm install lldlab-ui
 | Tailwind CSS in the app | v4 |
 
 The package is ESM-only and ships TypeScript types.
+
+<sub>[↑ Back to top](#table-of-contents)</sub>
 
 ## Setup
 
@@ -134,6 +142,8 @@ The bundle starts with `'use client'`, so any component can be imported from a N
 
 ---
 
+<sub>[↑ Back to top](#table-of-contents)</sub>
+
 ## Core concepts
 
 ### No `className`, no `style`
@@ -215,9 +225,61 @@ Components use semantic tokens only, so every component works in both scopes. A 
 
 ---
 
+<sub>[↑ Back to top](#table-of-contents)</sub>
+
 ## Components
 
 In the tables, **Req.** marks required props, and the default is given where one exists. Every component also forwards the native props of its root element, except `className` and `style`.
+
+### Component index
+
+| Component | Group | Use it for |
+|---|---|---|
+| [`Theme`](#theme) | Layout | Scope light/dark tokens for a subtree |
+| [`Box`](#box) | Layout | Generic surface: padding, tone, radius, border |
+| [`Stack`](#stack) | Layout | Flex row/column with gaps |
+| [`Grid`](#grid) | Layout | Responsive CSS grid |
+| [`Container`](#container) | Layout | Centred page column with fluid gutters |
+| [`Section`](#section) | Layout | Full-width page band |
+| [`Split`](#split) | Layout | Main content + aside |
+| [`Text`](#text) | Typography | Body, label and code text |
+| [`Heading`](#heading) | Typography | h1–h4 with fluid sizes |
+| [`Eyebrow`](#eyebrow) | Typography | Pill label above a heading |
+| [`Code`](#code) | Typography | Inline code |
+| [`CodeBlock`](#codeblock) | Typography | Scrolling code block |
+| [`Markdown`](#markdown) | Typography | Safe markdown rendering |
+| [`Icon`](#icon) | Display | Material Symbols icon |
+| [`Dot`](#dot) | Display | Status dot |
+| [`Badge`](#badge) | Display | Small status/label pill |
+| [`Chip`](#chip) | Display | Removable tag |
+| [`Stat`](#stat) | Display | Icon + label + value |
+| [`ProgressBar`](#progressbar) | Display | Labelled progress |
+| [`SectionHeader`](#sectionheader) | Display | Header row for a group |
+| [`Callout`](#callout) | Display | Tinted notice box |
+| [`ResultRow`](#resultrow) | Display | Test result row |
+| [`Message`](#message) | Display | Loading/empty/error line |
+| [`EmptyState`](#emptystate) | Display | Empty result block |
+| [`CheckList`](#checklist) | Display | List with check icons |
+| [`Card`](#card) | Display | Card with media/footer slots |
+| [`Button`](#button) | Inputs and interaction | Buttons and link buttons |
+| [`IconButton`](#iconbutton) | Inputs and interaction | Icon-only button |
+| [`Kbd`](#kbd) | Inputs and interaction | Keyboard hint |
+| [`TextField`](#textfield) | Inputs and interaction | Labelled text input |
+| [`Select`](#select) | Inputs and interaction | Native select |
+| [`Tabs`](#tabs) | Inputs and interaction | Tablist or nav tabs |
+| [`SegmentedControl`](#segmentedcontrol) | Inputs and interaction | Single-choice pills |
+| [`Dialog`](#dialog) | Inputs and interaction | Modal dialog |
+| [`Menu`](#menu) | Inputs and interaction | Menu button |
+| [`Workbench`](#workbench) | IDE shell | Resizable IDE layout |
+| [`FileTree`](#filetree) | IDE shell | Keyboard file tree |
+| [`EditorTabs`](#editortabs) | IDE shell | Open-file tabs |
+| [`Breadcrumbs`](#breadcrumbs) | IDE shell | Breadcrumb trail |
+| [`StatusBar`](#statusbar) | IDE shell | IDE status bar |
+| [`MetricTile`](#metrictile) | IDE shell | Label + big value |
+| [`Avatar`](#avatar) | IDE shell | User avatar |
+| [`Countdown`](#countdown) | IDE shell | Countdown / elapsed timer |
+
+<sub>[↑ Back to top](#table-of-contents)</sub>
 
 ### Layout
 
@@ -324,6 +386,8 @@ Main content plus an aside, side by side from `xl` and stacked below it.
 </Split>
 ```
 
+<sub>[↑ Back to top](#table-of-contents)</sub>
+
 ### Typography
 
 #### `Text`
@@ -393,6 +457,8 @@ Raw HTML in the source is **not** rendered, and `javascript:` links are stripped
 ```tsx
 <Markdown>{problem.statement}</Markdown>
 ```
+
+<sub>[↑ Back to top](#table-of-contents)</sub>
 
 ### Display
 
@@ -560,6 +626,8 @@ All other children go into the padded body, whatever their order in the JSX.
 </Card>
 ```
 
+<sub>[↑ Back to top](#table-of-contents)</sub>
+
 ### Inputs and interaction
 
 #### `Button`
@@ -712,6 +780,8 @@ Keyboard and pointer behaviour:
 />
 ```
 
+<sub>[↑ Back to top](#table-of-contents)</sub>
+
 ### IDE shell
 
 #### `Workbench`
@@ -837,6 +907,8 @@ It shows `mm:ss`, or `h:mm:ss` from one hour. A deadline already in the past sho
 
 ---
 
+<sub>[↑ Back to top](#table-of-contents)</sub>
+
 ## Design tokens
 
 `theme.css` registers every token as a Tailwind v4 theme variable, so it is available both as a utility (`bg-surface`) and as a CSS variable (`var(--color-surface)`). Use the variables in the app's own CSS when you need them outside components.
@@ -854,6 +926,8 @@ It shows `mm:ss`, or `h:mm:ss` from one hour. A deadline already in the past sho
 
 Every token under Surfaces, Text, Status text, Borders and Badges changes inside `[data-theme="dark"]`, which is what `<Theme tone="dark">` renders.
 
+<sub>[↑ Back to top](#table-of-contents)</sub>
+
 ## Accessibility
 
 - **Interactive widgets:** they follow the WAI-ARIA Authoring Practices.
@@ -865,6 +939,8 @@ Every token under Surfaces, Text, Status text, Borders and Badges changes inside
 - **Contrast:** status text colours meet WCAG AA in both themes.
 - **CI checks:** every gallery story runs through axe, and critical or serious violations fail the build.
 
+<sub>[↑ Back to top](#table-of-contents)</sub>
+
 ## Troubleshooting
 
 | Symptom | Fix |
@@ -874,6 +950,8 @@ Every token under Surfaces, Text, Status text, Borders and Badges changes inside
 | Wrong fonts | Set `--font-space-grotesk`, `--font-inter` and `--font-jetbrains-mono`, for example on `<html>` through `next/font`'s `variable` option. |
 | TypeScript error on `className` | This is intentional: use a variant prop, or add a variant to the library. |
 | `Workbench` has no height | Give its parent an explicit height, e.g. `h-dvh`, or make it a flex child with `min-h-0 flex-1`. |
+
+<sub>[↑ Back to top](#table-of-contents)</sub>
 
 ## Development
 
@@ -895,6 +973,8 @@ When adding a component:
 2. Keep `className` and `style` out of its props.
 3. Add a unit test and a story.
 
+<sub>[↑ Back to top](#table-of-contents)</sub>
+
 ## Releasing
 
 ```bash
@@ -904,6 +984,10 @@ git push --follow-tags # the v* tag runs .github/workflows/release.yml
 
 The release workflow checks that the tag matches `package.json`, runs the tests, builds, and publishes through **npm Trusted Publishing** (GitHub OIDC) with provenance. No npm token is stored.
 
+<sub>[↑ Back to top](#table-of-contents)</sub>
+
 ## License
 
 MIT
+
+<sub>[↑ Back to top](#table-of-contents)</sub>
