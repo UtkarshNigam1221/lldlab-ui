@@ -26,7 +26,7 @@ export { ResultRow, type ResultRowProps } from './components/ResultRow';
 export { Message, type MessageProps } from './components/Message';
 export { EmptyState, type EmptyStateProps } from './components/EmptyState';
 export { CheckList, type CheckListProps } from './components/CheckList';
-export { Card, CardFooter, CardMedia, type CardFooterProps, type CardMediaProps, type CardProps } from './components/Card';
+export { Card, CardFooter, CardHeader, CardMedia, type CardFooterProps, type CardHeaderProps, type CardMediaProps, type CardProps } from './components/Card';
 export { Button, type ButtonProps, type ButtonVariant } from './components/Button';
 export { IconButton, type IconButtonProps } from './components/IconButton';
 export { Kbd, type KbdProps } from './components/Kbd';
