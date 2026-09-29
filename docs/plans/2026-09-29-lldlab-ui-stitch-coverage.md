@@ -31,7 +31,7 @@ Both paths are relative to the lldlab-ui repo root.
 - Nothing touches `window`, `document`, `localStorage`, `navigator` or layout during render. Effects only.
 - Runtime dependencies are exactly `react-markdown`, `remark-gfm`, `prism-react-renderer` and `@dagrejs/dagre`. Do **not** add `prismjs`: the Java and Bash grammars are defined locally with `Prism.languages.extend`.
 - Commit messages end with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
-- The final push and PR #2 go to `UtkarshNigam1221/lldlab-ui` with base `feat/v0.1`, over the `github-personal` SSH remote that is already configured.
+- The final push and the Stitch coverage PR (#3; #2 is the README navigation PR) go to `UtkarshNigam1221/lldlab-ui` with base `feat/v0.1`, over the `github-personal` SSH remote that is already configured.
 
 ## Plan-level rulings (deviations from the addendum)
 
@@ -6885,7 +6885,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 ---
 
-### Task 22: README and PR #2
+### Task 22: README and the Stitch coverage PR
 
 **Files:**
 - Modify: `README.md`
@@ -6893,7 +6893,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 
 **Interfaces:**
 - Consumes: everything.
-- Produces: an updated README, and PR #2 on `UtkarshNigam1221/lldlab-ui`.
+- Produces: an updated README, and the Stitch coverage PR on `UtkarshNigam1221/lldlab-ui`.
 
 - [ ] **Step 1: Update the README**
 
@@ -6945,7 +6945,12 @@ Edit `README.md`:
 ```
 
 5. Add these points to **Design tokens**: the `code-*`, `diff-*`, `code-bg-subtle` and `--spacing-appbar` tokens; the fact that `Card`, `Box` and `Section` with `tone="inverse"` scope the dark tokens; and `Toaster` mounting ("mount `<Toaster />` once at the root").
-6. Under **Install**, list the runtime dependencies `prism-react-renderer` and `@dagrejs/dagre`, and note that dagre is loaded only when a `UmlDiagram` renders.
+6. Keep the README navigation in sync (added in PR #2):
+   - In the **Table of contents**, add every new component to its group's line, and add any new groups.
+   - Add a row per new component to the **Component index** table (component, group, one-line "use it for").
+   - Keep a `<sub>[↑ Back to top](#table-of-contents)</sub>` link before every `##` section and every component group.
+   - Run the anchor check from PR #2: every `](#…)` link must match a heading slug, with no duplicate slugs. It must print `missing: []` and `duplicate slugs: []`.
+7. Under **Install**, list the runtime dependencies `prism-react-renderer` and `@dagrejs/dagre`, and note that dagre is loaded only when a `UmlDiagram` renders.
 
 - [ ] **Step 2: Full verification**
 
@@ -6962,10 +6967,10 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 git push -u origin feat/stitch-coverage
 ```
 
-- [ ] **Step 4: Open PR #2**
+- [ ] **Step 4: Open the Stitch coverage PR**
 
-The addendum's §8 (approved by the user) specifies PR #2 stacked on `feat/v0.1`. Set the base with `gh pr create --base <base>`, choosing it by PR #1's state:
-- **If PR #1 is already merged into `main`:** first rebase `feat/stitch-coverage` onto `origin/main` (`git fetch origin && git rebase origin/main`), resolve any conflicts, run the full suite again, then `git push --force-with-lease` (this is the feature branch only). Use base `main`.
+The addendum's §8 (approved by the user) specifies the Stitch coverage PR stacked on `feat/v0.1`. Set the base with `gh pr create --base <base>`, choosing it by PR #1's state:
+- **If PR #1 is already merged into `main` (it is, as of planning):** first rebase `feat/stitch-coverage` onto `origin/main` (`git fetch origin && git rebase origin/main`), resolve any conflicts, run the full suite again, then `git push --force-with-lease` (this is the feature branch only). Use base `main`.
 - **Otherwise:** use base `feat/v0.1`.
 
 ```bash
