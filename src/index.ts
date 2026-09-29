@@ -1,3 +1,10 @@
 export type { Breakpoint, Responsive } from './internal/responsive';
 export type { Align, Cols, Direction, HeadingSize, Justify, Space } from './internal/tables';
 export type { StatusTone, Tone } from './internal/tones';
+export { Theme, type ThemeProps } from './theme/Theme';
+export { Box, type BoxProps, type SurfaceTone } from './primitives/Box';
+export { Stack, type StackProps } from './primitives/Stack';
+export { Grid, type GridProps } from './primitives/Grid';
+export { Container, type ContainerProps } from './primitives/Container';
+export { Section, type SectionProps } from './primitives/Section';
+export { Split, type SplitProps } from './primitives/Split';
