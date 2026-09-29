@@ -69,3 +69,4 @@ export { BarChart, type BarChartProps } from './components/BarChart';
 export { UmlClass, type UmlClassProps } from './ide/UmlClass';
 export { UmlDiagram, describeDiagram, type UmlDiagramProps, type UmlEdge, type UmlEdgeKind, type UmlNode } from './ide/UmlDiagram';
 export { Tooltip, type TooltipProps } from './components/Tooltip';
+export { Toaster, useToast, type ToasterProps, type ToastOptions } from './components/Toast';
