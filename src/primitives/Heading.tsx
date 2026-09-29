@@ -22,14 +22,18 @@ export type HeadingProps = NativeProps<'h2', {
   tone?: keyof typeof TONE;
   truncate?: boolean;
   align?: keyof typeof ALIGN;
+  /** Balanced line breaks (default true). */
+  balance?: boolean;
+  /** Override the size's line height (none: 1, for tight hero headlines). */
+  leading?: 'none';
 }>;
 
-export function Heading({ level, size, tone = 'default', truncate, align = 'start', ...rest }: HeadingProps) {
+export function Heading({ level, size, tone = 'default', truncate, align = 'start', balance = true, leading, ...rest }: HeadingProps) {
   const C = TAG[level];
   return (
     <C
       {...rest}
-      className={cx('min-w-0 font-display', truncate ? 'truncate' : 'text-balance wrap-break-word', responsive(HEADING_SIZE, size ?? DEFAULT_SIZE[level]), TONE[tone], ALIGN[align])}
+      className={cx('min-w-0 font-display', truncate ? 'truncate' : cx(balance && 'text-balance', 'wrap-break-word'), responsive(HEADING_SIZE, size ?? DEFAULT_SIZE[level]), leading === 'none' && 'leading-none', TONE[tone], ALIGN[align])}
     />
   );
 }

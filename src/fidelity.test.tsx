@@ -267,3 +267,39 @@ describe('CodeBlock bare (0.3.0)', () => {
     expect(container.querySelector('pre')).toHaveClass('p-0');
   });
 });
+
+import { Heading } from './primitives/Heading';
+
+describe('Heading and Button sizing (0.3.0)', () => {
+  it('Heading can opt out of balanced wrapping and use leading-none', () => {
+    render(<Heading level={1} size="display" balance={false} leading="none">Hero</Heading>);
+    const h = screen.getByRole('heading', { name: 'Hero' });
+    expect(h).toHaveClass('leading-none');
+    expect(h.className).not.toMatch(/text-balance/);
+  });
+  it('Button ms is padding-sized (24px sides, 8px top and bottom)', () => {
+    render(<Button size="ms">Go</Button>);
+    expect(screen.getByRole('button', { name: 'Go' })).toHaveClass('px-space-lg', 'py-space-sm');
+  });
+});
+
+import { Box } from './primitives/Box';
+
+describe('Box container tone (0.3.0)', () => {
+  it('uses the cobalt-tinted container surface', () => {
+    const { container } = render(<Box tone="container">x</Box>);
+    expect(container.firstElementChild).toHaveClass('bg-surface-container');
+  });
+});
+
+import { SectionHeader } from './components/SectionHeader';
+
+describe('SectionHeader (0.3.0)', () => {
+  it('can drop the rule, use a 12px dot and keep meta in sentence case', () => {
+    const { container } = render(<SectionHeader title="Beginner" dot="success" meta="3 problems listed" divider={false} metaUppercase={false} />);
+    const root = container.firstElementChild!;
+    expect(root.className).not.toMatch(/border-b/);
+    expect(root.querySelector('.size-3')).not.toBeNull();
+    expect(screen.getByText('3 problems listed').className).not.toMatch(/uppercase/);
+  });
+});

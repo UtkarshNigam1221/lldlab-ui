@@ -4,13 +4,14 @@ import type { PolyProps } from '../internal/poly';
 import { responsive, type Responsive } from '../internal/responsive';
 import { PADDING, type Space } from '../internal/tables';
 
-export type SurfaceTone = 'surface' | 'subtle' | 'elevated' | 'low' | 'inverse';
+export type SurfaceTone = 'surface' | 'subtle' | 'elevated' | 'low' | 'container' | 'inverse';
 
 export const SURFACE_TONE: Record<SurfaceTone, string> = {
   surface: 'bg-surface text-on-surface',
   subtle: 'bg-surface-subtle text-on-surface',
   elevated: 'bg-surface-elevated text-on-surface',
   low: 'bg-surface-container-low text-on-surface',
+  container: 'bg-surface-container text-on-surface',
   inverse: 'bg-brand-obsidian text-on-primary',
 };
 

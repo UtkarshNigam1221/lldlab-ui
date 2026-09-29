@@ -21,7 +21,7 @@ const VARIANT: Record<ButtonVariant, string> = {
   accent: 'bg-brand-crimson-hover text-white shadow-sm hover:bg-danger',
 };
 // xs is Stitch's compact action (py 4px, px 16px); the touch target is kept by TOUCH.
-const SIZE = { xs: 'px-space-md py-space-xs', sm: 'h-8 px-space-md', md: 'h-10 px-space-lg', lg: 'h-12 px-space-lg' } as const;
+const SIZE = { xs: 'px-space-md py-space-xs', ms: 'px-space-lg py-space-sm', sm: 'h-8 px-space-md', md: 'h-10 px-space-lg', lg: 'h-12 px-space-lg' } as const;
 
 type ButtonOwnProps = {
   variant?: ButtonVariant;
