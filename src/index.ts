@@ -34,3 +34,4 @@ export { TextField, type TextFieldProps } from './components/TextField';
 export { Select, type SelectOption, type SelectProps } from './components/Select';
 export { Tabs, type TabItem, type TabsProps } from './components/Tabs';
 export { SegmentedControl, type SegmentedControlProps, type SegmentedOption } from './components/SegmentedControl';
+export { Dialog, type DialogProps } from './components/Dialog';
