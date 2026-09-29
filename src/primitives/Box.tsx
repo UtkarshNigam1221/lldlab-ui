@@ -24,15 +24,26 @@ type BoxOwnProps = {
   tone?: SurfaceTone;
   border?: keyof typeof BORDER;
   shadow?: keyof typeof SHADOW;
+  /** Greys out and disables the content (inert), e.g. a panel waiting on a runtime. */
+  dimmed?: boolean;
 };
 export type BoxProps<E extends ElementType = 'div'> = PolyProps<E, BoxOwnProps>;
 
-export function Box<E extends ElementType = 'div'>({ as, padding, radius = 'none', tone, border = 'none', shadow = 'none', ...rest }: BoxProps<E>) {
+export function Box<E extends ElementType = 'div'>({ as, padding, radius = 'none', tone, border = 'none', shadow = 'none', dimmed, ...rest }: BoxProps<E>) {
   const C: ElementType = as ?? 'div';
   return (
     <C
       {...rest}
-      className={cx('min-w-0 max-w-full', tone && SURFACE_TONE[tone], responsive(PADDING, padding), RADIUS[radius], BORDER[border], SHADOW[shadow])}
+      inert={dimmed || undefined}
+      className={cx(
+        'min-w-0 max-w-full',
+        tone && SURFACE_TONE[tone],
+        responsive(PADDING, padding),
+        RADIUS[radius],
+        BORDER[border],
+        SHADOW[shadow],
+        dimmed && 'pointer-events-none select-none opacity-40',
+      )}
     />
   );
 }
