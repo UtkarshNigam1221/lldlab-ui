@@ -71,3 +71,4 @@ export { UmlDiagram, describeDiagram, type UmlDiagramProps, type UmlEdge, type U
 export { Tooltip, type TooltipProps } from './components/Tooltip';
 export { Toaster, useToast, type ToasterProps, type ToastOptions } from './components/Toast';
 export { CommandPalette, type CommandGroup, type CommandItem, type CommandPaletteProps } from './components/CommandPalette';
+export { Show, type ShowProps } from './primitives/Show';
