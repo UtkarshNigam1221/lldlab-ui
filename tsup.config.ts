@@ -9,7 +9,7 @@ export default defineConfig({
   // Rollup tree-shaking strips module directives; keep it off so 'use client' survives.
   treeshake: false,
   minify: false,
-  external: ['react', 'react-dom', 'react/jsx-runtime', 'react-markdown', 'remark-gfm'],
+  external: ['react', 'react-dom', 'react/jsx-runtime', 'react-markdown', 'remark-gfm', 'prism-react-renderer', '@dagrejs/dagre'],
   banner: { js: "'use client';" },
   onSuccess: 'cp src/tokens/theme.css dist/theme.css',
 });
