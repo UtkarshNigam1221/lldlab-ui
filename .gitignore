@@ -8,3 +8,4 @@ consumer-check/node_modules/
 consumer-check/.next/
 consumer-check/next-env.d.ts
 .superpowers/
+.idea/
