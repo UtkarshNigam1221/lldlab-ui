@@ -104,7 +104,8 @@ describe('controls (0.3.0)', () => {
       />,
     );
     const active = screen.getByRole('link', { name: /Problems/ });
-    expect(active).toHaveClass('bg-surface-container/60', 'text-brand-cobalt');
+    expect(active).toHaveClass('bg-surface-container/60', 'text-brand-cobalt', 'font-medium');
+    expect(active.className).not.toMatch(/font-semibold/);
     expect(active).toHaveTextContent('code_blocks');
     expect(screen.getByText('7').parentElement).toHaveClass('rounded-full', 'bg-badge-intermediate-bg');
     expect(screen.queryByRole('link', { name: /Playground/ })).toBeNull();

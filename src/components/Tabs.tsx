@@ -47,8 +47,9 @@ const VARIANT = {
   // Header navigation: icon + label + count pill; active is a cobalt tint.
   nav: {
     list: 'flex min-w-0 max-w-full items-center gap-space-xs overflow-x-auto [scrollbar-width:none]',
-    tab: 'inline-flex shrink-0 items-center gap-space-xs whitespace-nowrap rounded-lg px-space-sm py-space-xs font-body-md text-body-md transition-colors',
-    active: 'bg-surface-container/60 font-semibold text-brand-cobalt',
+    // One weight for every item: a bolder active item would widen and shift its neighbours.
+    tab: 'inline-flex shrink-0 items-center gap-space-xs whitespace-nowrap rounded-lg px-space-sm py-space-xs font-body-md text-body-md font-medium transition-colors',
+    active: 'bg-surface-container/60 text-brand-cobalt',
     idle: 'text-on-surface-variant hover:bg-surface-subtle hover:text-on-surface',
   },
   // Filter chips: separate buttons, active filled with ink, dot leading.
