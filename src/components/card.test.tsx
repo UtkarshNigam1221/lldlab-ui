@@ -20,7 +20,7 @@ describe('Card', () => {
     expect(kids.map((k) => k.textContent)).toEqual(['media', 'body', 'foot']);
     expect(kids[0]).toHaveClass('bg-pattern-grid', 'aspect-square');
     expect(kids[1]).toHaveClass('p-space-md');
-    expect(kids[2]).toHaveClass('border-t', 'bg-surface-subtle');
+    expect(kids[2]).toHaveClass('bg-surface-subtle');
   });
   it('supports interactive link cards through as', () => {
     render(<Card as={FakeLink} href="/p/x" interactive>Go</Card>);

@@ -4,7 +4,7 @@ export type { StatusTone, Tone } from './internal/tones';
 export { Theme, useThemeTone, type ThemeProps, type ThemeTone } from './theme/Theme';
 export { Box, type BoxProps, type SurfaceTone } from './primitives/Box';
 export { Stack, type StackProps } from './primitives/Stack';
-export { Grid, type GridProps } from './primitives/Grid';
+export { Grid, GridItem, type GridItemProps, type GridProps } from './primitives/Grid';
 export { Container, type ContainerProps } from './primitives/Container';
 export { Section, type SectionProps } from './primitives/Section';
 export { Split, type SplitProps } from './primitives/Split';

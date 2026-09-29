@@ -63,3 +63,28 @@ export const HEADING_SIZE: ClassTable<HeadingSize> = {
   lg: { display: 'lg:text-display', xl: 'lg:text-headline-xl', lg: 'lg:text-headline-lg', md: 'lg:text-headline-md', sm: 'lg:text-headline-sm' },
   xl: { display: 'xl:text-display', xl: 'xl:text-headline-xl', lg: 'xl:text-headline-lg', md: 'xl:text-headline-md', sm: 'xl:text-headline-sm' },
 };
+
+
+export const PADDING_TOP: ClassTable<Space> = {
+  base: { none: 'pt-0', '2xs': 'pt-space-2xs', xs: 'pt-space-xs', sm: 'pt-space-sm', md: 'pt-space-md', lg: 'pt-space-lg', xl: 'pt-space-xl', '2xl': 'pt-space-2xl' },
+  sm: { none: 'sm:pt-0', '2xs': 'sm:pt-space-2xs', xs: 'sm:pt-space-xs', sm: 'sm:pt-space-sm', md: 'sm:pt-space-md', lg: 'sm:pt-space-lg', xl: 'sm:pt-space-xl', '2xl': 'sm:pt-space-2xl' },
+  md: { none: 'md:pt-0', '2xs': 'md:pt-space-2xs', xs: 'md:pt-space-xs', sm: 'md:pt-space-sm', md: 'md:pt-space-md', lg: 'md:pt-space-lg', xl: 'md:pt-space-xl', '2xl': 'md:pt-space-2xl' },
+  lg: { none: 'lg:pt-0', '2xs': 'lg:pt-space-2xs', xs: 'lg:pt-space-xs', sm: 'lg:pt-space-sm', md: 'lg:pt-space-md', lg: 'lg:pt-space-lg', xl: 'lg:pt-space-xl', '2xl': 'lg:pt-space-2xl' },
+  xl: { none: 'xl:pt-0', '2xs': 'xl:pt-space-2xs', xs: 'xl:pt-space-xs', sm: 'xl:pt-space-sm', md: 'xl:pt-space-md', lg: 'xl:pt-space-lg', xl: 'xl:pt-space-xl', '2xl': 'xl:pt-space-2xl' },
+};
+
+export const PADDING_BOTTOM: ClassTable<Space> = {
+  base: { none: 'pb-0', '2xs': 'pb-space-2xs', xs: 'pb-space-xs', sm: 'pb-space-sm', md: 'pb-space-md', lg: 'pb-space-lg', xl: 'pb-space-xl', '2xl': 'pb-space-2xl' },
+  sm: { none: 'sm:pb-0', '2xs': 'sm:pb-space-2xs', xs: 'sm:pb-space-xs', sm: 'sm:pb-space-sm', md: 'sm:pb-space-md', lg: 'sm:pb-space-lg', xl: 'sm:pb-space-xl', '2xl': 'sm:pb-space-2xl' },
+  md: { none: 'md:pb-0', '2xs': 'md:pb-space-2xs', xs: 'md:pb-space-xs', sm: 'md:pb-space-sm', md: 'md:pb-space-md', lg: 'md:pb-space-lg', xl: 'md:pb-space-xl', '2xl': 'md:pb-space-2xl' },
+  lg: { none: 'lg:pb-0', '2xs': 'lg:pb-space-2xs', xs: 'lg:pb-space-xs', sm: 'lg:pb-space-sm', md: 'lg:pb-space-md', lg: 'lg:pb-space-lg', xl: 'lg:pb-space-xl', '2xl': 'lg:pb-space-2xl' },
+  xl: { none: 'xl:pb-0', '2xs': 'xl:pb-space-2xs', xs: 'xl:pb-space-xs', sm: 'xl:pb-space-sm', md: 'xl:pb-space-md', lg: 'xl:pb-space-lg', xl: 'xl:pb-space-xl', '2xl': 'xl:pb-space-2xl' },
+};
+
+export const COL_SPAN: ClassTable<Cols> = {
+  base: { 1: 'col-span-1', 2: 'col-span-2', 3: 'col-span-3', 4: 'col-span-4', 5: 'col-span-5', 6: 'col-span-6' },
+  sm: { 1: 'sm:col-span-1', 2: 'sm:col-span-2', 3: 'sm:col-span-3', 4: 'sm:col-span-4', 5: 'sm:col-span-5', 6: 'sm:col-span-6' },
+  md: { 1: 'md:col-span-1', 2: 'md:col-span-2', 3: 'md:col-span-3', 4: 'md:col-span-4', 5: 'md:col-span-5', 6: 'md:col-span-6' },
+  lg: { 1: 'lg:col-span-1', 2: 'lg:col-span-2', 3: 'lg:col-span-3', 4: 'lg:col-span-4', 5: 'lg:col-span-5', 6: 'lg:col-span-6' },
+  xl: { 1: 'xl:col-span-1', 2: 'xl:col-span-2', 3: 'xl:col-span-3', 4: 'xl:col-span-4', 5: 'xl:col-span-5', 6: 'xl:col-span-6' },
+};
