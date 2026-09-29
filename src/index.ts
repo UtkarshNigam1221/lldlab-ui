@@ -60,3 +60,6 @@ export { Disclosure, type DisclosureProps } from './components/Disclosure';
 export { Skeleton, type SkeletonProps } from './components/Skeleton';
 export { TerminalOutput, type TerminalLine, type TerminalOutputProps } from './components/TerminalOutput';
 export { VerdictBanner, type VerdictBannerProps } from './components/VerdictBanner';
+export { Checkbox, type CheckboxProps } from './components/Checkbox';
+export { Switch, type SwitchProps } from './components/Switch';
+export { Overlay, type OverlayProps } from './components/Overlay';
