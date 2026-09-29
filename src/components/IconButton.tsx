@@ -6,11 +6,11 @@ import { Icon } from './Icon';
 
 const VARIANT = {
   ghost: 'text-on-surface-variant hover:bg-surface-muted hover:text-on-surface',
-  subtle: 'bg-surface-subtle text-on-surface hover:bg-surface-muted',
+  subtle: 'bg-surface-subtle text-on-surface-variant hover:bg-surface-container hover:text-on-surface',
   secondary: 'border border-border-subtle bg-surface-elevated text-on-surface hover:bg-surface-muted',
   primary: 'bg-ink text-on-ink hover:bg-ink-hover',
 } as const;
-const SIZE = { xs: 'size-6', sm: 'size-8', md: 'size-10' } as const;
+const SIZE = { xs: 'size-6', sm: 'size-8', ms: 'size-9', md: 'size-10' } as const;
 
 type IconButtonOwnProps = {
   icon: string;
@@ -42,7 +42,7 @@ export function IconButton<E extends ElementType = 'button'>({ as, icon, label, 
         TOUCH_ICON,
       )}
     >
-      <Icon name={icon} size={size === 'md' ? 'md' : 'sm'} />
+      <Icon name={icon} size={size === 'md' ? 'md' : size === 'ms' ? 'ms' : 'sm'} />
       {dot && <span aria-hidden="true" className={cx('absolute right-1.5 top-1.5 size-2 rounded-full ring-2 ring-surface-elevated', DOT_TONE[dot])} />}
       {badge && (
         <span aria-hidden="true" className="absolute -right-1 -top-1 min-w-4 rounded-full bg-brand-crimson-hover px-1 text-center font-label-mono text-[10px] leading-4 text-white">

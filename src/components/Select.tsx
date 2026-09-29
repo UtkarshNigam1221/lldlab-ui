@@ -4,9 +4,11 @@ import type { NativeProps } from '../internal/poly';
 import { Icon } from './Icon';
 
 export type SelectOption = { value: string; label: string };
-export type SelectProps = NativeProps<'select', { label: string; hideLabel?: boolean; options: SelectOption[]; children?: never }>;
+const VARIANT = { outline: 'border border-border-subtle bg-surface-subtle', raised: 'bg-surface-elevated shadow-sm' } as const;
+const SIZE = { md: 'h-10 pl-space-sm font-body-md text-body-md', lg: 'h-11 pl-space-md font-body-sm text-body-sm' } as const;
+export type SelectProps = NativeProps<'select', { label: string; hideLabel?: boolean; options: SelectOption[]; variant?: keyof typeof VARIANT; size?: keyof typeof SIZE; children?: never }>;
 
-export function Select({ label, hideLabel, options, id, ...rest }: SelectProps) {
+export function Select({ label, hideLabel, options, variant = 'outline', size = 'md', id, ...rest }: SelectProps) {
   const generated = useId();
   const selectId = id ?? generated;
   return (
@@ -18,7 +20,7 @@ export function Select({ label, hideLabel, options, id, ...rest }: SelectProps) 
         <select
           {...rest}
           id={selectId}
-          className={cx('h-10 w-full min-w-0 appearance-none rounded-lg border border-border-subtle bg-surface-subtle pl-space-sm pr-space-xl font-body-md text-body-md text-on-surface', FOCUS_RING, TOUCH)}
+          className={cx('w-full min-w-0 appearance-none rounded-lg pr-space-xl text-on-surface', VARIANT[variant], SIZE[size], FOCUS_RING, TOUCH)}
         >
           {options.map((o) => (
             <option key={o.value} value={o.value}>

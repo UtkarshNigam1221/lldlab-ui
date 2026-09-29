@@ -154,3 +154,56 @@ describe('controls (0.3.0)', () => {
     expect(container.firstElementChild).toHaveClass('size-3');
   });
 });
+
+import { IconButton } from './components/IconButton';
+import { Kbd } from './components/Kbd';
+import { Select } from './components/Select';
+import { Stat } from './components/Stat';
+import { TextField } from './components/TextField';
+import { Avatar } from './ide/Avatar';
+import { MetricTile } from './ide/MetricTile';
+
+describe('inputs and tiles (0.3.0)', () => {
+  it('TextField filled and raised variants drop the border; ms and lg sizes; trailing icon', () => {
+    const { rerender } = render(<TextField label="Search" variant="filled" size="ms" icon="search" />);
+    const box = () => screen.getByLabelText('Search').parentElement!;
+    expect(box()).toHaveClass('h-9', 'bg-surface-subtle');
+    expect(box().className).not.toMatch(/\bborder\b/);
+    rerender(<TextField label="Search" variant="raised" size="lg" icon="mail" iconPosition="end" />);
+    expect(box()).toHaveClass('h-11', 'bg-surface-elevated', 'shadow-sm');
+    expect(box().lastElementChild).toHaveTextContent('mail');
+  });
+  it('Select raised lg', () => {
+    render(<Select label="Difficulty" variant="raised" size="lg" options={[{ value: 'a', label: 'A' }]} />);
+    expect(screen.getByLabelText('Difficulty')).toHaveClass('h-11', 'bg-surface-elevated', 'shadow-sm');
+  });
+  it('Kbd raised', () => {
+    render(<Kbd variant="raised">⌘K</Kbd>);
+    expect(screen.getByText('⌘K')).toHaveClass('bg-surface-elevated', 'shadow-sm');
+  });
+  it('IconButton ms is 36px; Avatar ms/ml are 32/40px', () => {
+    render(
+      <>
+        <IconButton icon="notifications" label="Notifications" size="ms" variant="subtle" />
+        <Avatar name="Ada Lovelace" size="ms" />
+        <Avatar name="Grace Hopper" size="ml" />
+      </>,
+    );
+    expect(screen.getByRole('button', { name: 'Notifications' })).toHaveClass('size-9');
+    expect(screen.getByText('AL').closest('.size-8')).not.toBeNull();
+    expect(screen.getByText('GH').closest('.size-10')).not.toBeNull();
+  });
+  it('MetricTile has no border; centered variant puts the label under the value', () => {
+    const { container, rerender } = render(<MetricTile label="Architects" value="7" />);
+    expect(container.firstElementChild!.className).not.toMatch(/\bborder\b/);
+    rerender(<MetricTile label="Problems" value="7" variant="centered" tone="brand" />);
+    const tile = container.firstElementChild!;
+    expect(tile).toHaveClass('text-center');
+    expect(tile.firstElementChild).toHaveTextContent('7');
+  });
+  it('Stat tile variant with a coloured icon', () => {
+    const { container } = render(<Stat variant="tile" icon="layers" iconTone="brand" label="Total" value={7} />);
+    expect(container.firstElementChild).toHaveClass('bg-surface-subtle', 'shadow-sm');
+    expect(container.querySelector('.text-brand-cobalt')).not.toBeNull();
+  });
+});
