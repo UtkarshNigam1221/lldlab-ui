@@ -13,7 +13,7 @@ export function SectionHeader({ title, level = 2, dot, tag, meta, ...rest }: Sec
       {dot && <Dot tone={dot} size="md" />}
       <Heading level={level} size="sm">{title}</Heading>
       {tag && <Badge uppercase>{tag}</Badge>}
-      {meta && <span className="ml-auto font-label-mono text-label-mono uppercase text-on-surface-variant">{meta}</span>}
+      {meta && <span className="ml-auto min-w-0 max-w-full truncate font-label-mono text-label-mono uppercase text-on-surface-variant">{meta}</span>}
     </div>
   );
 }

@@ -18,7 +18,7 @@ export type BadgeProps = NativeProps<'span', { tone?: BadgeTone; uppercase?: boo
 
 export function Badge({ tone = 'neutral', uppercase, size = 'sm', children, ...rest }: BadgeProps) {
   return (
-    <span {...rest} className={cx('inline-flex items-center gap-space-2xs whitespace-nowrap rounded font-label-mono text-label-mono', TONE[tone], SIZE[size], uppercase && 'uppercase tracking-wider')}>
+    <span {...rest} className={cx('inline-flex max-w-full items-center gap-space-2xs overflow-hidden text-ellipsis whitespace-nowrap rounded font-label-mono text-label-mono', TONE[tone], SIZE[size], uppercase && 'uppercase tracking-wider')}>
       {children}
     </span>
   );

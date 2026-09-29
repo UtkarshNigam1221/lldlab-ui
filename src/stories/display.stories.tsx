@@ -1,5 +1,5 @@
 import type { Story } from '@ladle/react';
-import { Badge, Button, Callout, Card, CheckList, Chip, Dot, EmptyState, Grid, Heading, Icon, Message, ProgressBar, ResultRow, SectionHeader, Stack, Stat, Text } from '../index';
+import { Badge, Button, Callout, Card, CheckList, Chip, Dot, EmptyState, Grid, Heading, Icon, Markdown, Message, ProgressBar, ResultRow, SectionHeader, Stack, Stat, Text } from '../index';
 import { LONG_WORD } from './fixtures';
 
 export default { title: 'Display' };
@@ -59,5 +59,16 @@ export const Feedback: Story = () => (
     <Message tone="danger">Could not load problems.</Message>
     <EmptyState title="No problems match" description="Try clearing the filters." action={<Button size="sm" variant="secondary">Clear filters</Button>} />
     <CheckList items={['Single responsibility', 'Open for extension', LONG_WORD]} />
+  </Stack>
+);
+
+export const LongText: Story = () => (
+  <Stack gap="md">
+    <Markdown>{`- ${LONG_WORD}\n- short item\n\n> ${LONG_WORD}`}</Markdown>
+    <Message tone="danger">{`Could not load /problems/${LONG_WORD}`}</Message>
+    <Callout tone="warning" title={LONG_WORD}>Body</Callout>
+    <EmptyState title={LONG_WORD} description={LONG_WORD} />
+    <Stack direction="row" gap="xs" wrap><Badge>{LONG_WORD}</Badge></Stack>
+    <SectionHeader title="Tier" tag="Core" meta={LONG_WORD} />
   </Stack>
 );

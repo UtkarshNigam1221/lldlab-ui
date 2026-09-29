@@ -26,7 +26,7 @@ const components: Components = {
   ),
   ol: ({ children }) => <ol className="flex list-decimal flex-col gap-space-xs pl-space-lg">{children}</ol>,
   li: ({ className, children }) => (
-    <li className={cx('font-body-md text-body-md text-on-surface', className === 'task-list-item' && 'flex list-none items-start gap-space-xs')}>{children}</li>
+    <li className={cx('min-w-0 font-body-md text-body-md text-on-surface wrap-break-word', className === 'task-list-item' && 'flex list-none items-start gap-space-xs')}>{children}</li>
   ),
   input: ({ checked }) => <Icon name={checked ? 'check_box' : 'check_box_outline_blank'} size="sm" tone={checked ? 'success' : 'muted'} />,
   code: ({ children }) => <Code>{children}</Code>,
@@ -38,7 +38,7 @@ const components: Components = {
       {children}
     </pre>
   ),
-  blockquote: ({ children }) => <blockquote className="border-l-2 border-border-strong pl-space-md text-on-surface-variant">{children}</blockquote>,
+  blockquote: ({ children }) => <blockquote className="min-w-0 border-l-2 border-border-strong pl-space-md text-on-surface-variant wrap-break-word">{children}</blockquote>,
   hr: () => <hr className="border-border-subtle" />,
   table: ({ children }) => (
     <div tabIndex={0} className="min-w-0 max-w-full overflow-x-auto focus-visible:outline-2 focus-visible:outline-brand-cobalt">
