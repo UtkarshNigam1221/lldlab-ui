@@ -75,6 +75,7 @@ function CardRoot<E extends ElementType = 'div'>({ as, padding = 'lg', interacti
     <C
       {...rest}
       data-tone={tone}
+      data-theme={tone === 'inverse' ? 'dark' : undefined}
       className={cx('group/card flex min-w-0 flex-col overflow-hidden rounded-xl', TONE[tone], PATTERN[pattern], interactive && cx('transition-shadow hover:shadow-md', FOCUS_RING))}
     >
       {header}

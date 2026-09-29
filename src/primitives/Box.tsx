@@ -34,6 +34,7 @@ export function Box<E extends ElementType = 'div'>({ as, padding, radius = 'none
   return (
     <C
       {...rest}
+      data-theme={tone === 'inverse' ? 'dark' : undefined}
       inert={dimmed || undefined}
       className={cx(
         'min-w-0 max-w-full',

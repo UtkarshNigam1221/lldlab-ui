@@ -61,9 +61,12 @@ describe('CopyButton', () => {
     render(<CopyButton value="snippet" />);
     await user.click(screen.getByRole('button', { name: /Copy/ }));
     expect(writeText).toHaveBeenCalledWith('snippet');
-    expect(screen.getByRole('button', { name: /Copied/ })).toBeInTheDocument();
-    act(() => vi.advanceTimersByTime(2000));
-    expect(screen.getByRole('button', { name: /Copy/ })).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: /Copied/ })).toBeInTheDocument();
+    // Async advance flushes the pending effect that schedules the reset before running timers.
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(2000);
+    });
+    expect(screen.getByRole('button', { name: /^Copy$/ })).toBeInTheDocument();
   });
   it('reports failure without throwing', async () => {
     Object.defineProperty(navigator, 'clipboard', { value: { writeText: vi.fn().mockRejectedValue(new Error('denied')) }, configurable: true });

@@ -13,5 +13,5 @@ export type SectionProps<E extends ElementType = 'section'> = PolyProps<
 
 export function Section<E extends ElementType = 'section'>({ as, tone, padding = 'lg', pattern = 'none', ...rest }: SectionProps<E>) {
   const C: ElementType = as ?? 'section';
-  return <C {...rest} className={cx('w-full min-w-0', tone && SURFACE_TONE[tone], PADDING[padding], PATTERN[pattern])} />;
+  return <C {...rest} data-theme={tone === 'inverse' ? 'dark' : undefined} className={cx('w-full min-w-0', tone && SURFACE_TONE[tone], PADDING[padding], PATTERN[pattern])} />;
 }
