@@ -38,6 +38,7 @@ export function EditorTabs({ tabs, activeId, onSelect, onClose, label = 'Open fi
                 {t.label}
                 {t.modified && (
                   <>
+                    {' '}
                     <Dot tone="brand" />
                     <span className="sr-only">(modified)</span>
                   </>
