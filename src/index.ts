@@ -50,3 +50,4 @@ export { TextLink, type TextLinkProps } from './components/TextLink';
 export { Divider, type DividerProps } from './components/Divider';
 export { IconTile, type IconTileProps, type IconTileTone } from './components/IconTile';
 export { AvatarGroup, type AvatarGroupProps } from './ide/AvatarGroup';
+export { AppBar, type AppBarProps } from './primitives/AppBar';
