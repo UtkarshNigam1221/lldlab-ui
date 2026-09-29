@@ -337,3 +337,12 @@ describe('workspace pieces (0.3.0)', () => {
     expect(container.firstElementChild!.className).not.toMatch(/\bborder\b/);
   });
 });
+
+import { Checkbox } from './components/Checkbox';
+
+describe('Checkbox sm (0.3.0)', () => {
+  it('uses body-sm text for compact lists', () => {
+    render(<Checkbox label="Inspect the UML" size="sm" />);
+    expect(screen.getByText('Inspect the UML')).toHaveClass('text-body-sm');
+  });
+});
