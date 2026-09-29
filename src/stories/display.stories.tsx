@@ -64,11 +64,12 @@ export const Feedback: Story = () => (
 
 export const LongText: Story = () => (
   <Stack gap="md">
-    <Markdown>{`- ${LONG_WORD}\n- short item\n\n> ${LONG_WORD}`}</Markdown>
+    <Markdown>{`- ${LONG_WORD}\n- short item\n- [ ] ${LONG_WORD}\n\n> ${LONG_WORD}`}</Markdown>
     <Message tone="danger">{`Could not load /problems/${LONG_WORD}`}</Message>
     <Callout tone="warning" title={LONG_WORD}>Body</Callout>
     <EmptyState title={LONG_WORD} description={LONG_WORD} />
     <Stack direction="row" gap="xs" wrap><Badge>{LONG_WORD}</Badge></Stack>
     <SectionHeader title="Tier" tag="Core" meta={LONG_WORD} />
+    <SectionHeader title={LONG_WORD} tag={LONG_WORD} />
   </Stack>
 );

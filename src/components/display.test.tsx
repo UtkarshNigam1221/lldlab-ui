@@ -6,7 +6,7 @@ import { Badge, Callout, CheckList, Chip, EmptyState, Message, ProgressBar, Resu
 describe('Badge', () => {
   it('maps tone, size and uppercase', () => {
     render(<Badge tone="success" size="md" uppercase>Beginner</Badge>);
-    expect(screen.getByText('Beginner')).toHaveClass('bg-badge-beginner-bg', 'text-badge-beginner-text', 'px-space-sm', 'uppercase', 'whitespace-nowrap');
+    expect(screen.getByText('Beginner').parentElement).toHaveClass('bg-badge-beginner-bg', 'text-badge-beginner-text', 'px-space-sm', 'uppercase', 'whitespace-nowrap');
   });
 });
 
@@ -57,7 +57,7 @@ describe('SectionHeader', () => {
   it('renders a heading with tag and meta', () => {
     render(<SectionHeader title="Tier 1" dot="success" tag="Core" meta="4 Problems Listed" />);
     expect(screen.getByRole('heading', { level: 2, name: 'Tier 1' })).toBeInTheDocument();
-    expect(screen.getByText('Core')).toHaveClass('uppercase');
+    expect(screen.getByText('Core').parentElement).toHaveClass('uppercase');
     expect(screen.getByText('4 Problems Listed')).toBeInTheDocument();
   });
 });

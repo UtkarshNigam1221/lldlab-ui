@@ -26,7 +26,7 @@ const components: Components = {
   ),
   ol: ({ children }) => <ol className="flex list-decimal flex-col gap-space-xs pl-space-lg">{children}</ol>,
   li: ({ className, children }) => (
-    <li className={cx('min-w-0 font-body-md text-body-md text-on-surface wrap-break-word', className === 'task-list-item' && 'flex list-none items-start gap-space-xs')}>{children}</li>
+    <li className={cx('min-w-0 font-body-md text-body-md text-on-surface', className === 'task-list-item' ? 'flex list-none items-start gap-space-xs wrap-anywhere' : 'wrap-break-word')}>{children}</li>
   ),
   input: ({ checked }) => <Icon name={checked ? 'check_box' : 'check_box_outline_blank'} size="sm" tone={checked ? 'success' : 'muted'} />,
   code: ({ children }) => <Code>{children}</Code>,
