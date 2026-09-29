@@ -1,13 +1,10 @@
 import type { ReactNode } from 'react';
+import { cx } from '../internal/cx';
 import type { NativeProps } from '../internal/poly';
 
 export type MessageProps = NativeProps<'p', { tone?: 'default' | 'danger'; children: ReactNode }>;
 
 /** Short loading / error / empty text. Danger announces as an alert. */
 export function Message({ tone = 'default', children, ...rest }: MessageProps) {
-  return tone === 'danger' ? (
-    <p {...rest} role="alert" className="min-w-0 font-body-md text-body-md text-fg-danger wrap-break-word">{children}</p>
-  ) : (
-    <p {...rest} role="status" className="min-w-0 font-body-md text-body-md text-on-surface-variant wrap-break-word">{children}</p>
-  );
+  return <p {...rest} role={tone === 'danger' ? 'alert' : 'status'} className={cx('min-w-0 font-body-md text-body-md wrap-break-word', tone === 'danger' ? 'text-fg-danger' : 'text-on-surface-variant')}>{children}</p>;
 }
