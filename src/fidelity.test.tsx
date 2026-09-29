@@ -307,3 +307,33 @@ describe('SectionHeader (0.3.0)', () => {
     expect(screen.getByText('3 problems listed').className).not.toMatch(/uppercase/);
   });
 });
+
+import { SegmentedControl } from './components/SegmentedControl';
+import { ResultRow } from './components/ResultRow';
+import { Countdown } from './ide/Countdown';
+import { StatusBar } from './ide/StatusBar';
+
+describe('workspace pieces (0.3.0)', () => {
+  it('SegmentedControl label variant: mono, no track border, cobalt checked', () => {
+    const { container } = render(<SegmentedControl variant="label" label="Language" value="ts" onChange={() => {}} options={[{ value: 'ts', label: 'TypeScript' }, { value: 'go', label: 'Go' }]} />);
+    expect(container.firstElementChild!.className).not.toMatch(/\bborder\b/);
+    expect(screen.getByRole('radio', { name: 'TypeScript' })).toHaveClass('font-label-mono', 'text-brand-cobalt');
+  });
+  it('Countdown chip: tinted chip with a brand timer icon and mono digits', () => {
+    render(<Countdown direction="up" variant="chip" />);
+    const t = screen.getByRole('timer');
+    expect(t).toHaveClass('bg-surface-subtle', 'font-label-mono');
+    expect(t.firstElementChild).toHaveClass('text-fg-brand');
+  });
+  it('StatusBar raised: container fill, no rule', () => {
+    render(<StatusBar tone="raised" start="solution.ts" />);
+    const bar = screen.getByRole('contentinfo');
+    expect(bar).toHaveClass('bg-surface-container', 'h-9');
+    expect(bar.className).not.toMatch(/border-t/);
+  });
+  it('ResultRow boxed rows have no border and centre their content', () => {
+    const { container } = render(<ResultRow status="pass" title="adds" variant="boxed" />);
+    expect(container.firstElementChild).toHaveClass('items-center', 'bg-surface-subtle');
+    expect(container.firstElementChild!.className).not.toMatch(/\bborder\b/);
+  });
+});
