@@ -66,3 +66,5 @@ export { Overlay, type OverlayProps } from './components/Overlay';
 export { CopyButton, type CopyButtonProps } from './components/CopyButton';
 export { DiffViewer, type DiffViewerProps } from './components/DiffViewer';
 export { BarChart, type BarChartProps } from './components/BarChart';
+export { UmlClass, type UmlClassProps } from './ide/UmlClass';
+export { UmlDiagram, describeDiagram, type UmlDiagramProps, type UmlEdge, type UmlEdgeKind, type UmlNode } from './ide/UmlDiagram';
