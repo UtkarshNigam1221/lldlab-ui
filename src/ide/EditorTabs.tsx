@@ -1,15 +1,16 @@
 import { Dot } from '../components/Dot';
 import { Icon } from '../components/Icon';
 import { cx, FOCUS_RING, TOUCH, TOUCH_ICON } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 
 export type EditorTab = { id: string; label: string; modified?: boolean; readOnly?: boolean };
-export type EditorTabsProps = { tabs: EditorTab[]; activeId: string; onSelect: (id: string) => void; onClose?: (id: string) => void; label?: string };
+export type EditorTabsProps = NativeProps<'nav', { tabs: EditorTab[]; activeId: string; onSelect: (id: string) => void; onClose?: (id: string) => void; label?: string; children?: never }>;
 
 /** Open-file tabs. A nav list (not a tablist) because each tab carries its own close button. */
-export function EditorTabs({ tabs, activeId, onSelect, onClose, label = 'Open files' }: EditorTabsProps) {
+export function EditorTabs({ tabs, activeId, onSelect, onClose, label = 'Open files', ...rest }: EditorTabsProps) {
   if (!tabs.length) return null;
   return (
-    <nav aria-label={label} className="min-w-0 max-w-full border-b border-border-subtle bg-surface-subtle">
+    <nav {...rest} aria-label={label} className="min-w-0 max-w-full border-b border-border-subtle bg-surface-subtle">
       <ul className="flex min-w-0 overflow-x-auto [scrollbar-width:none]">
         {tabs.map((t) => {
           const active = t.id === activeId;

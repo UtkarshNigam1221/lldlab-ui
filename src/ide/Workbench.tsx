@@ -13,6 +13,7 @@ import {
 import { IconButton } from '../components/IconButton';
 import { SegmentedControl } from '../components/SegmentedControl';
 import { cx } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 
 type Panel = 'left' | 'right' | 'bottom';
 type Side = 'left' | 'right';
@@ -141,7 +142,7 @@ function Separator({ panel, value, limits, label, controls, onChange, centerHeig
   );
 }
 
-export type WorkbenchProps = {
+export type WorkbenchProps = NativeProps<'div', {
   header?: ReactNode;
   left?: ReactNode;
   main: ReactNode;
@@ -151,9 +152,10 @@ export type WorkbenchProps = {
   defaultSizes?: Partial<WorkbenchSizes>;
   limits?: Partial<WorkbenchLimits>;
   persistKey?: string;
-};
+  children?: never;
+}>;
 
-function WorkbenchRoot({ header, left, main, right, bottom, labels: labelsProp, defaultSizes, limits: limitsProp, persistKey }: WorkbenchProps) {
+function WorkbenchRoot({ header, left, main, right, bottom, labels: labelsProp, defaultSizes, limits: limitsProp, persistKey, ...rest }: WorkbenchProps) {
   const labels = { ...DEFAULT_LABELS, ...labelsProp };
   const limits = { ...DEFAULT_LIMITS, ...limitsProp };
   const defaults = { ...DEFAULT_SIZES, ...defaultSizes };
@@ -212,7 +214,7 @@ function WorkbenchRoot({ header, left, main, right, bottom, labels: labelsProp, 
 
   return (
     <WorkbenchContext.Provider value={{ drawer, setDrawer, ids, labels }}>
-      <div className="flex h-full min-h-0 w-full min-w-0 flex-col overflow-hidden bg-surface text-on-surface">
+      <div {...rest} className="flex h-full min-h-0 w-full min-w-0 flex-col overflow-hidden bg-surface text-on-surface">
         {header && <div className="flex min-w-0 shrink-0 items-center gap-space-sm border-b border-border-subtle px-space-sm py-space-xs">{header}</div>}
         <div style={vars} className={cx('relative grid min-h-0 min-w-0 flex-1 grid-cols-1 grid-rows-[minmax(0,1fr)]', columns)}>
           {left && (

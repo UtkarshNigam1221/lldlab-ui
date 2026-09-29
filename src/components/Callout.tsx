@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { cx } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 import { Icon } from './Icon';
 
 const TONE = {
@@ -10,11 +11,11 @@ const TONE = {
 } as const;
 const ICON = { danger: 'error', info: 'info', success: 'check_circle', warning: 'warning' } as const;
 
-export type CalloutProps = { tone?: keyof typeof TONE; title?: ReactNode; action?: ReactNode; children: ReactNode };
+export type CalloutProps = NativeProps<'div', { tone?: keyof typeof TONE; title?: ReactNode; action?: ReactNode; children: ReactNode }>;
 
-export function Callout({ tone = 'info', title, action, children }: CalloutProps) {
+export function Callout({ tone = 'info', title, action, children, ...rest }: CalloutProps) {
   return (
-    <div role={tone === 'danger' ? 'alert' : 'status'} className={cx('flex min-w-0 flex-wrap items-start gap-space-sm rounded-xl border border-current/20 p-space-md', TONE[tone])}>
+    <div {...rest} role={tone === 'danger' ? 'alert' : 'status'} className={cx('flex min-w-0 flex-wrap items-start gap-space-sm rounded-xl border border-current/20 p-space-md', TONE[tone])}>
       <Icon name={ICON[tone]} />
       <div className="min-w-0 flex-1">
         {title && <p className="font-display text-headline-sm">{title}</p>}

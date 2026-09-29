@@ -1,6 +1,6 @@
 import { Children, isValidElement, type ElementType, type ReactNode } from 'react';
 import { cx, FOCUS_RING } from '../internal/cx';
-import type { PolyProps } from '../internal/poly';
+import type { NativeProps, PolyProps } from '../internal/poly';
 import { responsive, type Responsive } from '../internal/responsive';
 import { PADDING, type Space } from '../internal/tables';
 
@@ -11,19 +11,20 @@ const TONE = {
 const PATTERN = { none: '', dots: 'bg-pattern-dots', grid: 'bg-pattern-grid' } as const;
 const ASPECT = { video: 'aspect-video', wide: 'aspect-[21/9]', square: 'aspect-square' } as const;
 
-export type CardMediaProps = { pattern?: keyof typeof PATTERN; aspect?: keyof typeof ASPECT; children?: ReactNode };
+export type CardMediaProps = NativeProps<'div', { pattern?: keyof typeof PATTERN; aspect?: keyof typeof ASPECT; children?: ReactNode }>;
+export type CardFooterProps = NativeProps<'div', { children: ReactNode }>;
 
-export function CardMedia({ pattern = 'dots', aspect = 'video', children }: CardMediaProps) {
+export function CardMedia({ pattern = 'dots', aspect = 'video', children, ...rest }: CardMediaProps) {
   return (
-    <div className={cx('relative flex min-w-0 items-center justify-center border-b border-border-subtle bg-surface-subtle group-data-[tone=inverse]/card:border-white/10 group-data-[tone=inverse]/card:bg-white/5', PATTERN[pattern], ASPECT[aspect])}>
+    <div {...rest} className={cx('relative flex min-w-0 items-center justify-center border-b border-border-subtle bg-surface-subtle group-data-[tone=inverse]/card:border-white/10 group-data-[tone=inverse]/card:bg-white/5', PATTERN[pattern], ASPECT[aspect])}>
       {children}
     </div>
   );
 }
 
-export function CardFooter({ children }: { children: ReactNode }) {
+export function CardFooter({ children, ...rest }: CardFooterProps) {
   return (
-    <div className="flex min-w-0 flex-wrap items-center justify-between gap-space-sm border-t border-border-subtle bg-surface-subtle px-space-lg py-space-sm group-data-[tone=inverse]/card:border-white/10 group-data-[tone=inverse]/card:bg-white/5">
+    <div {...rest} className="flex min-w-0 flex-wrap items-center justify-between gap-space-sm border-t border-border-subtle bg-surface-subtle px-space-lg py-space-sm group-data-[tone=inverse]/card:border-white/10 group-data-[tone=inverse]/card:bg-white/5">
       {children}
     </div>
   );

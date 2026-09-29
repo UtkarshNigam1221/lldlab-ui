@@ -2,6 +2,7 @@ import { useId, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import { Dot } from '../components/Dot';
 import { Icon } from '../components/Icon';
 import { cx } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 import { allDirs, buildTree, flattenVisible, type FileNode, type TreeItem } from './tree';
 
 const EXT_ICON: Record<string, string> = {
@@ -13,15 +14,16 @@ function fileIcon(name: string): string {
   return EXT_ICON[ext] ?? 'description';
 }
 
-export type FileTreeProps = {
+export type FileTreeProps = NativeProps<'ul', {
   nodes: FileNode[];
   activePath?: string;
   onOpen: (path: string) => void;
   defaultExpanded?: string[] | 'all';
   label: string;
-};
+  children?: never;
+}>;
 
-export function FileTree({ nodes, activePath, onOpen, defaultExpanded = 'all', label }: FileTreeProps) {
+export function FileTree({ nodes, activePath, onOpen, defaultExpanded = 'all', label, ...rest }: FileTreeProps) {
   const baseId = useId();
   const roots = useMemo(() => buildTree(nodes), [nodes]);
   // In 'all' mode track collapsed dirs, so directories that appear later (async nodes) start open.
@@ -145,7 +147,7 @@ export function FileTree({ nodes, activePath, onOpen, defaultExpanded = 'all', l
     });
 
   return (
-    <ul role="tree" aria-label={label} className="min-w-0 overflow-auto py-space-xs">
+    <ul {...rest} role="tree" aria-label={label} className="min-w-0 overflow-auto py-space-xs">
       {renderItems(roots)}
     </ul>
   );

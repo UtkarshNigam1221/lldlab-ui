@@ -1,12 +1,13 @@
 import { useRef, type KeyboardEvent } from 'react';
 import { cx, FOCUS_RING, TOUCH } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 import { rovingIndex } from '../internal/roving';
 import { Icon } from './Icon';
 
 export type SegmentedOption = { value: string; label: string; icon?: string };
-export type SegmentedControlProps = { label: string; options: SegmentedOption[]; value: string; onChange: (value: string) => void };
+export type SegmentedControlProps = NativeProps<'div', { label: string; options: SegmentedOption[]; value: string; onChange: (value: string) => void; children?: never }>;
 
-export function SegmentedControl({ label, options, value, onChange }: SegmentedControlProps) {
+export function SegmentedControl({ label, options, value, onChange, ...rest }: SegmentedControlProps) {
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
   const checkedIndex = options.findIndex((o) => o.value === value);
   const tabbable = checkedIndex === -1 ? 0 : checkedIndex;
@@ -18,7 +19,7 @@ export function SegmentedControl({ label, options, value, onChange }: SegmentedC
     onChange(options[next].value);
   };
   return (
-    <div role="radiogroup" aria-label={label} className="inline-flex min-w-0 max-w-full gap-space-2xs overflow-x-auto rounded-lg border border-border-subtle bg-surface-subtle p-space-2xs [scrollbar-width:none]">
+    <div {...rest} role="radiogroup" aria-label={label} className="inline-flex min-w-0 max-w-full gap-space-2xs overflow-x-auto rounded-lg border border-border-subtle bg-surface-subtle p-space-2xs [scrollbar-width:none]">
       {options.map((o, i) => {
         const checked = i === checkedIndex;
         return (

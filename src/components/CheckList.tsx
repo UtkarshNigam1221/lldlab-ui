@@ -1,11 +1,12 @@
 import type { ReactNode } from 'react';
+import type { NativeProps } from '../internal/poly';
 import { Icon } from './Icon';
 
-export type CheckListProps = { items: ReactNode[] };
+export type CheckListProps = NativeProps<'ul', { items: ReactNode[]; children?: never }>;
 
-export function CheckList({ items }: CheckListProps) {
+export function CheckList({ items, ...rest }: CheckListProps) {
   return (
-    <ul className="flex min-w-0 flex-col gap-space-xs">
+    <ul {...rest} className="flex min-w-0 flex-col gap-space-xs">
       {items.map((item, i) => (
         <li key={i} className="flex items-start gap-space-xs font-body-md text-body-md text-on-surface">
           <Icon name="check" size="sm" tone="success" />

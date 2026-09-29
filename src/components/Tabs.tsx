@@ -1,5 +1,6 @@
 import { useId, useRef, type ElementType, type KeyboardEvent, type ReactNode } from 'react';
 import { cx, FOCUS_RING, TOUCH } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 import { rovingIndex } from '../internal/roving';
 import type { StatusTone } from '../internal/tones';
 import { Badge } from './Badge';
@@ -7,7 +8,7 @@ import { Dot } from './Dot';
 
 /** `panelId` links a tablist tab to a `<TabPanel id={panelId}>` (aria-controls / aria-labelledby). */
 export type TabItem = { id: string; label: ReactNode; count?: number; dot?: StatusTone; href?: string; as?: ElementType; panelId?: string };
-export type TabsProps = { items: TabItem[]; value: string; onChange?: (id: string) => void; variant?: 'underline' | 'pills'; label: string };
+export type TabsProps = NativeProps<'div', { items: TabItem[]; value: string; onChange?: (id: string) => void; variant?: 'underline' | 'pills'; label: string; children?: never }>;
 
 const VARIANT = {
   underline: {
@@ -35,7 +36,7 @@ function TabBody({ item }: { item: TabItem }) {
 }
 
 /** Scrolls horizontally instead of wrapping. Links (any item with href) render as navigation, not a tablist. */
-export function Tabs({ items, value, onChange, variant = 'underline', label }: TabsProps) {
+export function Tabs({ items, value, onChange, variant = 'underline', label, ...rest }: TabsProps) {
   const baseId = useId();
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
   if (!items.length) return null;
@@ -43,7 +44,7 @@ export function Tabs({ items, value, onChange, variant = 'underline', label }: T
 
   if (items.some((i) => i.href)) {
     return (
-      <nav aria-label={label} className="min-w-0 max-w-full">
+      <nav {...(rest as NativeProps<'nav', object>)} aria-label={label} className="min-w-0 max-w-full">
         <ul className={v.list}>
           {items.map((item) => {
             const C: ElementType = item.as ?? 'a';
@@ -70,7 +71,7 @@ export function Tabs({ items, value, onChange, variant = 'underline', label }: T
     onChange?.(items[next].id);
   };
   return (
-    <div role="tablist" aria-label={label} className={v.list}>
+    <div {...rest} role="tablist" aria-label={label} className={v.list}>
       {items.map((item, i) => {
         const active = i === activeIndex;
         return (
@@ -97,12 +98,12 @@ export function Tabs({ items, value, onChange, variant = 'underline', label }: T
   );
 }
 
-export type TabPanelProps = { id: string; active: boolean; children: ReactNode };
+export type TabPanelProps = NativeProps<'div', { id: string; active: boolean; children: ReactNode }>;
 
 /** Content for the tab whose `panelId` is `id`; hidden (not unmounted) when inactive. */
-export function TabPanel({ id, active, children }: TabPanelProps) {
+export function TabPanel({ id, active, children, ...rest }: TabPanelProps) {
   return (
-    <div role="tabpanel" id={id} aria-labelledby={`${id}-tab`} hidden={!active} tabIndex={0} className={cx('min-w-0 outline-none', FOCUS_RING)}>
+    <div {...rest} role="tabpanel" id={id} aria-labelledby={`${id}-tab`} hidden={!active} tabIndex={0} className={cx('min-w-0 outline-none', FOCUS_RING)}>
       {children}
     </div>
   );

@@ -1,14 +1,15 @@
 import type { ElementType } from 'react';
 import { Icon } from '../components/Icon';
 import { cx, FOCUS_RING } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 
 export type Crumb = { label: string; href?: string; as?: ElementType };
-export type BreadcrumbsProps = { items: Crumb[]; label?: string };
+export type BreadcrumbsProps = NativeProps<'nav', { items: Crumb[]; label?: string; children?: never }>;
 
-export function Breadcrumbs({ items, label = 'Breadcrumb' }: BreadcrumbsProps) {
+export function Breadcrumbs({ items, label = 'Breadcrumb', ...rest }: BreadcrumbsProps) {
   const collapse = items.length > 2;
   return (
-    <nav aria-label={label} className="min-w-0">
+    <nav {...rest} aria-label={label} className="min-w-0">
       <ol className="flex min-w-0 items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
         {items.map((c, i) => {
           const last = i === items.length - 1;

@@ -25,8 +25,8 @@ export function TextField({ label, hideLabel, icon, hint, error, id, ...rest }: 
         <input
           {...rest}
           id={inputId}
-          aria-invalid={error ? true : undefined}
-          aria-describedby={error ? errorId : undefined}
+          aria-invalid={error ? true : rest['aria-invalid']}
+          aria-describedby={cx(rest['aria-describedby'], error && errorId) || undefined}
           className="h-full min-w-0 flex-1 bg-transparent font-body-md text-body-md text-on-surface outline-none placeholder:text-on-surface-variant"
         />
         {hint && <span className="shrink-0">{hint}</span>}

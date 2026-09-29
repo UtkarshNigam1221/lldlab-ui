@@ -1,6 +1,7 @@
 import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { cx } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 import { Code } from '../primitives/Code';
 import { Heading } from '../primitives/Heading';
 import { Icon } from './Icon';
@@ -48,11 +49,11 @@ const components: Components = {
   td: ({ children }) => <td className="border border-border-subtle px-space-sm py-space-xs">{children}</td>,
 };
 
-export type MarkdownProps = { children: string };
+export type MarkdownProps = NativeProps<'div', { children: string }>;
 
-export function Markdown({ children }: MarkdownProps) {
+export function Markdown({ children, ...rest }: MarkdownProps) {
   return (
-    <div className="flex min-w-0 flex-col gap-space-sm">
+    <div {...rest} className="flex min-w-0 flex-col gap-space-sm">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
         {children}
       </ReactMarkdown>

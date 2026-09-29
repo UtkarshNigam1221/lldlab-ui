@@ -1,9 +1,10 @@
 import { useState, type ReactNode } from 'react';
 import { cx } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 
 const SIZE = { sm: 'size-7 text-[11px]', md: 'size-9 text-xs', lg: 'size-12 text-sm' } as const;
 
-export type AvatarProps = { name: string; src?: string; size?: keyof typeof SIZE; badge?: ReactNode };
+export type AvatarProps = NativeProps<'span', { name: string; src?: string; size?: keyof typeof SIZE; badge?: ReactNode; children?: never }>;
 
 function initials(name: string): string {
   return name
@@ -14,10 +15,10 @@ function initials(name: string): string {
     .join('');
 }
 
-export function Avatar({ name, src, size = 'md', badge }: AvatarProps) {
+export function Avatar({ name, src, size = 'md', badge, ...rest }: AvatarProps) {
   const [failed, setFailed] = useState(false);
   return (
-    <span className="relative inline-flex shrink-0">
+    <span {...rest} className="relative inline-flex shrink-0">
       {src && !failed ? (
         <img src={src} alt={name} onError={() => setFailed(true)} className={cx('rounded-full object-cover', SIZE[size])} />
       ) : (

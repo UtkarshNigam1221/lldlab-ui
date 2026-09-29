@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { cx } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 
 export type BadgeTone = 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | 'info';
 
@@ -13,11 +14,11 @@ const TONE: Record<BadgeTone, string> = {
 };
 const SIZE = { sm: 'px-space-xs py-space-2xs', md: 'px-space-sm py-space-xs' } as const;
 
-export type BadgeProps = { tone?: BadgeTone; uppercase?: boolean; size?: keyof typeof SIZE; children: ReactNode };
+export type BadgeProps = NativeProps<'span', { tone?: BadgeTone; uppercase?: boolean; size?: keyof typeof SIZE; children: ReactNode }>;
 
-export function Badge({ tone = 'neutral', uppercase, size = 'sm', children }: BadgeProps) {
+export function Badge({ tone = 'neutral', uppercase, size = 'sm', children, ...rest }: BadgeProps) {
   return (
-    <span className={cx('inline-flex items-center gap-space-2xs whitespace-nowrap rounded font-label-mono text-label-mono', TONE[tone], SIZE[size], uppercase && 'uppercase tracking-wider')}>
+    <span {...rest} className={cx('inline-flex items-center gap-space-2xs whitespace-nowrap rounded font-label-mono text-label-mono', TONE[tone], SIZE[size], uppercase && 'uppercase tracking-wider')}>
       {children}
     </span>
   );

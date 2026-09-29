@@ -1,13 +1,14 @@
 import { useEffect, useId, useRef, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { cx } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 import { useThemeTone } from '../theme/Theme';
 import { IconButton } from './IconButton';
 
 const SIZE = { sm: 'max-w-sm', md: 'max-w-md', lg: 'max-w-2xl' } as const;
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-export type DialogProps = {
+export type DialogProps = NativeProps<'div', {
   open: boolean;
   onClose: () => void;
   title: ReactNode;
@@ -15,9 +16,10 @@ export type DialogProps = {
   footer?: ReactNode;
   size?: keyof typeof SIZE;
   children?: ReactNode;
-};
+}>;
 
-export function Dialog({ open, onClose, title, description, footer, size = 'md', children }: DialogProps) {
+/** Native props (id, data-*, aria-*) go to the dialog panel. */
+export function Dialog({ open, onClose, title, description, footer, size = 'md', children, ...rest }: DialogProps) {
   const titleId = useId();
   const descId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -84,6 +86,7 @@ export function Dialog({ open, onClose, title, description, footer, size = 'md',
       }}
     >
       <div
+        {...rest}
         ref={panelRef}
         role="dialog"
         aria-modal="true"

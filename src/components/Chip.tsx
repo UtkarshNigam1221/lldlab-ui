@@ -1,13 +1,14 @@
 import { cx, FOCUS_RING, TOUCH_ICON } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 import { Icon } from './Icon';
 
 const TONE = { neutral: 'border-border-subtle text-on-surface', brand: 'border-brand-cobalt/40 text-fg-brand' } as const;
 
-export type ChipProps = { tone?: keyof typeof TONE; icon?: string; onRemove?: () => void; children: string };
+export type ChipProps = NativeProps<'span', { tone?: keyof typeof TONE; icon?: string; onRemove?: () => void; children: string }>;
 
-export function Chip({ tone = 'neutral', icon, onRemove, children }: ChipProps) {
+export function Chip({ tone = 'neutral', icon, onRemove, children, ...rest }: ChipProps) {
   return (
-    <span className={cx('inline-flex max-w-full items-center gap-space-2xs rounded-full border bg-surface-elevated px-space-sm py-space-2xs font-body-sm text-body-sm', TONE[tone])}>
+    <span {...rest} className={cx('inline-flex max-w-full items-center gap-space-2xs rounded-full border bg-surface-elevated px-space-sm py-space-2xs font-body-sm text-body-sm', TONE[tone])}>
       {icon && <Icon name={icon} size="sm" />}
       <span className="truncate">{children}</span>
       {onRemove && (

@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type ElementType, type KeyboardEvent, type ReactNode, type RefObject } from 'react';
 import { cx, TOUCH } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 import { rovingIndex } from '../internal/roving';
 import { Icon } from './Icon';
 
@@ -15,9 +16,9 @@ export type MenuTriggerProps = {
   onKeyDown: (e: KeyboardEvent) => void;
 };
 
-export type MenuProps = { label: string; trigger: (props: MenuTriggerProps) => ReactNode; items: MenuItem[]; align?: 'start' | 'end' };
+export type MenuProps = NativeProps<'div', { label: string; trigger: (props: MenuTriggerProps) => ReactNode; items: MenuItem[]; align?: 'start' | 'end'; children?: never }>;
 
-export function Menu({ label, trigger, items, align = 'end' }: MenuProps) {
+export function Menu({ label, trigger, items, align = 'end', ...rest }: MenuProps) {
   const [open, setOpen] = useState(false);
   const triggerId = useId();
   const menuId = useId();
@@ -80,7 +81,7 @@ export function Menu({ label, trigger, items, align = 'end' }: MenuProps) {
   };
 
   return (
-    <div ref={rootRef} className="relative inline-flex">
+    <div {...rest} ref={rootRef} className="relative inline-flex">
       {trigger({
         ref: triggerRef,
         id: triggerId,

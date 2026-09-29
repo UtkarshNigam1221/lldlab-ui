@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { Icon } from '../components/Icon';
 import { cx } from '../internal/cx';
+import type { NativeProps } from '../internal/poly';
 
-export type CountdownProps = {
+export type CountdownProps = NativeProps<'span', {
   seconds?: number;
   until?: Date;
   direction?: 'down' | 'up';
   warnAt?: number;
   onExpire?: () => void;
   label?: string;
-};
+  children?: never;
+}>;
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -20,7 +22,7 @@ export function formatClock(totalSeconds: number): string {
   return h > 0 ? `${h}:${pad(m)}:${pad(s % 60)}` : `${pad(m)}:${pad(s % 60)}`;
 }
 
-export function Countdown({ seconds, until, direction = 'down', warnAt, onExpire, label = 'Time remaining' }: CountdownProps) {
+export function Countdown({ seconds, until, direction = 'down', warnAt, onExpire, label = 'Time remaining', ...rest }: CountdownProps) {
   const [start] = useState(() => Date.now());
   // A deadline depends on wall-clock time, which differs between server render and hydration:
   // leave it unknown (null) until mounted so both renders emit the same text.
@@ -55,7 +57,7 @@ export function Countdown({ seconds, until, direction = 'down', warnAt, onExpire
 
   const warn = direction === 'down' && warnAt !== undefined && value !== null && value <= warnAt;
   return (
-    <span role="timer" aria-label={label} className={cx('inline-flex items-center gap-space-2xs font-code-inline text-code-inline tabular-nums', warn ? 'text-fg-danger' : 'text-on-surface')}>
+    <span {...rest} role="timer" aria-label={label} className={cx('inline-flex items-center gap-space-2xs font-code-inline text-code-inline tabular-nums', warn ? 'text-fg-danger' : 'text-on-surface')}>
       <Icon name="timer" size="sm" />
       {value === null ? '--:--' : formatClock(value)}
     </span>
