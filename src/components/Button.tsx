@@ -1,9 +1,10 @@
 import type { ElementType, ReactNode } from 'react';
 import { cx, FOCUS_RING, TOUCH } from '../internal/cx';
 import type { PolyProps } from '../internal/poly';
+import type { Tone } from '../internal/tones';
 import { Icon } from './Icon';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'subtle' | 'ghost' | 'danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'subtle' | 'ghost' | 'danger' | 'brand' | 'accent';
 
 const VARIANT: Record<ButtonVariant, string> = {
   primary: 'bg-ink text-on-ink shadow-sm hover:bg-ink-hover',
@@ -11,6 +12,9 @@ const VARIANT: Record<ButtonVariant, string> = {
   subtle: 'bg-surface-subtle text-on-surface hover:bg-surface-muted',
   ghost: 'bg-transparent text-on-surface hover:bg-surface-muted',
   danger: 'bg-danger text-white shadow-sm hover:bg-danger-hover',
+  brand: 'bg-brand-cobalt text-white shadow-sm hover:bg-brand-cobalt-hover',
+  // Crimson call to action (not destructive): #DC2626 keeps white text at AA.
+  accent: 'bg-brand-crimson-hover text-white shadow-sm hover:bg-danger',
 };
 const SIZE = { sm: 'h-8 px-space-md', md: 'h-10 px-space-lg', lg: 'h-12 px-space-lg' } as const;
 
@@ -19,6 +23,10 @@ type ButtonOwnProps = {
   size?: keyof typeof SIZE;
   icon?: string;
   iconRight?: string;
+  iconTone?: Tone;
+  iconFilled?: boolean;
+  /** Custom leading content (e.g. a brand logo); replaces `icon`. */
+  leading?: ReactNode;
   fullWidth?: boolean;
   loading?: boolean;
   disabled?: boolean;
@@ -32,6 +40,9 @@ export function Button<E extends ElementType = 'button'>({
   size = 'md',
   icon,
   iconRight,
+  iconTone,
+  iconFilled,
+  leading,
   fullWidth,
   loading,
   disabled,
@@ -44,6 +55,13 @@ export function Button<E extends ElementType = 'button'>({
   const state = native
     ? { type: (rest as unknown as { type?: string }).type ?? 'button', disabled: off }
     : { 'aria-disabled': off || undefined };
+  const start = loading ? (
+    <Icon name="progress_activity" size="sm" spin />
+  ) : leading ? (
+    <span className="inline-flex shrink-0 items-center">{leading}</span>
+  ) : (
+    icon && <Icon name={icon} size="sm" tone={iconTone} filled={iconFilled} />
+  );
   return (
     <C
       {...rest}
@@ -59,8 +77,8 @@ export function Button<E extends ElementType = 'button'>({
         fullWidth && 'w-full',
       )}
     >
-      {loading ? <Icon name="progress_activity" size="sm" spin /> : icon && <Icon name={icon} size="sm" />}
-      <span className="truncate">{children}</span>
+      {start}
+      <span className="inline-flex min-w-0 items-center gap-space-xs truncate">{children}</span>
       {iconRight && <Icon name={iconRight} size="sm" />}
     </C>
   );
