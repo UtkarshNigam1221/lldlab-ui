@@ -91,3 +91,38 @@ describe('Dialog', () => {
     expect(screen.getByRole('dialog').parentElement).toHaveAttribute('data-theme', 'dark');
   });
 });
+
+describe('Dialog (review fixes)', () => {
+  it('takes the theme from its React scope even when nothing inside it has focus', () => {
+    render(
+      <Theme tone="dark">
+        <Dialog open onClose={() => {}} title="Timed out" />
+      </Theme>,
+    );
+    expect(screen.getByRole('dialog').parentElement).toHaveAttribute('data-theme', 'dark');
+  });
+  it('does not close when a nested widget already handled Escape', async () => {
+    const onClose = vi.fn();
+    render(
+      <Dialog open onClose={onClose} title="x">
+        <input aria-label="inner" onKeyDown={(e) => e.key === 'Escape' && e.preventDefault()} />
+      </Dialog>,
+    );
+    screen.getByRole('textbox', { name: 'inner' }).focus();
+    await userEvent.keyboard('{Escape}');
+    expect(onClose).not.toHaveBeenCalled();
+  });
+  it('wraps Shift+Tab from the panel itself to the last focusable', async () => {
+    render(
+      <>
+        <button type="button">behind</button>
+        <Dialog open onClose={() => {}} title="x">
+          <input aria-label="field" />
+        </Dialog>
+      </>,
+    );
+    screen.getByRole('dialog').focus();
+    await userEvent.tab({ shift: true });
+    expect(screen.getByRole('button', { name: 'Close' })).toHaveFocus();
+  });
+});

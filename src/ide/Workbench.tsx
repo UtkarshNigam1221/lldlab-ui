@@ -180,7 +180,7 @@ function WorkbenchRoot({ header, left, main, right, bottom, labels: labelsProp, 
   useEffect(() => {
     if (!drawer) return;
     const onKey = (e: globalThis.KeyboardEvent) => {
-      if (e.key === 'Escape') setDrawer(null);
+      if (e.key === 'Escape' && !e.defaultPrevented) setDrawer(null);
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);

@@ -81,3 +81,25 @@ describe('Menu', () => {
     expect(screen.getByRole('menuitem', { name: 'Sign out' })).toHaveClass('text-fg-danger');
   });
 });
+
+describe('Menu (review fixes)', () => {
+  it('click-open focuses the first item', async () => {
+    const { trigger } = setup();
+    await userEvent.click(trigger);
+    expect(screen.getByRole('menuitem', { name: 'Profile' })).toHaveFocus();
+  });
+  it('ArrowDown on the trigger of an already open menu moves focus into it', async () => {
+    const { trigger } = setup();
+    await userEvent.click(trigger);
+    trigger.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    expect(screen.getByRole('menuitem', { name: 'Profile' })).toHaveFocus();
+  });
+  it('Escape on the trigger closes an open menu', async () => {
+    const { trigger } = setup();
+    await userEvent.click(trigger);
+    trigger.focus();
+    await userEvent.keyboard('{Escape}');
+    expect(screen.queryByRole('menu')).toBeNull();
+  });
+});

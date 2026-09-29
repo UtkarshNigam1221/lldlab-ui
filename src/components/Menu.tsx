@@ -46,13 +46,19 @@ export function Menu({ label, trigger, items, align = 'end' }: MenuProps) {
     return () => document.removeEventListener('mousedown', onDown);
   }, [open]);
 
+  // Open the menu with focus on item `index`, or move focus there if it is already open.
+  const focusItem = (index: number) => (open ? itemRefs.current[index]?.focus() : openAt(index));
+
   const onTriggerKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      openAt(0);
+      focusItem(0);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      openAt(items.length - 1);
+      focusItem(items.length - 1);
+    } else if (e.key === 'Escape' && open) {
+      e.preventDefault();
+      close(true);
     }
   };
 
@@ -81,7 +87,7 @@ export function Menu({ label, trigger, items, align = 'end' }: MenuProps) {
         'aria-haspopup': 'menu',
         'aria-expanded': open,
         'aria-controls': open ? menuId : undefined,
-        onClick: () => (open ? close(false) : openAt(null)),
+        onClick: () => (open ? close(false) : openAt(0)),
         onKeyDown: onTriggerKeyDown,
       })}
       {open && (

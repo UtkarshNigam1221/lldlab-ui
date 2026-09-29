@@ -1,6 +1,7 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { cx } from '../internal/cx';
+import { useThemeTone } from '../theme/Theme';
 import { IconButton } from './IconButton';
 
 const SIZE = { sm: 'max-w-sm', md: 'max-w-md', lg: 'max-w-2xl' } as const;
@@ -22,7 +23,8 @@ export function Dialog({ open, onClose, title, description, footer, size = 'md',
   const panelRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
-  const [theme, setTheme] = useState<string | undefined>(undefined);
+  // Portals leave the scope's DOM, so the tone comes from the React tree, not from focus.
+  const theme = useThemeTone();
 
   useEffect(() => {
     onCloseRef.current = onClose;
@@ -31,7 +33,6 @@ export function Dialog({ open, onClose, title, description, footer, size = 'md',
   useEffect(() => {
     if (!open) return;
     const opener = document.activeElement as HTMLElement | null;
-    setTheme(opener?.closest('[data-theme]')?.getAttribute('data-theme') ?? undefined);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const panel = panelRef.current!;
@@ -39,6 +40,8 @@ export function Dialog({ open, onClose, title, description, footer, size = 'md',
     (contentRef.current?.querySelector<HTMLElement>(FOCUSABLE) ?? focusables()[0] ?? panel).focus();
 
     const onKey = (e: KeyboardEvent) => {
+      // A nested widget (e.g. a Menu) that already handled the key owns it.
+      if (e.defaultPrevented) return;
       if (e.key === 'Escape') {
         e.preventDefault();
         onCloseRef.current();
@@ -49,10 +52,12 @@ export function Dialog({ open, onClose, title, description, footer, size = 'md',
       if (!els.length) return;
       const first = els[0];
       const last = els[els.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
+      const active = document.activeElement;
+      const onEdge = active === panel || !panel.contains(active);
+      if (e.shiftKey && (active === first || onEdge)) {
         e.preventDefault();
         last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
+      } else if (!e.shiftKey && (active === last || onEdge)) {
         e.preventDefault();
         first.focus();
       }
