@@ -51,3 +51,5 @@ export { Divider, type DividerProps } from './components/Divider';
 export { IconTile, type IconTileProps, type IconTileTone } from './components/IconTile';
 export { AvatarGroup, type AvatarGroupProps } from './ide/AvatarGroup';
 export { AppBar, type AppBarProps } from './primitives/AppBar';
+export { NavList, type NavItem, type NavListProps } from './components/NavList';
+export { Pagination, pageRange, type PaginationProps } from './components/Pagination';
