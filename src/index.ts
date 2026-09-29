@@ -36,3 +36,8 @@ export { Tabs, type TabItem, type TabsProps } from './components/Tabs';
 export { SegmentedControl, type SegmentedControlProps, type SegmentedOption } from './components/SegmentedControl';
 export { Dialog, type DialogProps } from './components/Dialog';
 export { Menu, type MenuItem, type MenuProps, type MenuTriggerProps } from './components/Menu';
+export { Breadcrumbs, type BreadcrumbsProps, type Crumb } from './ide/Breadcrumbs';
+export { StatusBar, type StatusBarProps, type StatusItemProps } from './ide/StatusBar';
+export { MetricTile, type MetricTileProps } from './ide/MetricTile';
+export { Avatar, type AvatarProps } from './ide/Avatar';
+export { EditorTabs, type EditorTab, type EditorTabsProps } from './ide/EditorTabs';
