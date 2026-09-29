@@ -9,3 +9,4 @@ consumer-check/.next/
 consumer-check/next-env.d.ts
 .superpowers/
 .idea/
+consumer-check/package-lock.json
