@@ -1,0 +1,259 @@
+/* lldlab-ui design tokens. Consumer: @import "tailwindcss"; @import "lldlab-ui/theme.css"; @source "../node_modules/lldlab-ui/dist"; */
+
+@theme {
+  /* Stitch palette (project 11306194258113371738) */
+  --color-on-error-container: #93000a;
+  --color-badge-amber-text: #B45309;
+  --color-brand-cobalt: #2563EB;
+  --color-surface-container: #e5eeff;
+  --color-inverse-primary: #bec6e0;
+  --color-surface-subtle: #F8FAFC;
+  --color-surface-container-high: #dce9ff;
+  --color-surface-variant: #d3e4fe;
+  --color-brand-crimson-hover: #DC2626;
+  --color-surface-container-low: #eff4ff;
+  --color-on-secondary: #ffffff;
+  --color-surface-container-highest: #d3e4fe;
+  --color-tertiary-container: #410004;
+  --color-border-strong: #CBD5E1;
+  --color-on-surface: #0b1c30;
+  --color-tertiary-fixed-dim: #ffb3ad;
+  --color-background: #f8f9ff;
+  --color-primary-fixed: #dae2fd;
+  --color-error: #ba1a1a;
+  --color-tertiary-fixed: #ffdad7;
+  --color-on-background: #0b1c30;
+  --color-secondary-fixed-dim: #b4c5ff;
+  --color-surface-muted: #F1F5F9;
+  --color-on-tertiary: #ffffff;
+  --color-badge-intermediate-bg: #EFF6FF;
+  --color-on-primary: #ffffff;
+  --color-on-secondary-container: #fefcff;
+  --color-brand-emerald: #10B981;
+  --color-surface-bright: #f8f9ff;
+  --color-brand-amber: #F59E0B;
+  --color-outline-variant: #c6c6cd;
+  --color-primary: #000000;
+  --color-inverse-on-surface: #eaf1ff;
+  --color-on-primary-container: #7c839b;
+  --color-surface-elevated: #FFFFFF;
+  --color-error-container: #ffdad6;
+  --color-surface-dim: #cbdbf5;
+  --color-on-surface-variant: #45464d;
+  --color-secondary-container: #316bf3;
+  --color-tertiary: #000000;
+  --color-secondary: #0051d5;
+  --color-on-primary-fixed-variant: #3f465c;
+  --color-surface-canvas: #FFFFFF;
+  --color-inverse-surface: #213145;
+  --color-on-tertiary-container: #ef4444;
+  --color-on-primary-fixed: #131b2e;
+  --color-badge-amber-bg: #FFFBEB;
+  --color-secondary-fixed: #dbe1ff;
+  --color-brand-slate: #1E293B;
+  --color-primary-fixed-dim: #bec6e0;
+  --color-on-tertiary-fixed-variant: #930013;
+  --color-on-tertiary-fixed: #410004;
+  --color-on-secondary-fixed-variant: #003ea8;
+  --color-on-error: #ffffff;
+  --color-surface-container-lowest: #ffffff;
+  --color-brand-cobalt-hover: #1D4ED8;
+  --color-badge-advanced-bg: #FEF2F2;
+  --color-on-secondary-fixed: #00174b;
+  --color-brand-crimson: #EF4444;
+  --color-badge-advanced-text: #B91C1C;
+  --color-badge-beginner-text: #047857;
+  --color-brand-amber-hover: #D97706;
+  --color-surface-tint: #565e74;
+  --color-border-subtle: #E2E8F0;
+  --color-brand-obsidian: #0F172A;
+  --color-outline: #76777d;
+  --color-badge-intermediate-text: #1D4ED8;
+  --color-primary-container: #131b2e;
+  --color-surface: #f8f9ff;
+  --color-badge-beginner-bg: #ECFDF5;
+
+  /* Semantic tokens (lldlab-ui): these flip in the dark scope. */
+  --color-ink: #0F172A;
+  --color-ink-hover: #1E293B;
+  --color-on-ink: #FFFFFF;
+  --color-fg-brand: #1D4ED8;
+  --color-fg-success: #047857;
+  --color-fg-warning: #B45309;
+  --color-fg-danger: #B91C1C;
+  --color-danger: #B91C1C;
+  --color-danger-hover: #991B1B;
+
+  /* Spacing */
+  --spacing-margin-mobile: 1rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-margin: 2rem;
+  --spacing-gutter-sm: 1rem;
+  --spacing-space-2xs: 0.125rem;
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-2xl: 4rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-lg: 1.5rem;
+  /* Fluid: 1rem at 390px up to 2rem at 1280px+ */
+  --spacing-gutter-fluid: clamp(1rem, 0.56rem + 1.8vw, 2rem);
+  --spacing-section-md: clamp(2rem, 1.1rem + 3.6vw, 4rem);
+  --spacing-section-lg: clamp(3rem, 1.65rem + 5.4vw, 6rem);
+  --spacing-section-xl: clamp(4rem, 2.2rem + 7.2vw, 8rem);
+
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+}
+
+@theme inline {
+  --font-display: var(--font-space-grotesk);
+  --font-headline-xl: var(--font-space-grotesk);
+  --font-headline-lg: var(--font-space-grotesk);
+  --font-headline-md: var(--font-space-grotesk);
+  --font-headline-sm: var(--font-space-grotesk);
+  --font-body-lead: var(--font-inter);
+  --font-body-md: var(--font-inter);
+  --font-body-sm: var(--font-inter);
+  --font-button-text: var(--font-inter);
+  --font-label-mono: var(--font-jetbrains-mono);
+  --font-code-inline: var(--font-jetbrains-mono);
+}
+
+@theme {
+  /* Fluid type: the mockup's mobile size at ~390px up to its desktop size at ~1280px. */
+  --text-display: clamp(2.25rem, 1.8rem + 2vw, 3.5rem);
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 700;
+  --text-headline-xl: clamp(1.75rem, 1.45rem + 1.2vw, 2.5rem);
+  --text-headline-xl--line-height: 1.2;
+  --text-headline-xl--letter-spacing: -0.03em;
+  --text-headline-xl--font-weight: 700;
+  --text-headline-lg: clamp(1.5rem, 1.3rem + 0.8vw, 1.875rem);
+  --text-headline-lg--line-height: 1.25;
+  --text-headline-lg--letter-spacing: -0.025em;
+  --text-headline-lg--font-weight: 600;
+  --text-headline-md: 1.375rem;
+  --text-headline-md--line-height: 1.3;
+  --text-headline-md--letter-spacing: -0.02em;
+  --text-headline-md--font-weight: 600;
+  --text-headline-sm: 1.125rem;
+  --text-headline-sm--line-height: 1.4;
+  --text-headline-sm--letter-spacing: -0.015em;
+  --text-headline-sm--font-weight: 600;
+  --text-body-lead: 1.125rem;
+  --text-body-lead--line-height: 1.65;
+  --text-body-lead--letter-spacing: -0.01em;
+  --text-body-lead--font-weight: 400;
+  --text-body-md: 0.9375rem;
+  --text-body-md--line-height: 1.6;
+  --text-body-md--letter-spacing: -0.006em;
+  --text-body-md--font-weight: 400;
+  --text-body-sm: 0.8125rem;
+  --text-body-sm--line-height: 1.5;
+  --text-body-sm--letter-spacing: 0;
+  --text-body-sm--font-weight: 400;
+  --text-label-mono: 0.75rem;
+  --text-label-mono--line-height: 1.2;
+  --text-label-mono--letter-spacing: 0.08em;
+  --text-label-mono--font-weight: 600;
+  --text-code-inline: 0.8125rem;
+  --text-code-inline--line-height: 1.4;
+  --text-code-inline--letter-spacing: -0.01em;
+  --text-code-inline--font-weight: 500;
+  --text-button-text: 0.875rem;
+  --text-button-text--line-height: 1;
+  --text-button-text--letter-spacing: -0.01em;
+  --text-button-text--font-weight: 600;
+}
+
+@utility bg-pattern-dots {
+  background-image: radial-gradient(var(--color-border-strong) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+@utility bg-pattern-grid {
+  background-image:
+    linear-gradient(var(--color-border-subtle) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border-subtle) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@utility icon-filled {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* Dark scope: <Theme tone="dark"> (or any [data-theme="dark"] ancestor). Palette from the IDE mockup (slate/obsidian). */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-surface: #020617;
+  --color-background: #020617;
+  --color-surface-canvas: #020617;
+  --color-surface-bright: #0F172A;
+  --color-surface-subtle: #0F172A;
+  --color-surface-elevated: #0F172A;
+  --color-surface-muted: #1E293B;
+  --color-surface-container-lowest: #020617;
+  --color-surface-container-low: #0B1220;
+  --color-surface-container: #1E293B;
+  --color-surface-container-high: #334155;
+  --color-surface-container-highest: #475569;
+  --color-on-surface: #E2E8F0;
+  --color-on-background: #E2E8F0;
+  --color-on-surface-variant: #94A3B8;
+  --color-border-subtle: #1E293B;
+  --color-border-strong: #334155;
+  --color-ink: #F8FAFC;
+  --color-ink-hover: #E2E8F0;
+  --color-on-ink: #0F172A;
+  --color-fg-brand: #60A5FA;
+  --color-fg-success: #34D399;
+  --color-fg-warning: #FBBF24;
+  --color-fg-danger: #F87171;
+  --color-badge-beginner-bg: #052E26;
+  --color-badge-beginner-text: #6EE7B7;
+  --color-badge-intermediate-bg: #172554;
+  --color-badge-intermediate-text: #93C5FD;
+  --color-badge-amber-bg: #451A03;
+  --color-badge-amber-text: #FCD34D;
+  --color-badge-advanced-bg: #450A0A;
+  --color-badge-advanced-text: #FCA5A5;
+}
+
+/* Light scope: resets the tokens above when nested inside a dark scope. */
+[data-theme="light"] {
+  color-scheme: light;
+  --color-surface: #f8f9ff;
+  --color-background: #f8f9ff;
+  --color-surface-canvas: #FFFFFF;
+  --color-surface-bright: #f8f9ff;
+  --color-surface-subtle: #F8FAFC;
+  --color-surface-elevated: #FFFFFF;
+  --color-surface-muted: #F1F5F9;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #eff4ff;
+  --color-surface-container: #e5eeff;
+  --color-surface-container-high: #dce9ff;
+  --color-surface-container-highest: #d3e4fe;
+  --color-on-surface: #0b1c30;
+  --color-on-background: #0b1c30;
+  --color-on-surface-variant: #45464d;
+  --color-border-subtle: #E2E8F0;
+  --color-border-strong: #CBD5E1;
+  --color-ink: #0F172A;
+  --color-ink-hover: #1E293B;
+  --color-on-ink: #FFFFFF;
+  --color-fg-brand: #1D4ED8;
+  --color-fg-success: #047857;
+  --color-fg-warning: #B45309;
+  --color-fg-danger: #B91C1C;
+  --color-badge-beginner-bg: #ECFDF5;
+  --color-badge-beginner-text: #047857;
+  --color-badge-intermediate-bg: #EFF6FF;
+  --color-badge-intermediate-text: #1D4ED8;
+  --color-badge-amber-bg: #FFFBEB;
+  --color-badge-amber-text: #B45309;
+  --color-badge-advanced-bg: #FEF2F2;
+  --color-badge-advanced-text: #B91C1C;
+}
