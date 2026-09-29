@@ -207,3 +207,63 @@ describe('inputs and tiles (0.3.0)', () => {
     expect(container.querySelector('.text-brand-cobalt')).not.toBeNull();
   });
 });
+
+describe('TextField width (0.3.0)', () => {
+  it('can take a fixed width', () => {
+    const { container } = render(<TextField label="Search" hideLabel width="md" />);
+    expect(container.firstElementChild).toHaveClass('w-80');
+  });
+});
+
+describe('Tabs item title (0.3.0)', () => {
+  it('passes a tooltip title to disabled nav items', () => {
+    render(<Tabs label="Main" variant="nav" value="" items={[{ id: 'x', label: 'Playground', href: '/x', disabled: true, title: 'Coming soon' }]} />);
+    expect(screen.getByText('Playground').closest('[aria-disabled="true"]')).toHaveAttribute('title', 'Coming soon');
+  });
+});
+
+import { Show } from './primitives/Show';
+
+describe('2xl breakpoint (0.3.0)', () => {
+  it('Show above/below 2xl', () => {
+    const { container } = render(<Show above="2xl">x</Show>);
+    expect(container.firstElementChild).toHaveClass('hidden', '2xl:contents');
+  });
+  it('Tabs items can hide below a breakpoint', () => {
+    render(<Tabs label="Main" variant="nav" value="" items={[{ id: 'x', label: 'Playground', href: '/x', hideBelow: '2xl' }]} />);
+    expect(screen.getByRole('link', { name: 'Playground' }).closest('li')).toHaveClass('hidden', '2xl:flex');
+  });
+});
+
+import { UmlClass } from './ide/UmlClass';
+
+describe('UmlClass tinted (0.3.0)', () => {
+  it('renders a borderless card with a tinted title block and cobalt methods', () => {
+    const { container } = render(
+      <UmlClass variant="tinted" headerTone="info" stereotype="implements" name="PercentOff" attributes={['- percent: number']} methods={['+ apply(total): number']} />,
+    );
+    const root = container.firstElementChild!;
+    expect(root).toHaveClass('shadow-sm');
+    expect(root.className).not.toMatch(/\bborder\b/);
+    expect(screen.getByText('PercentOff')).toHaveClass('font-headline-sm');
+    expect(screen.getByText('PercentOff').parentElement).toHaveClass('bg-badge-intermediate-bg');
+    expect(screen.getByText('+ apply(total): number')).toHaveClass('text-fg-brand');
+  });
+  it('strong header puts the tag at the end of the title row; members can use two columns', () => {
+    render(<UmlClass variant="tinted" headerTone="strong" name="Checkout" tag={<span>Strategy Pattern</span>} columns={2} attributes={['- a', '- b']} />);
+    expect(screen.getByText('Checkout').parentElement).toHaveClass('justify-between', 'bg-surface-container-high');
+    expect(screen.getByText('- a').parentElement).toHaveClass('grid-cols-2');
+  });
+});
+
+import { CodeBlock } from './primitives/CodeBlock';
+
+describe('CodeBlock bare (0.3.0)', () => {
+  it('drops the caption bar, the frame and the padding', () => {
+    const { container } = render(<CodeBlock language="ts" bare>{'const a = 1;'}</CodeBlock>);
+    expect(container.querySelector('figcaption')).toBeNull();
+    const fig = container.firstElementChild!;
+    expect(fig.className).not.toMatch(/rounded-xl/);
+    expect(container.querySelector('pre')).toHaveClass('p-0');
+  });
+});

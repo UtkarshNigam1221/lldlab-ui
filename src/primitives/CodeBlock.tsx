@@ -19,6 +19,8 @@ export type CodeBlockProps = NativeProps<'figure', {
   lineNumbers?: boolean;
   tone?: keyof typeof TONE;
   children: ReactNode;
+  /** Code only: no caption bar, frame or padding (inside a pane that provides them). */
+  bare?: boolean;
 }>;
 
 function Lines({ lines, numbered }: { lines: Array<Array<{ content: string; className: string }>>; numbered?: boolean }) {
@@ -51,7 +53,7 @@ function Highlighted({ code, language, numbered }: { code: string; language: str
 }
 
 /** Code block; scrolls inside itself so long lines never widen the page. */
-export function CodeBlock({ language, highlight, title, meta, actions, lineNumbers, tone = 'dark', children, ...rest }: CodeBlockProps) {
+export function CodeBlock({ language, highlight, title, meta, actions, lineNumbers, tone = 'dark', bare, children, ...rest }: CodeBlockProps) {
   const t = TONE[tone];
   const code = typeof children === 'string' ? children.replace(/\n$/, '') : null;
   const lang = highlight && code !== null ? resolveLanguage(language) : undefined;
@@ -60,8 +62,8 @@ export function CodeBlock({ language, highlight, title, meta, actions, lineNumbe
   if (code !== null && lang) body = <Highlighted code={code} language={lang} numbered={lineNumbers} />;
   else if (code !== null && lineNumbers) body = <Lines numbered lines={code.split('\n').map((l) => [{ content: l, className: '' }])} />;
   return (
-    <figure {...rest} className={cx('min-w-0 max-w-full overflow-hidden rounded-xl', t.root)}>
-      {(heading || meta || actions) && (
+    <figure {...rest} className={cx('min-w-0 max-w-full overflow-hidden', !bare && cx('rounded-xl', t.root))}>
+      {!bare && (heading || meta || actions) && (
         <figcaption className={cx('flex min-w-0 flex-wrap items-center gap-space-sm border-b px-space-md py-space-xs font-label-mono text-label-mono', t.header)}>
           {heading && <span className={cx('min-w-0 truncate', !title && 'uppercase')}>{heading}</span>}
           {meta}
@@ -70,7 +72,7 @@ export function CodeBlock({ language, highlight, title, meta, actions, lineNumbe
       )}
       <pre
         tabIndex={0}
-        className="overflow-x-auto p-space-md font-code-inline text-code-inline text-code-plain focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-cobalt"
+        className={cx('overflow-x-auto font-code-inline text-code-inline text-code-plain focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-cobalt', bare ? 'p-0' : 'p-space-md')}
       >
         <code className={lineNumbers ? 'table' : undefined}>{body}</code>
       </pre>

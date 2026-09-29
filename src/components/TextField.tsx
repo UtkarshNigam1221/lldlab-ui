@@ -6,6 +6,7 @@ import { IconButton } from './IconButton';
 
 const SIZE = { sm: 'h-8 px-space-sm', ms: 'h-9 px-space-sm', md: 'h-10 px-space-sm', lg: 'h-11 px-space-md' } as const;
 const TEXT = { sm: 'font-body-sm text-body-sm', ms: 'font-body-sm text-body-sm', md: 'font-body-md text-body-md', lg: 'font-body-sm text-body-sm' } as const;
+const WIDTH = { auto: '', full: 'w-full', sm: 'w-64', md: 'w-80' } as const;
 // outline: bordered field; filled: borderless tint (header search); raised: white on a shadow (filter bars).
 const VARIANT = {
   outline: 'border bg-surface-subtle focus-within:ring-2',
@@ -27,15 +28,17 @@ export type TextFieldProps = NativeProps<'input', {
   variant?: keyof typeof VARIANT;
   /** Put the icon after the input instead of before it. */
   iconPosition?: 'start' | 'end';
+  /** Fixed field width (sm 16rem, md 20rem); default auto. */
+  width?: keyof typeof WIDTH;
 }>;
 
-export function TextField({ label, hideLabel, icon, hint, error, labelEnd, revealable, size = 'md', variant = 'outline', iconPosition = 'start', id, type, ...rest }: TextFieldProps) {
+export function TextField({ label, hideLabel, icon, hint, error, labelEnd, revealable, size = 'md', variant = 'outline', iconPosition = 'start', width = 'auto', id, type, ...rest }: TextFieldProps) {
   const generated = useId();
   const inputId = id ?? generated;
   const errorId = `${inputId}-error`;
   const [shown, setShown] = useState(false);
   return (
-    <div className="flex min-w-0 flex-col gap-space-2xs">
+    <div className={cx('flex min-w-0 flex-col gap-space-2xs', WIDTH[width])}>
       <div className={cx('flex min-w-0 items-center justify-between gap-space-sm', hideLabel && !labelEnd && 'sr-only')}>
         <label htmlFor={inputId} className={cx('font-body-sm text-body-sm font-medium text-on-surface', hideLabel && 'sr-only')}>
           {label}

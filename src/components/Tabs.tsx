@@ -22,7 +22,12 @@ export type TabItem = {
   panelId?: string;
   /** Not available yet: rendered as text with aria-disabled, never as a link or selectable tab. */
   disabled?: boolean;
+  /** Native tooltip (e.g. "Coming soon" on a disabled item). */
+  title?: string;
+  /** Hide this item below a breakpoint (lower-priority nav entries on crowded bars). */
+  hideBelow?: keyof typeof HIDE_BELOW;
 };
+const HIDE_BELOW = { sm: 'hidden sm:flex', md: 'hidden md:flex', lg: 'hidden lg:flex', xl: 'hidden xl:flex', '2xl': 'hidden 2xl:flex' } as const;
 type Variant = 'underline' | 'pills' | 'nav' | 'solid' | 'label';
 export type TabsProps = NativeProps<'div', { items: TabItem[]; value: string; onChange?: (id: string) => void; variant?: Variant; label: string; children?: never }>;
 
@@ -98,13 +103,13 @@ export function Tabs({ items, value, onChange, variant = 'underline', label, ...
             const C: ElementType = item.as ?? 'a';
             const active = item.id === value;
             return (
-              <li key={item.id} className="flex shrink-0">
+              <li key={item.id} className={cx('shrink-0', item.hideBelow ? HIDE_BELOW[item.hideBelow] : 'flex')}>
                 {item.disabled ? (
-                  <span aria-disabled="true" className={cx(v.tab, v.idle, DISABLED)}>
+                  <span aria-disabled="true" title={item.title} className={cx(v.tab, v.idle, DISABLED)}>
                     <TabBody item={item} variant={variant} active={false} />
                   </span>
                 ) : (
-                  <C href={item.href} aria-current={active ? 'page' : undefined} className={cx(v.tab, active ? v.active : v.idle, FOCUS_RING, TOUCH)}>
+                  <C href={item.href} title={item.title} aria-current={active ? 'page' : undefined} className={cx(v.tab, active ? v.active : v.idle, FOCUS_RING, TOUCH)}>
                     <TabBody item={item} variant={variant} active={active} />
                   </C>
                 )}
@@ -141,6 +146,7 @@ export function Tabs({ items, value, onChange, variant = 'underline', label, ...
             aria-selected={active}
             tabIndex={active ? 0 : -1}
             disabled={item.disabled}
+            title={item.title}
             onClick={() => onChange?.(item.id)}
             onKeyDown={(e) => onKeyDown(e, i)}
             className={cx(v.tab, active ? v.active : v.idle, item.disabled && DISABLED, FOCUS_RING, TOUCH)}
