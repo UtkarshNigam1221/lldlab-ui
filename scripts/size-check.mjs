@@ -1,3 +1,4 @@
+/* global URL, console, process -- Node script */
 // Fails if the library bundle (without peer or runtime deps, which are external) grows past its gzip budget.
 import { readFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';

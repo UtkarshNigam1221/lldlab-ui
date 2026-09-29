@@ -45,3 +45,4 @@ export { Countdown, type CountdownProps } from './ide/Countdown';
 export { FileTree, type FileTreeProps } from './ide/FileTree';
 export type { FileNode } from './ide/tree';
 export { Workbench, type WorkbenchLimits, type WorkbenchProps, type WorkbenchSizes } from './ide/Workbench';
+export { Drawer, type DrawerProps } from './components/Drawer';
