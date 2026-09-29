@@ -10,3 +10,6 @@ consumer-check/next-env.d.ts
 .superpowers/
 .idea/
 consumer-check/package-lock.json
+
+# Design docs (specs, plans) stay local
+docs/
