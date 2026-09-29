@@ -6,12 +6,14 @@ import { Icon } from './Icon';
 export type CheckboxProps = NativeProps<'input', {
   label: ReactNode;
   description?: ReactNode;
+  /** sm: 13px label for compact side-rail lists. */
+  size?: 'sm' | 'md';
   /** Strike the label through while checked (task lists). */
   strikeWhenChecked?: boolean;
   indeterminate?: boolean;
 }>;
 
-export function Checkbox({ label, description, strikeWhenChecked, indeterminate, id, ...rest }: CheckboxProps) {
+export function Checkbox({ label, description, strikeWhenChecked, indeterminate, size = 'md', id, ...rest }: CheckboxProps) {
   const generated = useId();
   const inputId = id ?? generated;
   const descId = `${inputId}-desc`;
@@ -42,7 +44,7 @@ export function Checkbox({ label, description, strikeWhenChecked, indeterminate,
           <Icon name="remove" size="sm" />
         </span>
       </span>
-      <span className={cx('min-w-0 font-body-md text-body-md text-on-surface wrap-break-word', strikeWhenChecked && 'group-has-checked:text-on-surface-variant group-has-checked:line-through')}>
+      <span className={cx('min-w-0 text-on-surface wrap-break-word', size === 'sm' ? 'font-body-sm text-body-sm' : 'font-body-md text-body-md', strikeWhenChecked && 'group-has-checked:text-on-surface-variant group-has-checked:line-through')}>
         {label}
       </span>
       </label>

@@ -10,6 +10,8 @@ export type CountdownProps = NativeProps<'span', {
   warnAt?: number;
   onExpire?: () => void;
   label?: string;
+  /** chip: tinted pill with mono digits and a brand timer icon (workspace bar). */
+  variant?: 'plain' | 'chip';
   children?: never;
 }>;
 
@@ -22,7 +24,7 @@ export function formatClock(totalSeconds: number): string {
   return h > 0 ? `${h}:${pad(m)}:${pad(s % 60)}` : `${pad(m)}:${pad(s % 60)}`;
 }
 
-export function Countdown({ seconds, until, direction = 'down', warnAt, onExpire, label = 'Time remaining', ...rest }: CountdownProps) {
+export function Countdown({ seconds, until, direction = 'down', warnAt, onExpire, label = 'Time remaining', variant = 'plain', ...rest }: CountdownProps) {
   const [start] = useState(() => Date.now());
   // A deadline depends on wall-clock time, which differs between server render and hydration:
   // leave it unknown (null) until mounted so both renders emit the same text.
@@ -57,8 +59,19 @@ export function Countdown({ seconds, until, direction = 'down', warnAt, onExpire
 
   const warn = direction === 'down' && warnAt !== undefined && value !== null && value <= warnAt;
   return (
-    <span {...rest} role="timer" aria-label={label} className={cx('inline-flex items-center gap-space-2xs font-code-inline text-code-inline tabular-nums', warn ? 'text-fg-danger' : 'text-on-surface')}>
-      <Icon name="timer" size="sm" />
+    <span
+      {...rest}
+      role="timer"
+      aria-label={label}
+      className={cx(
+        'inline-flex items-center gap-space-2xs tabular-nums',
+        variant === 'chip' ? 'rounded bg-surface-subtle px-space-sm py-space-xs font-label-mono text-label-mono' : 'font-code-inline text-code-inline',
+        warn ? 'text-fg-danger' : 'text-on-surface',
+      )}
+    >
+      <span className={variant === 'chip' ? 'text-fg-brand' : undefined}>
+        <Icon name="timer" size="sm" tone="inherit" />
+      </span>
       {value === null ? '--:--' : formatClock(value)}
     </span>
   );

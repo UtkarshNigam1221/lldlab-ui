@@ -8,9 +8,19 @@ import { Icon } from './Icon';
 
 /** `hideLabel` shows only the icon; `label` stays the accessible name. */
 export type SegmentedOption = { value: string; label: string; icon?: string; hideLabel?: boolean; dot?: StatusTone };
-export type SegmentedControlProps = NativeProps<'div', { label: string; options: SegmentedOption[]; value: string; onChange: (value: string) => void; children?: never }>;
+const TRACK = {
+  default: 'rounded-lg border border-border-subtle bg-surface-subtle p-space-2xs',
+  // Compact mono switcher for toolbars (the IDE header).
+  label: '',
+} as const;
+const OPTION = {
+  default: { base: 'rounded-md py-space-xs font-button-text text-button-text', on: 'bg-surface-elevated text-ink shadow-sm', off: 'text-on-surface-variant hover:text-on-surface' },
+  label: { base: 'rounded px-space-xs py-space-2xs font-label-mono text-label-mono', on: 'bg-surface-subtle text-fg-brand', off: 'text-on-surface-variant hover:text-ink' },
+} as const;
+export type SegmentedControlProps = NativeProps<'div', { label: string; options: SegmentedOption[]; value: string; onChange: (value: string) => void; variant?: keyof typeof TRACK; children?: never }>;
 
-export function SegmentedControl({ label, options, value, onChange, ...rest }: SegmentedControlProps) {
+export function SegmentedControl({ label, options, value, onChange, variant = 'default', ...rest }: SegmentedControlProps) {
+  const opt = OPTION[variant];
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
   const checkedIndex = options.findIndex((o) => o.value === value);
   const tabbable = checkedIndex === -1 ? 0 : checkedIndex;
@@ -22,7 +32,7 @@ export function SegmentedControl({ label, options, value, onChange, ...rest }: S
     onChange(options[next].value);
   };
   return (
-    <div {...rest} role="radiogroup" aria-label={label} className="inline-flex min-w-0 max-w-full gap-space-2xs overflow-x-auto rounded-lg border border-border-subtle bg-surface-subtle p-space-2xs [scrollbar-width:none]">
+    <div {...rest} role="radiogroup" aria-label={label} className={cx('inline-flex min-w-0 max-w-full gap-space-2xs overflow-x-auto [scrollbar-width:none]', TRACK[variant])}>
       {options.map((o, i) => {
         const checked = i === checkedIndex;
         return (
@@ -40,9 +50,10 @@ export function SegmentedControl({ label, options, value, onChange, ...rest }: S
             onClick={() => onChange(o.value)}
             onKeyDown={(e) => onKeyDown(e, i)}
             className={cx(
-              'inline-flex shrink-0 items-center justify-center gap-space-xs whitespace-nowrap rounded-md py-space-xs font-button-text text-button-text transition-colors',
-              o.hideLabel ? 'px-space-xs' : 'px-space-sm',
-              checked ? 'bg-surface-elevated text-ink shadow-sm' : 'text-on-surface-variant hover:text-on-surface',
+              'inline-flex shrink-0 items-center justify-center gap-space-xs whitespace-nowrap transition-colors',
+              opt.base,
+              variant === 'default' && (o.hideLabel ? 'px-space-xs' : 'px-space-sm'),
+              checked ? opt.on : opt.off,
               FOCUS_RING,
               o.hideLabel ? TOUCH_ICON : TOUCH,
             )}

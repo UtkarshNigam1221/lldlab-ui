@@ -17,11 +17,16 @@ function StatusItem({ icon, tone = 'default', children, ...rest }: StatusItemPro
   );
 }
 
-export type StatusBarProps = NativeProps<'footer', { start?: ReactNode; end?: ReactNode; label?: string; children?: never }>;
+const BAR = {
+  default: 'h-7 border-t border-border-subtle bg-surface-subtle',
+  // Filled strip without a rule (dark IDE card footer).
+  raised: 'h-9 bg-surface-container',
+} as const;
+export type StatusBarProps = NativeProps<'footer', { start?: ReactNode; end?: ReactNode; label?: string; tone?: keyof typeof BAR; children?: never }>;
 
-function StatusBarRoot({ start, end, label = 'Status', ...rest }: StatusBarProps) {
+function StatusBarRoot({ start, end, label = 'Status', tone = 'default', ...rest }: StatusBarProps) {
   return (
-    <footer {...rest} aria-label={label} className="flex h-7 min-w-0 shrink-0 items-center justify-between gap-space-md overflow-hidden border-t border-border-subtle bg-surface-subtle px-space-sm font-label-mono text-[11px] text-on-surface-variant">
+    <footer {...rest} aria-label={label} className={cx('flex min-w-0 shrink-0 items-center justify-between gap-space-md overflow-hidden px-space-sm font-label-mono text-[11px] text-on-surface-variant', BAR[tone])}>
       <div className="flex min-w-0 items-center gap-space-md overflow-hidden">{start}</div>
       <div className="flex min-w-0 items-center gap-space-md overflow-hidden">{end}</div>
     </footer>

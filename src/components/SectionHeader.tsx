@@ -26,16 +26,19 @@ export type SectionHeaderProps = NativeProps<'div', {
   icon?: string;
   accent?: StatusTone;
   size?: 'sm' | 'md';
+  /** Rule under the header (default true). Without it the dot grows to 12px, as on catalog tier headers. */
+  divider?: boolean;
+  metaUppercase?: boolean;
 }>;
 
-export function SectionHeader({ title, level = 2, dot, tag, tagTone = 'neutral', meta, description, icon, accent, size = 'sm', ...rest }: SectionHeaderProps) {
+export function SectionHeader({ title, level = 2, dot, tag, tagTone = 'neutral', meta, description, icon, accent, size = 'sm', divider = true, metaUppercase = true, ...rest }: SectionHeaderProps) {
   return (
-    <div {...rest} className={cx('flex min-w-0 flex-wrap items-center gap-x-space-sm gap-y-space-xs pb-space-sm', accent ? ACCENT[accent] : 'border-b border-border-subtle')}>
+    <div {...rest} className={cx('flex min-w-0 flex-wrap items-center gap-x-space-sm gap-y-space-xs pb-space-sm', accent ? ACCENT[accent] : divider && 'border-b border-border-subtle')}>
       {icon && <IconTile icon={icon} size="sm" tone={accent ?? 'neutral'} />}
-      {dot && <Dot tone={dot} size="md" />}
+      {dot && <Dot tone={dot} size={divider ? 'md' : 'lg'} />}
       <Heading level={level} size={size}>{title}</Heading>
       {tag && <Badge tone={tagTone} uppercase>{tag}</Badge>}
-      {meta && <span className="ml-auto min-w-0 max-w-full truncate font-label-mono text-label-mono uppercase text-on-surface-variant">{meta}</span>}
+      {meta && <span className={cx('ml-auto min-w-0 max-w-full truncate font-label-mono text-label-mono text-on-surface-variant', metaUppercase && 'uppercase')}>{meta}</span>}
       {description && <p className="basis-full font-body-sm text-body-sm text-on-surface-variant wrap-break-word">{description}</p>}
     </div>
   );

@@ -4,6 +4,7 @@ import type { NativeProps } from '../internal/poly';
 
 const POSITION = { sticky: 'sticky top-0', fixed: 'fixed inset-x-0 top-0', static: 'relative' } as const;
 const HEIGHT = { sm: 'h-12', md: 'h-16' } as const;
+const DIVIDER = { shadow: 'shadow-appbar', border: 'border-b border-border-subtle' } as const;
 
 export type AppBarProps = NativeProps<'header', {
   position?: keyof typeof POSITION;
@@ -15,12 +16,14 @@ export type AppBarProps = NativeProps<'header', {
   height?: keyof typeof HEIGHT;
   /** Constrain the content to the 80rem page column. */
   contained?: boolean;
+  /** How the bar separates from the page (default a soft shadow, as in Stitch). */
+  divider?: keyof typeof DIVIDER;
   children?: never;
 }>;
 
-export function AppBar({ position = 'sticky', start, center, end, blur = true, height = 'md', contained = true, ...rest }: AppBarProps) {
+export function AppBar({ position = 'sticky', start, center, end, blur = true, height = 'md', contained = true, divider = 'shadow', ...rest }: AppBarProps) {
   return (
-    <header {...rest} className={cx('z-40 w-full min-w-0 border-b border-border-subtle', POSITION[position], blur ? 'bg-surface-elevated/95 backdrop-blur-md' : 'bg-surface-elevated')}>
+    <header {...rest} className={cx('z-40 w-full min-w-0', DIVIDER[divider], POSITION[position], blur ? 'bg-surface-elevated/95 backdrop-blur-md' : 'bg-surface-elevated')}>
       <div className={cx('flex min-w-0 items-center gap-space-md px-gutter-fluid', HEIGHT[height], contained && 'mx-auto max-w-7xl')}>
         <div className="flex min-w-0 shrink-0 items-center gap-space-sm">{start}</div>
         <div className="flex min-w-0 flex-1 items-center justify-center">{center}</div>

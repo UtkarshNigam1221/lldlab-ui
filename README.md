@@ -12,8 +12,9 @@ Design-system components for [LLD Lab](https://lldlab.com), built for React 19 a
 
 ## Table of contents
 
-**Quick links:** [Install](#install) · [Setup](#setup) · [Component index](#component-index) · [Mobile navigation](#mobile-navigation) · [Design tokens](#design-tokens) · [Troubleshooting](#troubleshooting)
+**Quick links:** [What's new in 0.3.0](#whats-new-in-030) · [Install](#install) · [Setup](#setup) · [Component index](#component-index) · [Mobile navigation](#mobile-navigation) · [Design tokens](#design-tokens) · [Troubleshooting](#troubleshooting)
 
+1. [What's new in 0.3.0](#whats-new-in-030)
 1. [Install](#install)
 2. [Setup](#setup)
    - [1. Styles](#1-styles) · [2. Fonts](#2-fonts) · [3. Icons](#3-icons) · [4. Use it](#4-use-it)
@@ -36,6 +37,54 @@ Design-system components for [LLD Lab](https://lldlab.com), built for React 19 a
 11. [License](#license)
 
 ---
+
+## What's new in 0.3.0
+
+A fidelity pass against the Stitch mockups. **Visual defaults changed**; the API only grew.
+
+**Changed defaults**
+
+- Surfaces separate by shadow, not borders: `Card` is `shadow-sm` with no border (add `outlined` for the hairline); `Card.Header` / `Card.Footer` are tinted bars with no rule (add `divider`).
+- `AppBar` floats on a soft shadow (`divider="border"` restores the hairline).
+- Tokens: `rounded` is 2px; `shadow-sm/md/lg/xl` use the lighter Tailwind v3 scale; `fg-brand` is `#2563EB`.
+- `MetricTile`, boxed `ResultRow` and `Badge uppercase` drop their border / extra tracking; `Eyebrow` text takes its tone colour.
+- Nav `Tabs` keep one font weight so the active item never shifts its neighbours.
+
+**New props**
+
+| Component | Added |
+|---|---|
+| `Card` | `shadow` (none/sm/md/xl), `outlined`, `gap`; `Card.Header`/`Footer`: `divider`, `density` (md/sm), `tone` (default/slate/none) |
+| `AppBar` | `divider` (shadow/border) |
+| `Section` | `paddingTop`, `paddingBottom` (spacing scale), `padding="none"`, `pattern="dots-brand"` |
+| `Split` | `ratio` `7/5`, `5/7`; `breakpoint` (lg/xl); `asideAs` (aside/div) |
+| `GridItem` | new: `span` (responsive column span) |
+| `Show` | `above` / `below` `2xl` |
+| `Heading` | `balance`, `leading="none"` |
+| `Text` | `underline="wavy"` |
+| `Eyebrow` | `variant` `tinted`, `dot` |
+| `Tabs` | `variant` `nav` / `solid` / `label`; item `icon`, `countTone`, `disabled`, `title`, `hideBelow` |
+| `SegmentedControl` | `variant="label"` (compact mono, for toolbars) |
+| `Button` | `size` `xs` / `ms`; `variant` `raised` / `slate` |
+| `IconButton` | `size="ms"` (36px) |
+| `Badge` | `shape="pill"`, `outlined`, `size="xs"`, tones `subtle` / `container` |
+| `TextField` | `variant` (outline/filled/raised), `size` `ms` / `lg`, `width` (auto/full/sm/md/lg), `iconPosition` |
+| `Select` | `variant="raised"`, `size="lg"` |
+| `Kbd` | `variant="raised"` |
+| `Stat` | `variant="tile"`, `iconTone` |
+| `MetricTile` | `variant="centered"` |
+| `Box` | `tone="container"` |
+| `Dot` / `Icon` | `size="lg"` (12px) / `size` `xs` (14px), `ms` (18px) |
+| `Avatar` | `size` `ms` (32px), `ml` (40px) |
+| `SectionHeader` | `divider`, `metaUppercase` |
+| `EmptyState` | `headingLevel` (1–3) |
+| `Checkbox` | `size="sm"` |
+| `CodeBlock` | `bare`; dark blocks are now a dark theme scope |
+| `Countdown` | `variant="chip"` |
+| `StatusBar` | `tone="raised"` |
+| `UmlClass` | `variant="tinted"`, `headerTone`, `columns` |
+
+<sub>[↑ Back to top](#table-of-contents)</sub>
 
 ## Install
 

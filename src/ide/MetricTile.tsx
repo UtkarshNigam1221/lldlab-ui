@@ -13,11 +13,21 @@ export type MetricTileProps = NativeProps<'div', {
   icon?: string;
   hint?: ReactNode;
   hintTone?: Tone;
+  /** centered: big value over a small label (hero stats). */
+  variant?: 'default' | 'centered';
 }>;
 
-export function MetricTile({ label, value, tone = 'neutral', icon, hint, hintTone = 'muted', ...rest }: MetricTileProps) {
+export function MetricTile({ label, value, tone = 'neutral', icon, hint, hintTone = 'muted', variant = 'default', ...rest }: MetricTileProps) {
+  if (variant === 'centered') {
+    return (
+      <div {...rest} className="flex min-w-0 flex-col items-center rounded-lg bg-surface-subtle p-space-sm text-center">
+        <span className={cx('truncate font-display text-headline-lg', TONE[tone])}>{value}</span>
+        <span className="truncate font-body-sm text-body-sm text-on-surface-variant">{label}</span>
+      </div>
+    );
+  }
   return (
-    <div {...rest} className="flex min-w-0 flex-col gap-space-2xs rounded-lg border border-border-subtle bg-surface-subtle p-space-sm">
+    <div {...rest} className="flex min-w-0 flex-col gap-space-2xs rounded-lg bg-surface-subtle p-space-sm">
       <span className="flex min-w-0 items-center gap-space-2xs font-label-mono text-label-mono uppercase text-on-surface-variant">
         {icon && <Icon name={icon} size="sm" />}
         <span className="truncate">{label}</span>

@@ -3,7 +3,7 @@ import { cx } from '../internal/cx';
 import type { NativeProps } from '../internal/poly';
 import { DOT_TONE, type StatusTone } from '../internal/tones';
 
-export const AVATAR_SIZE = { sm: 'size-7 text-[11px]', md: 'size-9 text-xs', lg: 'size-12 text-sm' } as const;
+export const AVATAR_SIZE = { sm: 'size-7 text-[11px]', ms: 'size-8 text-xs', md: 'size-9 text-xs', ml: 'size-10 text-sm', lg: 'size-12 text-sm' } as const;
 const SHAPE = { circle: 'rounded-full', square: 'rounded-lg' } as const;
 const TONE = {
   ink: 'bg-ink text-on-ink',

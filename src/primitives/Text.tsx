@@ -27,6 +27,8 @@ type TextOwnProps = {
   measure?: boolean;
   /** Defaults to true for `label`, false otherwise. */
   uppercase?: boolean;
+  /** Decorative wavy underline (hero highlight). */
+  underline?: 'wavy';
 };
 export type TextProps<E extends ElementType = 'p'> = PolyProps<E, TextOwnProps>;
 
@@ -40,6 +42,7 @@ export function Text<E extends ElementType = 'p'>({
   align,
   measure,
   uppercase,
+  underline,
   ...rest
 }: TextProps<E>) {
   const C: ElementType = as ?? 'p';
@@ -57,6 +60,7 @@ export function Text<E extends ElementType = 'p'>({
         align && ALIGN[align],
         measure && 'max-w-prose',
         upper && 'uppercase',
+        underline === 'wavy' && 'underline decoration-wavy decoration-2 decoration-brand-crimson/30 underline-offset-4',
       )}
     />
   );

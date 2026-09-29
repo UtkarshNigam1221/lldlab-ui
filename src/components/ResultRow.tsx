@@ -9,7 +9,7 @@ const STATUS = {
   warning: { icon: 'warning', tone: 'warning', label: 'Warning' },
   pending: { icon: 'schedule', tone: 'muted', label: 'Pending' },
 } as const;
-const VARIANT = { plain: 'py-space-sm', boxed: 'rounded-lg border border-border-subtle bg-surface-subtle p-space-sm' } as const;
+const VARIANT = { plain: 'items-start py-space-sm', boxed: 'items-center rounded bg-surface-subtle p-space-sm' } as const;
 
 export type ResultRowProps = NativeProps<'div', {
   status: keyof typeof STATUS;
@@ -25,7 +25,7 @@ export type ResultRowProps = NativeProps<'div', {
 export function ResultRow({ status, title, detail, meta, badge, variant = 'plain', selected, titleMono, ...rest }: ResultRowProps) {
   const s = STATUS[status];
   return (
-    <div {...rest} className={cx('flex min-w-0 items-start gap-space-sm', VARIANT[variant], selected && 'border-l-4 border-l-brand-cobalt pl-space-sm')}>
+    <div {...rest} className={cx('flex min-w-0 gap-space-sm', VARIANT[variant], selected && 'border-l-4 border-l-brand-cobalt pl-space-sm')}>
       <Icon name={s.icon} tone={s.tone} filled label={s.label} />
       <div className="min-w-0 flex-1">
         <p className={cx('text-on-surface wrap-break-word', titleMono ? 'font-code-inline text-code-inline' : 'font-body-md text-body-md')}>{title}</p>

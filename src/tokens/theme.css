@@ -77,8 +77,8 @@
   --color-ink: #0F172A;
   --color-ink-hover: #1E293B;
   --color-on-ink: #FFFFFF;
-  --color-fg-brand: #1D4ED8;
-  --color-fg-brand-hover: #1E40AF;
+  --color-fg-brand: #2563EB;
+  --color-fg-brand-hover: #1D4ED8;
   --color-fg-success: #047857;
   --color-fg-warning: #B45309;
   --color-fg-danger: #B91C1C;
@@ -103,8 +103,18 @@
   --spacing-section-lg: clamp(3rem, 1.65rem + 5.4vw, 6rem);
   --spacing-section-xl: clamp(4rem, 2.2rem + 7.2vw, 8rem);
 
+  /* Stitch radii: rounded 2px, lg 4px, xl 8px. */
+  --radius-sm: 0.125rem;
   --radius-lg: 0.25rem;
   --radius-xl: 0.5rem;
+
+  /* Stitch shadows (Tailwind v3 scale: lighter than v4's defaults). */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  /* The app bar floats on a soft shadow instead of a hairline. */
+  --shadow-appbar: 0 1px 8px rgb(0 0 0 / 0.04);
 }
 
 @theme inline {
@@ -174,6 +184,11 @@
   background-size: 16px 16px;
 }
 
+/* Hero dot field: cobalt dots at 40% on a 24px pitch. */
+@utility bg-pattern-dots-brand {
+  background-image: radial-gradient(rgb(37 99 235 / 0.4) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
 @utility bg-pattern-grid {
   background-image:
     linear-gradient(var(--color-border-subtle) 1px, transparent 1px),
@@ -246,8 +261,8 @@
   --color-ink: #0F172A;
   --color-ink-hover: #1E293B;
   --color-on-ink: #FFFFFF;
-  --color-fg-brand: #1D4ED8;
-  --color-fg-brand-hover: #1E40AF;
+  --color-fg-brand: #2563EB;
+  --color-fg-brand-hover: #1D4ED8;
   --color-fg-success: #047857;
   --color-fg-warning: #B45309;
   --color-fg-danger: #B91C1C;
