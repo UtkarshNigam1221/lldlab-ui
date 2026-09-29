@@ -12,14 +12,17 @@ export type SwitchProps = NativeProps<'button', {
 
 export function Switch({ label, checked, onChange, description, ...rest }: SwitchProps) {
   const id = useId();
+  const buttonId = rest.id ?? `${id}-switch`;
   return (
-    <div className={cx('flex min-w-0 items-start justify-between gap-space-md', TOUCH)}>
-      <div className="min-w-0">
+    // The row is a <label> for the button, so tapping the text toggles it and the target is the full row.
+    <label htmlFor={buttonId} className={cx('flex min-w-0 cursor-pointer items-start justify-between gap-space-md', TOUCH)}>
+      <span className="min-w-0">
         <span id={`${id}-label`} className="font-body-md text-body-md text-on-surface">{label}</span>
-        {description && <p id={`${id}-desc`} className="font-body-sm text-body-sm text-on-surface-variant wrap-break-word">{description}</p>}
-      </div>
+        {description && <span id={`${id}-desc`} className="block font-body-sm text-body-sm text-on-surface-variant wrap-break-word">{description}</span>}
+      </span>
       <button
         {...rest}
+        id={buttonId}
         type="button"
         role="switch"
         aria-checked={checked}
@@ -30,6 +33,6 @@ export function Switch({ label, checked, onChange, description, ...rest }: Switc
       >
         <span aria-hidden="true" className={cx('inline-block size-5 rounded-full bg-white shadow-sm transition-transform', checked ? 'translate-x-5.5' : 'translate-x-0.5')} />
       </button>
-    </div>
+    </label>
   );
 }

@@ -4,7 +4,7 @@ import type { PolyProps } from '../internal/poly';
 import { Icon } from './Icon';
 
 const TONE = {
-  brand: 'text-fg-brand hover:text-brand-cobalt-hover',
+  brand: 'text-fg-brand hover:text-fg-brand-hover',
   default: 'text-on-surface hover:text-ink',
   muted: 'text-on-surface-variant hover:text-on-surface',
   danger: 'text-fg-danger',

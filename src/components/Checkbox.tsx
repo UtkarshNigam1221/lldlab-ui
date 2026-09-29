@@ -20,7 +20,9 @@ export function Checkbox({ label, description, strikeWhenChecked, indeterminate,
     if (ref.current) ref.current.indeterminate = Boolean(indeterminate);
   }, [indeterminate]);
   return (
-    <div className={cx('group flex min-w-0 items-start gap-space-sm', TOUCH)}>
+    <div className="min-w-0">
+      {/* The whole row is the label, so the tap target is the row (44px below md), not the 16px box. */}
+      <label htmlFor={inputId} className={cx('group flex min-w-0 cursor-pointer items-start gap-space-sm', TOUCH)}>
       <span className="relative mt-0.5 inline-flex size-4 shrink-0">
         <input
           {...rest}
@@ -40,16 +42,15 @@ export function Checkbox({ label, description, strikeWhenChecked, indeterminate,
           <Icon name="remove" size="sm" />
         </span>
       </span>
-      <span className="min-w-0">
-        <label htmlFor={inputId} className={cx('cursor-pointer font-body-md text-body-md text-on-surface wrap-break-word', strikeWhenChecked && 'group-has-checked:text-on-surface-variant group-has-checked:line-through')}>
-          {label}
-        </label>
-        {description && (
-          <p id={descId} className="font-body-sm text-body-sm text-on-surface-variant wrap-break-word">
-            {description}
-          </p>
-        )}
+      <span className={cx('min-w-0 font-body-md text-body-md text-on-surface wrap-break-word', strikeWhenChecked && 'group-has-checked:text-on-surface-variant group-has-checked:line-through')}>
+        {label}
       </span>
+      </label>
+      {description && (
+        <p id={descId} className="pl-6 font-body-sm text-body-sm text-on-surface-variant wrap-break-word">
+          {description}
+        </p>
+      )}
     </div>
   );
 }

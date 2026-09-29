@@ -73,7 +73,28 @@ export function UmlDiagram({ label, nodes, edges, direction = 'TB', zoomable = t
   const [layout, setLayout] = useState<Layout | null>(null);
   const [zoom, setZoom] = useState(1);
   const [fit, setFit] = useState(1);
-  const key = JSON.stringify({ n: nodes.map((n) => [n.id, n.name, n.stereotype, n.attributes, n.methods]), e: edges.map((e) => [e.from, e.to, e.kind]), direction });
+  const contentKey = JSON.stringify({ n: nodes.map((n) => [n.id, n.name, n.stereotype, n.attributes, n.methods]), e: edges.map((e) => [e.from, e.to, e.kind]), direction, compact });
+  // Bumped when a box's measured size changes (revealed from hidden, web fonts loaded), forcing a new layout.
+  const [sizeTick, setSizeTick] = useState(0);
+  const sizes = useRef(new Map<string, string>());
+  const key = `${contentKey}#${sizeTick}`;
+
+  useEffect(() => {
+    if (typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(() => {
+      let changed = false;
+      nodeRefs.current.forEach((el, nodeId) => {
+        const size = `${el.offsetWidth}x${el.offsetHeight}`;
+        if (sizes.current.get(nodeId) !== size) {
+          sizes.current.set(nodeId, size);
+          changed = true;
+        }
+      });
+      if (changed) setSizeTick((t) => t + 1);
+    });
+    nodeRefs.current.forEach((el) => ro.observe(el));
+    return () => ro.disconnect();
+  }, [contentKey]);
 
   useEffect(() => {
     let cancelled = false;

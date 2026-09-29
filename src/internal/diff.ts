@@ -1,6 +1,10 @@
 export type DiffLine = { kind: 'same' | 'add' | 'del'; text: string; oldNo?: number; newNo?: number };
 
-const toLines = (s: string) => (s === '' ? [] : s.split('\n'));
+// One trailing newline ends the last line; it doesn't start an empty one.
+const toLines = (s: string) => {
+  const t = s.endsWith('\n') ? s.slice(0, -1) : s;
+  return t === '' && s.length <= 1 ? [] : t.split('\n');
+};
 
 /** Line diff via an LCS table. */
 // ponytail: O(n·m) time and memory; fine for snippet-sized files (hundreds of lines). Switch to Myers for thousands.

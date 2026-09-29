@@ -14,7 +14,8 @@ const emit = () => listeners.forEach((l) => l());
 /** Module-level store: toasts can be shown from anywhere, even before <Toaster /> mounts. */
 export const toastStore = {
   show(options: ToastOptions): number {
-    const toast: Toast = { tone: 'default', duration: 4000, ...options, id: nextId++ };
+    // `??` (not spread defaults) so an explicit `undefined` still gets the default.
+    const toast: Toast = { ...options, tone: options.tone ?? 'default', duration: options.duration ?? 4000, id: nextId++ };
     toasts = [...toasts, toast];
     emit();
     return toast.id;

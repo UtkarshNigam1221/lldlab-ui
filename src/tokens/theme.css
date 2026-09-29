@@ -78,6 +78,7 @@
   --color-ink-hover: #1E293B;
   --color-on-ink: #FFFFFF;
   --color-fg-brand: #1D4ED8;
+  --color-fg-brand-hover: #1E40AF;
   --color-fg-success: #047857;
   --color-fg-warning: #B45309;
   --color-fg-danger: #B91C1C;
@@ -208,6 +209,7 @@
   --color-ink-hover: #E2E8F0;
   --color-on-ink: #0F172A;
   --color-fg-brand: #60A5FA;
+  --color-fg-brand-hover: #93C5FD;
   --color-fg-success: #34D399;
   --color-fg-warning: #FBBF24;
   --color-fg-danger: #F87171;
@@ -245,6 +247,7 @@
   --color-ink-hover: #1E293B;
   --color-on-ink: #FFFFFF;
   --color-fg-brand: #1D4ED8;
+  --color-fg-brand-hover: #1E40AF;
   --color-fg-success: #047857;
   --color-fg-warning: #B45309;
   --color-fg-danger: #B91C1C;
@@ -280,28 +283,40 @@
   --spacing-appbar: 4rem;
 }
 
-/* Light code surface (CodeBlock tone="subtle"); AA on #F8FAFC. */
-@utility code-subtle {
-  --color-code-keyword: #B91C1C;
-  --color-code-string: #047857;
-  --color-code-number: #B45309;
-  --color-code-comment: #475569;
-  --color-code-function: #1D4ED8;
-  --color-code-type: #6D28D9;
-  --color-code-punctuation: #334155;
-  --color-code-plain: #0F172A;
+/* Subtle code surface (CodeBlock tone="subtle"): the palette comes from per-scope variables,
+   so the nearest [data-theme] wins even when light and dark scopes are nested. */
+:root,
+[data-theme="light"] {
+  --code-subtle-keyword: #B91C1C;
+  --code-subtle-string: #047857;
+  --code-subtle-number: #B45309;
+  --code-subtle-comment: #475569;
+  --code-subtle-function: #1D4ED8;
+  --code-subtle-type: #6D28D9;
+  --code-subtle-punctuation: #334155;
+  --code-subtle-plain: #0F172A;
 }
 
-/* In the dark scope the subtle surface is dark, so keep the dark-surface palette. */
-[data-theme="dark"] .code-subtle {
-  --color-code-keyword: #F87171;
-  --color-code-string: #34D399;
-  --color-code-number: #FBBF24;
-  --color-code-comment: #94A3B8;
-  --color-code-function: #60A5FA;
-  --color-code-type: #C4B5FD;
-  --color-code-punctuation: #CBD5E1;
-  --color-code-plain: #F1F5F9;
+[data-theme="dark"] {
+  --code-subtle-keyword: #F87171;
+  --code-subtle-string: #34D399;
+  --code-subtle-number: #FBBF24;
+  --code-subtle-comment: #94A3B8;
+  --code-subtle-function: #60A5FA;
+  --code-subtle-type: #C4B5FD;
+  --code-subtle-punctuation: #CBD5E1;
+  --code-subtle-plain: #F1F5F9;
+}
+
+@utility code-subtle {
+  --color-code-keyword: var(--code-subtle-keyword);
+  --color-code-string: var(--code-subtle-string);
+  --color-code-number: var(--code-subtle-number);
+  --color-code-comment: var(--code-subtle-comment);
+  --color-code-function: var(--code-subtle-function);
+  --color-code-type: var(--code-subtle-type);
+  --color-code-punctuation: var(--code-subtle-punctuation);
+  --color-code-plain: var(--code-subtle-plain);
 }
 
 [data-theme="dark"] {

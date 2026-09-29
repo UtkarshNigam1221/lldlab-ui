@@ -16,12 +16,12 @@ describe('theme tokens (addendum)', () => {
   it('defines every code token for the dark code surface', () => {
     for (const t of CODE) expect(css).toMatch(new RegExp(`--color-code-${t}:\\s*#`));
   });
-  it('swaps code tokens for light and dark subtle surfaces', () => {
-    const light = block('@utility code-subtle');
-    const dark = block('[data-theme="dark"] .code-subtle');
+  it('swaps code tokens for the subtle surface via per-scope variables', () => {
+    const utility = block('@utility code-subtle');
     for (const t of CODE) {
-      expect(light).toContain(`--color-code-${t}:`);
-      expect(dark).toContain(`--color-code-${t}:`);
+      expect(utility).toContain(`--color-code-${t}: var(--code-subtle-${t})`);
+      expect(css).toMatch(new RegExp(`\\[data-theme="light"\\] \\{[^}]*--code-subtle-${t}:`));
+      expect(css).toMatch(new RegExp(`\\[data-theme="dark"\\] \\{[^}]*--code-subtle-${t}:`));
     }
   });
   it('defines diff, skeleton and appbar tokens', () => {
