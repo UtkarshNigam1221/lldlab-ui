@@ -65,3 +65,4 @@ export { Switch, type SwitchProps } from './components/Switch';
 export { Overlay, type OverlayProps } from './components/Overlay';
 export { CopyButton, type CopyButtonProps } from './components/CopyButton';
 export { DiffViewer, type DiffViewerProps } from './components/DiffViewer';
+export { BarChart, type BarChartProps } from './components/BarChart';
