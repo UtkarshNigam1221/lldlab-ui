@@ -53,3 +53,5 @@ export { AvatarGroup, type AvatarGroupProps } from './ide/AvatarGroup';
 export { AppBar, type AppBarProps } from './primitives/AppBar';
 export { NavList, type NavItem, type NavListProps } from './components/NavList';
 export { Pagination, pageRange, type PaginationProps } from './components/Pagination';
+export { Table, type TableColumn, type TableProps } from './components/Table';
+export { DescriptionList, type DescriptionListProps } from './components/DescriptionList';
