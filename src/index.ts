@@ -55,3 +55,5 @@ export { NavList, type NavItem, type NavListProps } from './components/NavList';
 export { Pagination, pageRange, type PaginationProps } from './components/Pagination';
 export { Table, type TableColumn, type TableProps } from './components/Table';
 export { DescriptionList, type DescriptionListProps } from './components/DescriptionList';
+export { Timeline, type TimelineItem, type TimelineProps, type TimelineStatus } from './components/Timeline';
+export { Disclosure, type DisclosureProps } from './components/Disclosure';
