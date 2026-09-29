@@ -62,7 +62,7 @@ export function CodeBlock({ language, highlight, title, meta, actions, lineNumbe
   if (code !== null && lang) body = <Highlighted code={code} language={lang} numbered={lineNumbers} />;
   else if (code !== null && lineNumbers) body = <Lines numbered lines={code.split('\n').map((l) => [{ content: l, className: '' }])} />;
   return (
-    <figure {...rest} className={cx('min-w-0 max-w-full overflow-hidden', !bare && cx('rounded-xl', t.root))}>
+    <figure {...rest} data-theme={tone === 'dark' ? 'dark' : undefined} className={cx('min-w-0 max-w-full overflow-hidden', !bare && cx('rounded-xl', t.root))}>
       {!bare && (heading || meta || actions) && (
         <figcaption className={cx('flex min-w-0 flex-wrap items-center gap-space-sm border-b px-space-md py-space-xs font-label-mono text-label-mono', t.header)}>
           {heading && <span className={cx('min-w-0 truncate', !title && 'uppercase')}>{heading}</span>}

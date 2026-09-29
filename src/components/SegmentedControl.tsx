@@ -15,7 +15,7 @@ const TRACK = {
 } as const;
 const OPTION = {
   default: { base: 'rounded-md py-space-xs font-button-text text-button-text', on: 'bg-surface-elevated text-ink shadow-sm', off: 'text-on-surface-variant hover:text-on-surface' },
-  label: { base: 'rounded px-space-xs py-space-2xs font-label-mono text-label-mono', on: 'bg-surface-subtle text-brand-cobalt', off: 'text-on-surface-variant hover:text-ink' },
+  label: { base: 'rounded px-space-xs py-space-2xs font-label-mono text-label-mono', on: 'bg-surface-subtle text-fg-brand', off: 'text-on-surface-variant hover:text-ink' },
 } as const;
 export type SegmentedControlProps = NativeProps<'div', { label: string; options: SegmentedOption[]; value: string; onChange: (value: string) => void; variant?: keyof typeof TRACK; children?: never }>;
 

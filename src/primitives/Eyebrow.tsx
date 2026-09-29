@@ -15,8 +15,10 @@ export type EyebrowProps = NativeProps<'span', { tone?: StatusTone; pulse?: bool
 
 /** Mono kicker above a heading; the text takes the tone colour, as in the Stitch mockups. */
 export function Eyebrow({ tone = 'brand', pulse, variant = 'pill', dot = true, children, ...rest }: EyebrowProps) {
+  // On the cobalt tint, #2563EB falls just under AA; the badge blue keeps it readable.
+  const text = variant === 'tinted' && tone === 'brand' ? 'text-badge-intermediate-text' : TEXT[tone];
   return (
-    <span {...rest} className={cx('inline-flex max-w-full items-center gap-space-xs font-label-mono text-label-mono uppercase', TEXT[tone], VARIANT[variant])}>
+    <span {...rest} className={cx('inline-flex max-w-full items-center gap-space-xs font-label-mono text-label-mono uppercase', text, VARIANT[variant])}>
       {dot && <Dot tone={tone} pulse={pulse} data-dot="" />}
       <span className="truncate">{children}</span>
     </span>

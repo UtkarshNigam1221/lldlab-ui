@@ -317,7 +317,7 @@ describe('workspace pieces (0.3.0)', () => {
   it('SegmentedControl label variant: mono, no track border, cobalt checked', () => {
     const { container } = render(<SegmentedControl variant="label" label="Language" value="ts" onChange={() => {}} options={[{ value: 'ts', label: 'TypeScript' }, { value: 'go', label: 'Go' }]} />);
     expect(container.firstElementChild!.className).not.toMatch(/\bborder\b/);
-    expect(screen.getByRole('radio', { name: 'TypeScript' })).toHaveClass('font-label-mono', 'text-brand-cobalt');
+    expect(screen.getByRole('radio', { name: 'TypeScript' })).toHaveClass('font-label-mono', 'text-fg-brand');
   });
   it('Countdown chip: tinted chip with a brand timer icon and mono digits', () => {
     render(<Countdown direction="up" variant="chip" />);
@@ -357,5 +357,20 @@ describe('EmptyState heading level (0.3.0)', () => {
   it('defaults to h3', () => {
     render(<EmptyState title="Nothing here" />);
     expect(screen.getByRole('heading', { level: 3, name: 'Nothing here' })).toBeInTheDocument();
+  });
+});
+
+describe('contrast fixes (0.3.0)', () => {
+  it('tinted eyebrow uses the darker badge blue on its tint', () => {
+    const { container } = render(<Eyebrow variant="tinted">Catalog</Eyebrow>);
+    expect(container.firstElementChild).toHaveClass('text-badge-intermediate-text');
+  });
+  it('label SegmentedControl checked text uses fg-brand (flips in dark scope)', () => {
+    render(<SegmentedControl variant="label" label="L" value="a" onChange={() => {}} options={[{ value: 'a', label: 'A' }]} />);
+    expect(screen.getByRole('radio', { name: 'A' })).toHaveClass('text-fg-brand');
+  });
+  it('dark CodeBlock is a dark theme scope so tone colours inside it flip', () => {
+    const { container } = render(<CodeBlock title="x">{'a'}</CodeBlock>);
+    expect(container.firstElementChild).toHaveAttribute('data-theme', 'dark');
   });
 });
