@@ -22,7 +22,9 @@ describe('NavList', () => {
     const current = screen.getByRole('link', { name: /Problems/ });
     expect(current).toHaveAttribute('aria-current', 'page');
     expect(current).toHaveClass('bg-surface-container-high', 'rounded-lg');
-    expect(screen.getByText('142')).toBeInTheDocument();
+    // AA in both scopes: the current item's count uses ink, not the muted tone, on the highlighted background.
+    expect(screen.getByText('142')).toHaveClass('text-ink');
+    expect(screen.getByText('142')).not.toHaveClass('text-on-surface-variant');
     expect(screen.getByRole('link', { name: 'Home' })).not.toHaveAttribute('aria-current');
   });
   it('toc variant uses a left accent; button items call onSelect', async () => {

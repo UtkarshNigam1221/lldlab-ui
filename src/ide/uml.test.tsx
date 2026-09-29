@@ -55,6 +55,10 @@ describe('UmlDiagram', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Reset zoom' }));
     expect(screen.getByText('100%')).toBeInTheDocument();
   });
+  it('reserves space above the canvas so the zoom controls never cover a class', () => {
+    render(<UmlDiagram label="d" nodes={NODES} edges={EDGES} />);
+    expect(screen.getByRole('region', { name: 'd diagram' })).toHaveClass('pt-space-2xl');
+  });
   it('compact hides the zoom controls; the viewport is focusable for panning', () => {
     render(<UmlDiagram label="mini" nodes={NODES} edges={EDGES} compact />);
     expect(screen.queryByRole('button', { name: 'Zoom in' })).toBeNull();

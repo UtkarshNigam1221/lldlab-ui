@@ -145,7 +145,7 @@ export function UmlDiagram({ label, nodes, edges, direction = 'TB', zoomable = t
         role="region"
         aria-label={`${label} diagram`}
         tabIndex={0}
-        className={cx('min-h-40 overflow-auto focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-cobalt', pattern === 'dots' && 'bg-pattern-dots', compact ? 'max-h-64' : 'max-h-[36rem]')}
+        className={cx('min-h-40 overflow-auto focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-cobalt', pattern === 'dots' && 'bg-pattern-dots', compact ? 'max-h-64' : 'max-h-[36rem]', zoomable && !compact && 'pt-space-2xl')}
       >
         <div
           role="img"

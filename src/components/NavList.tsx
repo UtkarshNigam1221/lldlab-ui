@@ -47,7 +47,7 @@ export function NavList({ label, items, current, heading, variant = 'sidebar', .
               >
                 {item.icon && <Icon name={item.icon} size="sm" />}
                 <span className="min-w-0 flex-1 truncate">{item.label}</span>
-                {item.count !== undefined && <span className="shrink-0 font-label-mono text-label-mono text-on-surface-variant">{item.count}</span>}
+                {item.count !== undefined && <span className={cx('shrink-0 font-label-mono text-label-mono', active ? 'text-ink' : 'text-on-surface-variant')}>{item.count}</span>}
               </C>
             </li>
           );
