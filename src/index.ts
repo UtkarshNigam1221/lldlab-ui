@@ -15,3 +15,4 @@ export { Heading, type HeadingProps } from './primitives/Heading';
 export { Eyebrow, type EyebrowProps } from './primitives/Eyebrow';
 export { Code } from './primitives/Code';
 export { CodeBlock, type CodeBlockProps } from './primitives/CodeBlock';
+export { Markdown, type MarkdownProps } from './components/Markdown';
