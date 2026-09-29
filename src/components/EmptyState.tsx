@@ -19,9 +19,11 @@ export type EmptyStateProps = NativeProps<'div', {
   /** Large mono numeral such as "404"; replaces the icon. */
   code?: string;
   tone?: keyof typeof TONE;
+  /** Heading level for the title (1 when the state is the whole page). */
+  headingLevel?: 1 | 2 | 3;
 }>;
 
-export function EmptyState({ icon = 'inbox', title, description, action, media, code, tone = 'default', ...rest }: EmptyStateProps) {
+export function EmptyState({ icon = 'inbox', title, description, action, media, code, tone = 'default', headingLevel = 3, ...rest }: EmptyStateProps) {
   const t = TONE[tone];
   return (
     <div {...rest} className="flex min-w-0 flex-col items-center gap-space-sm px-space-md py-space-xl text-center">
@@ -35,7 +37,7 @@ export function EmptyState({ icon = 'inbox', title, description, action, media, 
         </span>
       )}
       <div className="w-full min-w-0">
-        <Heading level={3} size="sm">{title}</Heading>
+        <Heading level={headingLevel} size={headingLevel === 1 ? 'lg' : 'sm'}>{title}</Heading>
       </div>
       {description && <p className={cx('w-full min-w-0 max-w-prose font-body-sm text-body-sm wrap-break-word', t.text)}>{description}</p>}
       {action}

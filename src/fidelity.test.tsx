@@ -346,3 +346,16 @@ describe('Checkbox sm (0.3.0)', () => {
     expect(screen.getByText('Inspect the UML')).toHaveClass('text-body-sm');
   });
 });
+
+import { EmptyState } from './components/EmptyState';
+
+describe('EmptyState heading level (0.3.0)', () => {
+  it('renders the title at the requested level', () => {
+    render(<EmptyState code="404" title="Problem not found" headingLevel={1} />);
+    expect(screen.getByRole('heading', { level: 1, name: 'Problem not found' })).toBeInTheDocument();
+  });
+  it('defaults to h3', () => {
+    render(<EmptyState title="Nothing here" />);
+    expect(screen.getByRole('heading', { level: 3, name: 'Nothing here' })).toBeInTheDocument();
+  });
+});
