@@ -2,7 +2,7 @@ import { cx } from '../internal/cx';
 import type { NativeProps } from '../internal/poly';
 import { TEXT_TONE, type Tone } from '../internal/tones';
 
-const SIZE = { sm: 'text-[16px]', md: 'text-[20px]', lg: 'text-[24px]' } as const;
+const SIZE = { sm: 'text-[16px]', md: 'text-[20px]', lg: 'text-[24px]', xl: 'text-[32px]' } as const;
 
 export type IconProps = NativeProps<
   'span',
