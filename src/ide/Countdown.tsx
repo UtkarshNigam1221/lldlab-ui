@@ -22,22 +22,26 @@ export function formatClock(totalSeconds: number): string {
 
 export function Countdown({ seconds, until, direction = 'down', warnAt, onExpire, label = 'Time remaining' }: CountdownProps) {
   const [start] = useState(() => Date.now());
-  const [now, setNow] = useState(start);
+  // A deadline depends on wall-clock time, which differs between server render and hydration:
+  // leave it unknown (null) until mounted so both renders emit the same text.
+  const [now, setNow] = useState<number | null>(() => (until ? null : start));
   const onExpireRef = useRef(onExpire);
   const fired = useRef(false);
   useEffect(() => {
     onExpireRef.current = onExpire;
   });
 
-  const elapsed = Math.floor((now - start) / 1000);
-  const value =
-    direction === 'up'
-      ? (seconds ?? 0) + elapsed
-      : Math.max(0, until ? Math.ceil((until.getTime() - now) / 1000) : (seconds ?? 0) - elapsed);
+  const value = (() => {
+    if (now === null) return null;
+    const elapsed = Math.floor((now - start) / 1000);
+    if (direction === 'up') return (seconds ?? 0) + elapsed;
+    return Math.max(0, until ? Math.ceil((until.getTime() - now) / 1000) : (seconds ?? 0) - elapsed);
+  })();
   const expired = direction === 'down' && value === 0;
 
   useEffect(() => {
     if (expired) return;
+    setNow((n) => n ?? Date.now());
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, [expired]);
@@ -49,11 +53,11 @@ export function Countdown({ seconds, until, direction = 'down', warnAt, onExpire
     }
   }, [expired]);
 
-  const warn = direction === 'down' && warnAt !== undefined && value <= warnAt;
+  const warn = direction === 'down' && warnAt !== undefined && value !== null && value <= warnAt;
   return (
     <span role="timer" aria-label={label} className={cx('inline-flex items-center gap-space-2xs font-code-inline text-code-inline tabular-nums', warn ? 'text-fg-danger' : 'text-on-surface')}>
       <Icon name="timer" size="sm" />
-      {formatClock(value)}
+      {value === null ? '--:--' : formatClock(value)}
     </span>
   );
 }

@@ -5,7 +5,8 @@ import type { StatusTone } from '../internal/tones';
 import { Badge } from './Badge';
 import { Dot } from './Dot';
 
-export type TabItem = { id: string; label: ReactNode; count?: number; dot?: StatusTone; href?: string; as?: ElementType };
+/** `panelId` links a tablist tab to a `<TabPanel id={panelId}>` (aria-controls / aria-labelledby). */
+export type TabItem = { id: string; label: ReactNode; count?: number; dot?: StatusTone; href?: string; as?: ElementType; panelId?: string };
 export type TabsProps = { items: TabItem[]; value: string; onChange?: (id: string) => void; variant?: 'underline' | 'pills'; label: string };
 
 const VARIANT = {
@@ -80,7 +81,8 @@ export function Tabs({ items, value, onChange, variant = 'underline', label }: T
             }}
             type="button"
             role="tab"
-            id={`${baseId}-${item.id}`}
+            id={item.panelId ? `${item.panelId}-tab` : `${baseId}-${item.id}`}
+            aria-controls={item.panelId}
             aria-selected={active}
             tabIndex={active ? 0 : -1}
             onClick={() => onChange?.(item.id)}
@@ -91,6 +93,17 @@ export function Tabs({ items, value, onChange, variant = 'underline', label }: T
           </button>
         );
       })}
+    </div>
+  );
+}
+
+export type TabPanelProps = { id: string; active: boolean; children: ReactNode };
+
+/** Content for the tab whose `panelId` is `id`; hidden (not unmounted) when inactive. */
+export function TabPanel({ id, active, children }: TabPanelProps) {
+  return (
+    <div role="tabpanel" id={id} aria-labelledby={`${id}-tab`} hidden={!active} tabIndex={0} className={cx('min-w-0 outline-none', FOCUS_RING)}>
+      {children}
     </div>
   );
 }

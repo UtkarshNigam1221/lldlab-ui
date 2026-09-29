@@ -109,3 +109,19 @@ describe('SegmentedControl', () => {
     expect(screen.getByRole('radio', { name: 'TypeScript' })).toHaveAttribute('aria-checked', 'true');
   });
 });
+
+describe('Tabs panels', () => {
+  it('links a tab to its TabPanel with aria-controls / aria-labelledby', async () => {
+    const { TabPanel } = await import('../index');
+    render(
+      <>
+        <Tabs label="Views" value="a" items={[{ id: 'a', label: 'Alpha', panelId: 'panel-a' }, { id: 'b', label: 'Beta', panelId: 'panel-b' }]} />
+        <TabPanel id="panel-a" active>Alpha content</TabPanel>
+        <TabPanel id="panel-b" active={false}>Beta content</TabPanel>
+      </>,
+    );
+    expect(screen.getByRole('tab', { name: 'Alpha' })).toHaveAttribute('aria-controls', 'panel-a');
+    expect(screen.getByRole('tabpanel', { name: 'Alpha' })).toHaveTextContent('Alpha content');
+    expect(screen.getByText('Beta content').closest('[role=tabpanel]')).not.toBeVisible();
+  });
+});

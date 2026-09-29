@@ -24,11 +24,14 @@ export type FileTreeProps = {
 export function FileTree({ nodes, activePath, onOpen, defaultExpanded = 'all', label }: FileTreeProps) {
   const baseId = useId();
   const roots = useMemo(() => buildTree(nodes), [nodes]);
-  const [expanded, setExpanded] = useState<Set<string>>(() => new Set(defaultExpanded === 'all' ? allDirs(roots) : defaultExpanded));
+  // In 'all' mode track collapsed dirs, so directories that appear later (async nodes) start open.
+  const allOpen = defaultExpanded === 'all';
+  const [toggled, setToggled] = useState<Set<string>>(() => new Set(allOpen ? [] : defaultExpanded));
   const [focused, setFocused] = useState<string | undefined>(activePath);
   const refs = useRef(new Map<string, HTMLLIElement>());
   if (!roots.length) return null;
 
+  const expanded = new Set(allDirs(roots).filter((d) => toggled.has(d) !== allOpen));
   const visible = flattenVisible(roots, expanded);
   const tabbable = visible.some((i) => i.path === focused) ? focused : visible[0]?.path;
 
@@ -37,9 +40,11 @@ export function FileTree({ nodes, activePath, onOpen, defaultExpanded = 'all', l
     refs.current.get(path)?.focus();
   };
   const toggle = (path: string, open?: boolean) =>
-    setExpanded((prev) => {
+    setToggled((prev) => {
       const next = new Set(prev);
-      if (open ?? !next.has(path)) next.add(path);
+      const shouldOpen = open ?? !expanded.has(path);
+      // toggled holds collapsed dirs in 'all' mode, expanded dirs otherwise.
+      if (shouldOpen !== allOpen) next.add(path);
       else next.delete(path);
       return next;
     });

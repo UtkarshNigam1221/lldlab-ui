@@ -54,3 +54,15 @@ describe('Countdown', () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 });
+
+describe('Countdown SSR', () => {
+  it('renders no time-dependent text on the server for until-mode (no hydration mismatch)', async () => {
+    const { renderToString } = await import('react-dom/server');
+    const html = renderToString(<Countdown until={new Date('2026-09-29T10:10:00Z')} />);
+    expect(html).toContain('--:--');
+  });
+  it('shows the real remaining time once mounted', () => {
+    render(<Countdown until={new Date('2026-09-29T10:10:00Z')} />);
+    expect(screen.getByRole('timer')).toHaveTextContent('10:00');
+  });
+});

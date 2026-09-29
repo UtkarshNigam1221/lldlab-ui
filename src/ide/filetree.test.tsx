@@ -74,3 +74,12 @@ describe('FileTree', () => {
     expect(container).toBeEmptyDOMElement();
   });
 });
+
+describe('FileTree (review fixes)', () => {
+  it("expands directories that arrive after mount when defaultExpanded is 'all'", () => {
+    const { rerender } = render(<FileTree label="Files" nodes={[]} onOpen={() => {}} />);
+    rerender(<FileTree label="Files" nodes={[{ path: 'src/a.ts', kind: 'file' }]} onOpen={() => {}} />);
+    expect(screen.getByRole('treeitem', { name: /^src$/ })).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('treeitem', { name: /a\.ts/ })).toBeInTheDocument();
+  });
+});
