@@ -3,8 +3,22 @@ import { cx, TOUCH } from '../internal/cx';
 import type { NativeProps } from '../internal/poly';
 import { rovingIndex } from '../internal/roving';
 import { Icon } from './Icon';
+import { Kbd } from './Kbd';
 
-export type MenuItem = { label: string; icon?: string; onSelect?: () => void; href?: string; as?: ElementType; tone?: 'default' | 'danger' };
+export type MenuItem = {
+  label: string;
+  icon?: string;
+  onSelect?: () => void;
+  href?: string;
+  as?: ElementType;
+  tone?: 'default' | 'danger';
+  meta?: ReactNode;
+  shortcut?: string;
+};
+export type MenuSeparator = { type: 'separator' };
+export type MenuEntry = MenuItem | MenuSeparator;
+
+const isItem = (e: MenuEntry): e is MenuItem => !('type' in e);
 
 export type MenuTriggerProps = {
   ref: RefObject<HTMLButtonElement | null>;
@@ -16,9 +30,18 @@ export type MenuTriggerProps = {
   onKeyDown: (e: KeyboardEvent) => void;
 };
 
-export type MenuProps = NativeProps<'div', { label: string; trigger: (props: MenuTriggerProps) => ReactNode; items: MenuItem[]; align?: 'start' | 'end'; children?: never }>;
+export type MenuProps = NativeProps<'div', {
+  label: string;
+  trigger: (props: MenuTriggerProps) => ReactNode;
+  items: MenuEntry[];
+  align?: 'start' | 'end';
+  /** Rendered above the menu items, outside the menu role (e.g. the signed-in user). */
+  header?: ReactNode;
+  footer?: ReactNode;
+  children?: never;
+}>;
 
-export function Menu({ label, trigger, items, align = 'end', ...rest }: MenuProps) {
+export function Menu({ label, trigger, items, align = 'end', header, footer, ...rest }: MenuProps) {
   const [open, setOpen] = useState(false);
   const triggerId = useId();
   const menuId = useId();
@@ -26,6 +49,7 @@ export function Menu({ label, trigger, items, align = 'end', ...rest }: MenuProp
   const triggerRef = useRef<HTMLButtonElement>(null);
   const itemRefs = useRef<Array<HTMLElement | null>>([]);
   const pendingFocus = useRef<number | null>(null);
+  const actions = items.filter(isItem);
 
   const openAt = (index: number | null) => {
     pendingFocus.current = index;
@@ -47,7 +71,7 @@ export function Menu({ label, trigger, items, align = 'end', ...rest }: MenuProp
     return () => document.removeEventListener('mousedown', onDown);
   }, [open]);
 
-  // Open the menu with focus on item `index`, or move focus there if it is already open.
+  // Open with focus on actionable item `index`, or move focus there if already open.
   const focusItem = (index: number) => (open ? itemRefs.current[index]?.focus() : openAt(index));
 
   const onTriggerKeyDown = (e: KeyboardEvent) => {
@@ -56,7 +80,7 @@ export function Menu({ label, trigger, items, align = 'end', ...rest }: MenuProp
       focusItem(0);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      focusItem(items.length - 1);
+      focusItem(actions.length - 1);
     } else if (e.key === 'Escape' && open) {
       e.preventDefault();
       close(true);
@@ -74,12 +98,13 @@ export function Menu({ label, trigger, items, align = 'end', ...rest }: MenuProp
       return;
     }
     const current = itemRefs.current.indexOf(document.activeElement as HTMLElement);
-    const next = rovingIndex(e.key, Math.max(0, current), items.length);
+    const next = rovingIndex(e.key, Math.max(0, current), actions.length);
     if (next === null) return;
     e.preventDefault();
     itemRefs.current[next]?.focus();
   };
 
+  let actionIndex = 0;
   return (
     <div {...rest} ref={rootRef} className="relative inline-flex">
       {trigger({
@@ -93,41 +118,45 @@ export function Menu({ label, trigger, items, align = 'end', ...rest }: MenuProp
       })}
       {open && (
         <div
-          id={menuId}
-          role="menu"
-          aria-label={label}
-          onKeyDown={onMenuKeyDown}
           className={cx(
-            'absolute top-full z-40 mt-space-xs flex min-w-48 max-w-[calc(100vw-2rem)] flex-col rounded-xl border border-border-subtle bg-surface-elevated p-space-2xs shadow-md',
+            'absolute top-full z-40 mt-space-xs flex min-w-48 max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-xl border border-border-subtle bg-surface-elevated shadow-md',
             align === 'end' ? 'right-0' : 'left-0',
           )}
         >
-          {items.map((item, i) => {
-            const C: ElementType = item.href ? (item.as ?? 'a') : 'button';
-            return (
-              <C
-                key={item.label}
-                ref={(el: HTMLElement | null) => {
-                  itemRefs.current[i] = el;
-                }}
-                role="menuitem"
-                tabIndex={-1}
-                {...(item.href ? { href: item.href } : { type: 'button' })}
-                onClick={() => {
-                  item.onSelect?.();
-                  close(!item.href);
-                }}
-                className={cx(
-                  'flex w-full items-center gap-space-sm rounded-lg px-space-sm py-space-xs text-left font-body-md text-body-md outline-none hover:bg-surface-muted focus:bg-surface-muted',
-                  item.tone === 'danger' ? 'text-fg-danger' : 'text-on-surface',
-                  TOUCH,
-                )}
-              >
-                {item.icon && <Icon name={item.icon} size="sm" />}
-                <span className="truncate">{item.label}</span>
-              </C>
-            );
-          })}
+          {header && <div className="border-b border-border-subtle px-space-sm py-space-sm">{header}</div>}
+          <div id={menuId} role="menu" aria-label={label} onKeyDown={onMenuKeyDown} className="flex flex-col p-space-2xs">
+            {items.map((entry, i) => {
+              if (!isItem(entry)) return <div key={`sep-${i}`} role="separator" className="my-space-2xs h-px bg-border-subtle" />;
+              const index = actionIndex++;
+              const C: ElementType = entry.href ? (entry.as ?? 'a') : 'button';
+              return (
+                <C
+                  key={i}
+                  ref={(el: HTMLElement | null) => {
+                    itemRefs.current[index] = el;
+                  }}
+                  role="menuitem"
+                  tabIndex={-1}
+                  {...(entry.href ? { href: entry.href } : { type: 'button' })}
+                  onClick={() => {
+                    entry.onSelect?.();
+                    close(!entry.href);
+                  }}
+                  className={cx(
+                    'flex w-full items-center gap-space-sm rounded-lg px-space-sm py-space-xs text-left font-body-md text-body-md outline-none hover:bg-surface-muted focus:bg-surface-muted',
+                    entry.tone === 'danger' ? 'text-fg-danger' : 'text-on-surface',
+                    TOUCH,
+                  )}
+                >
+                  {entry.icon && <Icon name={entry.icon} size="sm" />}
+                  <span className="min-w-0 flex-1 truncate">{entry.label}</span>
+                  {entry.meta !== undefined && <span className="shrink-0 font-label-mono text-label-mono text-on-surface-variant">{entry.meta}</span>}
+                  {entry.shortcut && <Kbd>{entry.shortcut}</Kbd>}
+                </C>
+              );
+            })}
+          </div>
+          {footer && <div className="border-t border-border-subtle bg-surface-subtle px-space-sm py-space-xs">{footer}</div>}
         </div>
       )}
     </div>

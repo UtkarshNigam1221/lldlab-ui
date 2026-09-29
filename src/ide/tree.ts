@@ -1,4 +1,15 @@
-export type FileNode = { path: string; kind: 'file' | 'dir'; readOnly?: boolean; modified?: boolean };
+import type { ReactNode } from 'react';
+
+export type FileNode = {
+  path: string;
+  kind: 'file' | 'dir';
+  readOnly?: boolean;
+  modified?: boolean;
+  /** Material Symbol overriding the extension icon. */
+  icon?: string;
+  status?: 'success' | 'warning' | 'danger' | 'info';
+  meta?: ReactNode;
+};
 
 export type TreeItem = {
   path: string;
@@ -6,6 +17,9 @@ export type TreeItem = {
   kind: 'file' | 'dir';
   readOnly?: boolean;
   modified?: boolean;
+  icon?: string;
+  status?: FileNode['status'];
+  meta?: ReactNode;
   level: number;
   parent: string | null;
   children: TreeItem[];
@@ -27,6 +41,9 @@ export function buildTree(nodes: FileNode[]): TreeItem[] {
       kind,
       readOnly: extra?.readOnly,
       modified: extra?.modified,
+      icon: extra?.icon,
+      status: extra?.status,
+      meta: extra?.meta,
       level: parts.length,
       parent: parentPath,
       children: [],
