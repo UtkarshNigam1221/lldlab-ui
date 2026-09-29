@@ -14,6 +14,13 @@ function fileIcon(name: string): string {
   return EXT_ICON[ext] ?? 'description';
 }
 
+const STATUS_ICON = {
+  success: { name: 'check_circle', tone: 'success', label: 'Passing' },
+  warning: { name: 'warning', tone: 'warning', label: 'Warning' },
+  danger: { name: 'error', tone: 'danger', label: 'Failing' },
+  info: { name: 'info', tone: 'brand', label: 'Info' },
+} as const;
+
 export type FileTreeProps = NativeProps<'ul', {
   nodes: FileNode[];
   activePath?: string;
@@ -129,7 +136,7 @@ export function FileTree({ nodes, activePath, onOpen, defaultExpanded = 'all', l
             )}
           >
             {isDir ? <Icon name={isOpen ? 'expand_more' : 'chevron_right'} size="sm" /> : <span className="inline-block w-4 shrink-0" />}
-            <Icon name={isDir ? (isOpen ? 'folder_open' : 'folder') : fileIcon(item.name)} size="sm" tone={isDir ? 'brand' : 'inherit'} />
+            <Icon name={isDir ? (isOpen ? 'folder_open' : 'folder') : (item.icon ?? fileIcon(item.name))} size="sm" tone={isDir ? 'brand' : 'inherit'} />
             <span className="truncate">{item.name}</span>
             {item.readOnly && ' '}
             {item.readOnly && <Icon name="lock" size="sm" label="Read-only" />}
@@ -140,6 +147,13 @@ export function FileTree({ nodes, activePath, onOpen, defaultExpanded = 'all', l
                 <span className="sr-only">(modified)</span>
               </>
             )}
+            {item.status && (
+              <>
+                {' '}
+                <Icon name={STATUS_ICON[item.status].name} size="sm" tone={STATUS_ICON[item.status].tone} label={STATUS_ICON[item.status].label} />
+              </>
+            )}
+            {item.meta !== undefined && <span className="ml-auto shrink-0 font-label-mono text-[11px] text-on-surface-variant">{item.meta}</span>}
           </div>
           {isDir && isOpen && item.children.length > 0 && <ul role="group">{renderItems(item.children)}</ul>}
         </li>

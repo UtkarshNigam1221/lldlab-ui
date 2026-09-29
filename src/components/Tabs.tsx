@@ -7,7 +7,7 @@ import { Badge } from './Badge';
 import { Dot } from './Dot';
 
 /** `panelId` links a tablist tab to a `<TabPanel id={panelId}>` (aria-controls / aria-labelledby). */
-export type TabItem = { id: string; label: ReactNode; count?: number; dot?: StatusTone; href?: string; as?: ElementType; panelId?: string };
+export type TabItem = { id: string; label: ReactNode; count?: number; badge?: ReactNode; dot?: StatusTone; href?: string; as?: ElementType; panelId?: string };
 export type TabsProps = NativeProps<'div', { items: TabItem[]; value: string; onChange?: (id: string) => void; variant?: 'underline' | 'pills'; label: string; children?: never }>;
 
 const VARIANT = {
@@ -30,6 +30,7 @@ function TabBody({ item }: { item: TabItem }) {
     <>
       {item.label}
       {item.count !== undefined && <Badge>{item.count}</Badge>}
+      {item.badge}
       {item.dot && <Dot tone={item.dot} />}
     </>
   );

@@ -17,7 +17,7 @@ const components: Components = {
   p: ({ children }) => <p className="font-body-md text-body-md text-on-surface wrap-break-word">{children}</p>,
   strong: ({ children }) => <strong className="font-semibold text-ink">{children}</strong>,
   a: ({ href, children }) => (
-    <a href={href} className="text-fg-brand underline underline-offset-2 hover:text-brand-cobalt-hover wrap-break-word">
+    <a href={href} className="text-fg-brand underline underline-offset-2 hover:text-fg-brand-hover wrap-break-word">
       {children}
     </a>
   ),
