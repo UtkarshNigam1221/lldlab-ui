@@ -44,3 +44,4 @@ export { EditorTabs, type EditorTab, type EditorTabsProps } from './ide/EditorTa
 export { Countdown, type CountdownProps } from './ide/Countdown';
 export { FileTree, type FileTreeProps } from './ide/FileTree';
 export type { FileNode } from './ide/tree';
+export { Workbench, type WorkbenchLimits, type WorkbenchProps, type WorkbenchSizes } from './ide/Workbench';
