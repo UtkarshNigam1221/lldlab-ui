@@ -63,3 +63,4 @@ export { VerdictBanner, type VerdictBannerProps } from './components/VerdictBann
 export { Checkbox, type CheckboxProps } from './components/Checkbox';
 export { Switch, type SwitchProps } from './components/Switch';
 export { Overlay, type OverlayProps } from './components/Overlay';
+export { CopyButton, type CopyButtonProps } from './components/CopyButton';
