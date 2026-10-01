@@ -2,7 +2,8 @@ import type { ElementType } from 'react';
 import { cx } from '../internal/cx';
 import type { PolyProps } from '../internal/poly';
 
-const SIZE = { md: 'max-w-3xl', lg: 'max-w-5xl', xl: 'max-w-7xl' } as const;
+// full: no max width (e.g. a coding workspace that should use the whole window).
+const SIZE = { md: 'max-w-3xl', lg: 'max-w-5xl', xl: 'max-w-7xl', full: 'max-w-none' } as const;
 
 export type ContainerProps<E extends ElementType = 'div'> = PolyProps<E, { size?: keyof typeof SIZE }>;
 

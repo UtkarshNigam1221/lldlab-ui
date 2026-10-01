@@ -1,6 +1,6 @@
 import type { Story } from '@ladle/react';
 import { useState } from 'react';
-import { AppBar, Avatar, AvatarGroup, Badge, Button, Chip, CommandPalette, Divider, Drawer, Eyebrow, Icon, IconButton, IconTile, NavList, Pagination, Stack, Text, TextLink, type CommandGroup } from '../index';
+import { AppBar, Avatar, AvatarGroup, Badge, Button, Chip, CommandPalette, Divider, Drawer, Eyebrow, FullScreen, Icon, IconButton, IconTile, NavList, Pagination, Stack, Text, TextLink, type CommandGroup } from '../index';
 import { NAV_ITEMS } from './screens/shared';
 
 export default { title: 'Chrome' };
@@ -68,3 +68,20 @@ export const Palette: Story = () => {
 };
 
 export const IconsXl: Story = () => <Icon name="lock" size="xl" label="Locked" />;
+
+export const FullScreenWorkspace: Story = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button icon="open_in_full" onClick={() => setOpen(true)}>Full screen</Button>
+      <FullScreen open={open} onClose={() => setOpen(false)} label="Workspace">
+        <Stack fill gap="none">
+          <AppBar position="static" start={<Text weight="semibold">Parking Lot</Text>} end={<IconButton icon="close_fullscreen" label="Exit full screen" onClick={() => setOpen(false)} />} />
+          <Stack grow gap="none" align="center" justify="center">
+            <Text tone="muted">Editor fills the rest of the viewport. Press Escape to exit.</Text>
+          </Stack>
+        </Stack>
+      </FullScreen>
+    </>
+  );
+};

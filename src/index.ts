@@ -46,6 +46,7 @@ export { FileTree, type FileTreeProps } from './ide/FileTree';
 export type { FileNode } from './ide/tree';
 export { Workbench, type WorkbenchLimits, type WorkbenchProps, type WorkbenchSizes } from './ide/Workbench';
 export { Drawer, type DrawerProps } from './components/Drawer';
+export { FullScreen, type FullScreenProps } from './components/FullScreen';
 export { TextLink, type TextLinkProps } from './components/TextLink';
 export { Divider, type DividerProps } from './components/Divider';
 export { IconTile, type IconTileProps, type IconTileTone } from './components/IconTile';

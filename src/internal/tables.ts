@@ -88,3 +88,7 @@ export const COL_SPAN: ClassTable<Cols> = {
   lg: { 1: 'lg:col-span-1', 2: 'lg:col-span-2', 3: 'lg:col-span-3', 4: 'lg:col-span-4', 5: 'lg:col-span-5', 6: 'lg:col-span-6' },
   xl: { 1: 'xl:col-span-1', 2: 'xl:col-span-2', 3: 'xl:col-span-3', 4: 'xl:col-span-4', 5: 'xl:col-span-5', 6: 'xl:col-span-6' },
 };
+
+/** Height behaviour shared by Box and Stack: take the parent's full height, or the space left in a flex column. */
+export const FILL = 'h-full min-h-0';
+export const GROW = 'min-h-0 flex-1';

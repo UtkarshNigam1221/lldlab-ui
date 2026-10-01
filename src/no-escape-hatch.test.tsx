@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Badge, Box, Button, Card, Dialog, Grid, Heading, Icon, IconButton, Select, Stack, Tabs, Text, TextField, Workbench } from './index';
+import { Badge, Box, Button, Card, Dialog, FullScreen, Grid, Heading, Icon, IconButton, Select, Stack, Tabs, Text, TextField, Workbench } from './index';
 
 // Checked by `npm run typecheck`: every line below must be a type error. Never rendered.
 export function typeAssertions() {
@@ -37,6 +37,10 @@ export function typeAssertions() {
       <Tabs label="x" items={[]} value="x" className="x" />
       {/* @ts-expect-error no className */}
       <Dialog open={false} onClose={() => {}} title="x" className="x" />
+      {/* @ts-expect-error no className */}
+      <FullScreen open={false} onClose={() => {}} label="x" className="x" />
+      {/* @ts-expect-error no style */}
+      <FullScreen open={false} onClose={() => {}} label="x" style={{ color: 'red' }} />
       {/* @ts-expect-error no className */}
       <Workbench main={null} className="x" />
     </>
