@@ -12,9 +12,9 @@ Design-system components for [LLD Lab](https://lldlab.com), built for React 19 a
 
 ## Table of contents
 
-**Quick links:** [What's new in 0.3.0](#whats-new-in-030) · [Install](#install) · [Setup](#setup) · [Component index](#component-index) · [Mobile navigation](#mobile-navigation) · [Design tokens](#design-tokens) · [Troubleshooting](#troubleshooting)
+**Quick links:** [What's new in 0.4.0](#whats-new-in-040) · [Install](#install) · [Setup](#setup) · [Component index](#component-index) · [Mobile navigation](#mobile-navigation) · [Design tokens](#design-tokens) · [Troubleshooting](#troubleshooting)
 
-1. [What's new in 0.3.0](#whats-new-in-030)
+1. [What's new in 0.4.0](#whats-new-in-040) · [0.3.0](#whats-new-in-030)
 1. [Install](#install)
 2. [Setup](#setup)
    - [1. Styles](#1-styles) · [2. Fonts](#2-fonts) · [3. Icons](#3-icons) · [4. Use it](#4-use-it)
@@ -26,7 +26,7 @@ Design-system components for [LLD Lab](https://lldlab.com), built for React 19 a
    - **[Typography](#typography):** [`Text`](#text) · [`Heading`](#heading) · [`Eyebrow`](#eyebrow) · [`Code`](#code) · [`CodeBlock`](#codeblock) · [`TextLink`](#textlink) · [`Markdown`](#markdown)
    - **[Display](#display):** [`Icon`](#icon) · [`Dot`](#dot) · [`Badge`](#badge) · [`Chip`](#chip) · [`Stat`](#stat) · [`ProgressBar`](#progressbar) · [`SectionHeader`](#sectionheader) · [`Callout`](#callout) · [`ResultRow`](#resultrow) · [`Message`](#message) · [`EmptyState`](#emptystate) · [`CheckList`](#checklist) · [`Card`](#card) · [`IconTile`](#icontile) · [`Skeleton`](#skeleton) · [`Table`](#table) · [`DescriptionList`](#descriptionlist) · [`Timeline`](#timeline) · [`BarChart`](#barchart) · [`VerdictBanner`](#verdictbanner) · [`TerminalOutput`](#terminaloutput) · [`DiffViewer`](#diffviewer) · [`Overlay`](#overlay)
    - **[Inputs and interaction](#inputs-and-interaction):** [`Button`](#button) · [`IconButton`](#iconbutton) · [`Kbd`](#kbd) · [`TextField`](#textfield) · [`Select`](#select) · [`Tabs`](#tabs) · [`SegmentedControl`](#segmentedcontrol) · [`Dialog`](#dialog) · [`Menu`](#menu) · [`Checkbox`](#checkbox) · [`Switch`](#switch) · [`Disclosure`](#disclosure) · [`CopyButton`](#copybutton) · [`Tooltip`](#tooltip)
-   - **[Navigation and overlays](#navigation-and-overlays):** [`NavList`](#navlist) · [`Pagination`](#pagination) · [`Drawer`](#drawer) · [`CommandPalette`](#commandpalette) · [`Toaster`](#toaster)
+   - **[Navigation and overlays](#navigation-and-overlays):** [`NavList`](#navlist) · [`Pagination`](#pagination) · [`Drawer`](#drawer) · [`FullScreen`](#fullscreen) · [`CommandPalette`](#commandpalette) · [`Toaster`](#toaster)
    - **[IDE shell](#ide-shell):** [`Workbench`](#workbench) · [`FileTree`](#filetree) · [`EditorTabs`](#editortabs) · [`Breadcrumbs`](#breadcrumbs) · [`StatusBar`](#statusbar) · [`MetricTile`](#metrictile) · [`Avatar`](#avatar) · [`AvatarGroup`](#avatargroup) · [`Countdown`](#countdown) · [`UmlClass`](#umlclass) · [`UmlDiagram`](#umldiagram)
 5. [Mobile navigation](#mobile-navigation)
 6. [Design tokens](#design-tokens)
@@ -37,6 +37,18 @@ Design-system components for [LLD Lab](https://lldlab.com), built for React 19 a
 11. [License](#license)
 
 ---
+
+## What's new in 0.4.0
+
+Layout additions for full-height and full-width screens. Nothing changed for existing props.
+
+| Component | Added |
+|---|---|
+| `FullScreen` (new) | A modal surface over the whole viewport, for an IDE focus mode. See [`FullScreen`](#fullscreen). |
+| `Box` | `height` (sm/md/lg/xl: 20, 28, 32, 40rem), `fill`, `grow` |
+| `Stack` | `fill`, `grow` |
+| `Card` | `fill` |
+| `Container` | `size="full"` (no max width) |
 
 ## What's new in 0.3.0
 
@@ -345,6 +357,7 @@ In the tables, **Req.** marks required props, and the default is given where one
 | [`NavList`](#navlist) | Navigation and overlays | Sidebar / table of contents |
 | [`Pagination`](#pagination) | Navigation and overlays | Page navigation |
 | [`Drawer`](#drawer) | Navigation and overlays | Slide-over panel (mobile nav) |
+| [`FullScreen`](#fullscreen) | Navigation and overlays | Modal surface over the whole viewport (IDE focus mode) |
 | [`CommandPalette`](#commandpalette) | Navigation and overlays | ⌘K search palette |
 | [`Toaster`](#toaster) | Navigation and overlays | Toast notifications (useToast) |
 | [`Workbench`](#workbench) | IDE shell | Resizable IDE layout |
@@ -388,6 +401,9 @@ A generic surface. Polymorphic, default `div`.
 | `border` | `'none' \| 'subtle' \| 'strong'` | `'none'` |
 | `shadow` | `'none' \| 'sm' \| 'md'` | `'none'` |
 | `dimmed` | `boolean`: greys the content out and makes it `inert` (for example, a panel waiting on a runtime) | `false` |
+| `height` | `'sm' \| 'md' \| 'lg' \| 'xl'`: fixed height of 20, 28, 32 or 40rem | none |
+| `fill` | `boolean`: takes the parent's full height | `false` |
+| `grow` | `boolean`: takes the space left in a flex column (for example, an editor under a tab bar) | `false` |
 
 `tone="inverse"` also switches its contents to the dark tokens (`data-theme="dark"`), so text and badges inside stay readable.
 
@@ -406,6 +422,8 @@ A flex row or column. Polymorphic, default `div`.
 | `align` | `Responsive<Align>` | none |
 | `justify` | `Responsive<Justify>` | none |
 | `wrap` | `boolean` | `false` |
+| `fill` | `boolean`: takes the parent's full height | `false` |
+| `grow` | `boolean`: takes the space left in a flex column | `false` |
 
 ```tsx
 <Stack direction={{ base: 'column', md: 'row' }} gap="sm" align="center" justify="between" wrap>…</Stack>
@@ -433,7 +451,7 @@ A centred, max-width page column with fluid side gutters (1rem up to 2rem). Poly
 
 | Prop | Type | Default |
 |---|---|---|
-| `size` | `'md' \| 'lg' \| 'xl'`: 48rem, 64rem, 80rem max width | `'xl'` |
+| `size` | `'md' \| 'lg' \| 'xl' \| 'full'`: 48rem, 64rem, 80rem max width, or none (`full`, for example a coding workspace) | `'xl'` |
 
 #### `Section`
 
@@ -795,6 +813,7 @@ A bordered, rounded surface. Polymorphic, default `div`.
 | `tone` | `'default' \| 'subtle' \| 'inverse'` (`inverse` is a dark obsidian card that also switches its contents to the dark tokens) | `'default'` |
 | `pattern` | `'none' \| 'dots' \| 'grid'`: background pattern | `'none'` |
 | `interactive` | `boolean`: hover shadow and focus ring, for link cards | `false` |
+| `fill` | `boolean`: takes the parent's full height; the body can shrink, so a `grow` child (an editor) fits | `false` |
 
 Sub-components:
 
@@ -1237,6 +1256,24 @@ A modal slide-over panel, for example the mobile navigation. It has the same foc
 | `size` | `'sm' \| 'md'` | `'sm'` |
 | `children` | `ReactNode` | none |
 
+#### `FullScreen`
+
+A modal surface over the whole viewport, for example an IDE in focus mode. It has the same focus trap, Escape, scroll lock, focus restore and theme behaviour as `Dialog`. Escape closes it unless a widget inside already handled the key (an editor closing its suggestions calls `preventDefault`). Its children fill it: use a `Workbench`, or give the child `fill`.
+
+| Prop | Type | Default |
+|---|---|---|
+| `open` **Req.** | `boolean` | none |
+| `onClose` **Req.** | `() => void` | none |
+| `label` **Req.** | `string`: accessible name | none |
+| `initialFocusRef` | `RefObject<HTMLElement \| null>`: element to focus on open | first focusable |
+| `children` | `ReactNode` | none |
+
+```tsx
+<FullScreen open={focus} onClose={() => setFocus(false)} label="Workspace" initialFocusRef={exitRef}>
+  <Workbench header={…} left={…} main={…} bottom={…} />
+</FullScreen>
+```
+
 #### `CommandPalette`
 
 A ⌘K search palette: a dialog with a combobox over grouped results. You do the filtering: pass the matching `groups` for the current `query`. Up and Down move through results, Enter selects and closes, and Escape closes.
@@ -1501,7 +1538,7 @@ Every token under Surfaces, Text, Status text, Borders and Badges changes inside
 - **Interactive widgets:** they follow the WAI-ARIA Authoring Practices.
   - `Tabs` is a tablist, `SegmentedControl` a radio group, and `Menu` a menu button.
   - `FileTree` is a tree view, and the `Workbench` resize handles are separators with values.
-  - `Dialog`, `Drawer` and `CommandPalette` are modal dialogs; `CommandPalette` uses the combobox pattern.
+  - `Dialog`, `Drawer`, `FullScreen` and `CommandPalette` are modal dialogs; `CommandPalette` uses the combobox pattern.
   - `Disclosure` is a disclosure button, `Switch` a switch, `Tooltip` a tooltip, and `Timeline` marks the current step.
 - **Accessible names:** icon-only controls require a `label` (`IconButton`), and status icons have names (`ResultRow`).
 - **Focus and touch:** focus rings are visible on keyboard focus, and touch targets are at least 44px below `md`.

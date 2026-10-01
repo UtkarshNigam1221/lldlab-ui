@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { cloneElement, type ReactElement } from 'react';
 import { describe, expect, it } from 'vitest';
 import {
-  Avatar, Badge, Breadcrumbs, Callout, Card, CheckList, Chip, Code, CodeBlock, Countdown, Dialog, Dot, EditorTabs, EmptyState,
+  Avatar, Badge, Breadcrumbs, Callout, Card, CheckList, Chip, Code, CodeBlock, Countdown, Dialog, FullScreen, Dot, EditorTabs, EmptyState,
   Eyebrow, FileTree, Kbd, Markdown, Menu, Message, MetricTile, ProgressBar, ResultRow, SectionHeader, SegmentedControl, Split,
   Stat, StatusBar, TabPanel, Tabs, TextField, Workbench,
 } from './index';
@@ -33,6 +33,7 @@ const CASES: Array<[string, ReactElement]> = [
   ['SegmentedControl', <SegmentedControl id="t" label="l" options={[{ value: 'a', label: 'A' }]} value="a" onChange={() => {}} />],
   ['Menu', <Menu id="t" label="l" items={[]} trigger={(p) => <button type="button" {...p}>m</button>} />],
   ['Dialog', <Dialog id="t" open onClose={() => {}} title="x" />],
+  ['FullScreen', <FullScreen id="t" open onClose={() => {}} label="x">x</FullScreen>],
   ['Breadcrumbs', <Breadcrumbs id="t" items={[{ label: 'a' }]} />],
   ['StatusBar', <StatusBar id="t" />],
   ['StatusBar.Item', <StatusBar.Item id="t">x</StatusBar.Item>],

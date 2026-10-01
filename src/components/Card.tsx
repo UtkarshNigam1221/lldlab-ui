@@ -83,11 +83,13 @@ type CardOwnProps = {
   outlined?: boolean;
   /** Gap between body children (default sm, 8px). */
   gap?: Responsive<Space>;
+  /** Take the parent's full height; the body shrinks so a growing child (an editor) fits. */
+  fill?: boolean;
   children?: ReactNode;
 };
 export type CardProps<E extends ElementType = 'div'> = PolyProps<E, CardOwnProps>;
 
-function CardRoot<E extends ElementType = 'div'>({ as, padding = 'lg', interactive, tone = 'default', pattern = 'none', shadow = 'sm', outlined, gap = 'sm', children, ...rest }: CardProps<E>) {
+function CardRoot<E extends ElementType = 'div'>({ as, padding = 'lg', interactive, tone = 'default', pattern = 'none', shadow = 'sm', outlined, gap = 'sm', fill, children, ...rest }: CardProps<E>) {
   const C: ElementType = as ?? 'div';
   const parts = Children.toArray(children);
   const isType = (t: unknown) => (p: ReactNode) => isValidElement(p) && p.type === t;
@@ -100,11 +102,11 @@ function CardRoot<E extends ElementType = 'div'>({ as, padding = 'lg', interacti
       {...rest}
       data-tone={tone}
       data-theme={tone === 'inverse' ? 'dark' : undefined}
-      className={cx('group/card flex min-w-0 flex-col overflow-hidden rounded-xl', TONE[tone], SHADOW[shadow], outlined && 'border border-border-subtle', PATTERN[pattern], interactive && cx('transition-shadow hover:shadow-md', FOCUS_RING))}
+      className={cx('group/card flex min-w-0 flex-col overflow-hidden rounded-xl', TONE[tone], SHADOW[shadow], outlined && 'border border-border-subtle', PATTERN[pattern], fill && 'h-full', interactive && cx('transition-shadow hover:shadow-md', FOCUS_RING))}
     >
       {header}
       {media}
-      <div className={cx('flex min-w-0 flex-1 flex-col', responsive(GAP, gap), responsive(PADDING, padding))}>{body}</div>
+      <div className={cx('flex min-w-0 flex-1 flex-col', fill && 'min-h-0', responsive(GAP, gap), responsive(PADDING, padding))}>{body}</div>
       {footer}
     </C>
   );
